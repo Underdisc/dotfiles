@@ -1,2 +1,2 @@
-# dotfiles
-Dotfiles and stuff
+# Dotfiles
+Just a place to keep my dotfiles.
