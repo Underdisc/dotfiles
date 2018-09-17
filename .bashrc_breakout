@@ -1,0 +1,29 @@
+#Command line cl usage
+{
+    prgx86="Program Files (x86)"
+    mvs="Microsoft Visual Studio"
+    winkit="Windows Kits"
+    vsdir=$prgx86/$mvs
+    versiondir=2017/Enterprise/VC/Tools/MSVC/14.10.25017
+    bindir=$vsdir/$versiondir/bin/HostX86/x86
+    
+    invoke_vsdir=/cygdrive/c/$bindir
+    invoke_cl=$invoke_vsdir/cl.exe
+    invoke_link=$invoke_vsdir/link.exe
+
+    vs_include=$vsdir/$versiondir/include
+    winkit_include=$prgx86/$winkit/10/Include/10.0.15063.0/ucrt
+    inc_a=/I/$vs_include
+    inc_b=/I/$winkit_include
+
+    vs_lib=C:/$vsdir/$versiondir/lib/x86
+    winkit_lib_um=C:/$prgx86/$winkit/10/Lib/10.0.15063.0/um/x86
+    winkit_lib_ucrt=C:/$prgx86/$winkit/10/Lib/10.0.15063.0/ucrt/x86
+    lib_a=/LIBPATH:$vs_lib
+    lib_b=/LIBPATH:$winkit_lib_um
+    lib_c=/LIBPATH:$winkit_lib_ucrt
+
+    alias derp='"$vs_include"'
+    alias clc='"$invoke_cl" /EHsc /c "$inc_a" "$inc_b"'
+    alias cll='"$invoke_link" "$lib_a" "$lib_b" "$lib_c"'
+}
