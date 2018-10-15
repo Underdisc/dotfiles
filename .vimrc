@@ -26,3 +26,6 @@ match WhiteSpaceMol / /
 :set expandtab
 :set shiftwidth=4
 :set smartindent
+
+" Wrap by word
+:set linebreak
