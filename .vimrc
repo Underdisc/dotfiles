@@ -1,9 +1,13 @@
+" Disable Swap Files
+set noswapfile
+
 " Disable Bell Sound
 set visualbell
 set t_vb=
 
 " Colorscheme
 colorscheme evening
+hi SpecialKey ctermfg=LightMagenta
 
 " Color Column
 set colorcolumn=80
@@ -13,7 +17,7 @@ set colorcolumn=80
 
 " Show invisibles
 :set list
-:set listchars=tab:->,space:.,nbsp:.,trail:.,eol:~,precedes:<,extends:>
+:set listchars=tab:>\ ,space:.,nbsp:.,trail:\ ,eol:~,precedes:<,extends:>
 
 " Make leading spaces more noticable
 highlight WhiteSpaceBol ctermfg=Magenta

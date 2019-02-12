@@ -1,0 +1,14 @@
+﻿---
+BasedOnStyle: Chromium
+AlignAfterOpenBracket: AlwaysBreak
+AlignEscapedNewlines: DontAlign
+AllowAllParametersOfDeclarationOnNextLine: 'false'
+BinPackArguments: 'false'
+BinPackParameters: 'false'
+BreakBeforeBraces: Allman
+ColumnLimit: '80'
+IndentWidth: '4'
+TabWidth: '4'
+UseTab: Never
+
+...

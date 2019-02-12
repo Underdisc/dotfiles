@@ -24,6 +24,7 @@
     inc_b=/I/$winkit_include_um
     inc_c=/I/$winkit_include_ucrt
     inc_d=/I/$winkit_include_shared
+    include="$inc_a $inc_b $inc_c $inc_d"
 
     vs_lib=C:/$vsdir/$versiondir/lib/x86
     winkit_lib_root=C:/$prgx86/$winkit/10/Lib/10.0.15063.0
@@ -32,6 +33,7 @@
     lib_a=/LIBPATH:$vs_lib
     lib_b=/LIBPATH:$winkit_lib_um
     lib_c=/LIBPATH:$winkit_lib_ucrt
+    library="$lib_a $lib_b $lib_c"
 
     alias clc='"$invoke_cl" /EHsc /c "$inc_a" "$inc_b" "$inc_c" "$inc_d"'
     alias cll='"$invoke_link" "$lib_a" "$lib_b" "$lib_c"'
