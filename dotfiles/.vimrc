@@ -33,3 +33,6 @@ match WhiteSpaceMol / /
 
 " Wrap by word
 :set linebreak
+
+" Disable swap files
+set noswapfile
