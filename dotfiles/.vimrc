@@ -1,6 +1,3 @@
-" Disable Swap Files
-set noswapfile
-
 " Disable Bell Sound
 set visualbell
 set t_vb=
