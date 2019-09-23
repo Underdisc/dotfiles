@@ -1,4 +1,6 @@
-#Command line cl usage
+# Command line cl (Visual C++ Compiler) usage
+# clc to be used for compiling
+# cll to be used for linking
 {
     # Microsoft Compiler Version
     vs_version=2017/Community
@@ -37,4 +39,13 @@
 
     alias clc='"$invoke_cl" /EHsc /c "$inc_a" "$inc_b" "$inc_c" "$inc_d"'
     alias cll='"$invoke_link" "$lib_a" "$lib_b" "$lib_c"'
+}
+
+# Command line ack usage
+alias ack='perl ~/home/sys/bin/ack.pl'
+
+# Command line csc (C# compiler) usage
+{
+    exe=/cygdrive/c/Windows/Microsoft.NET/Framework/v4.0.30319/csc.exe
+    alias csc='"$exe" /nologo'
 }

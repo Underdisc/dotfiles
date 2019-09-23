@@ -2,6 +2,9 @@
 set visualbell
 set t_vb=
 
+" Disable Swap Files
+set noswapfile
+
 " Colorscheme
 colorscheme evening
 hi SpecialKey ctermfg=LightMagenta
@@ -30,6 +33,4 @@ match WhiteSpaceMol / /
 
 " Wrap by word
 :set linebreak
-
-" Disable swap files
-set noswapfile
+:set eol

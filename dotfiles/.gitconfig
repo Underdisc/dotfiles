@@ -1,35 +1,30 @@
 [user]
 	email = connortdeakin@gmail.com
 	name = Underdisc
+
 [core]
 	autocrlf = false
+	editor = C:/cygwin64/bin/vim.exe
+
 [alias]
-#STATUS COMMANDS
-	s = status
-
-#BRANCH COMMANDS
-	snb = checkout -b
-	sb = checkout
-	b = branch
-	rb = branch -r
-	ab = branch -a
-	fb = remote update
-	m = merge
-
-#COMMMIT COMMANDS
-	cm = commit -m
-	vommit = commit -m \":O~==~ This is broken\"
-
-#PULL COMMANDS
-	plo = pull origin
-	pso = push origin
+#SHORTENED COMMANDS
+    b = branch
+    cm = commit -m
+    co = checkout
+    d = diff
+    ds = diff --submodule=log
+    s = status --ignore-submodules=all
+    ss = status --ignore-submodules=none
+    vommit = commit -m \":O~==~ This is broken\"
 
 #LOG COMMANDS
 	# single line
-	lga = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-	lgs = !"git lga" -20
-	lgl = !"git lga" -50
-	# double line
-	lgab = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
-	lgsb = !"git lgab" -20
-	lglb = !"git lgab" -50
+	lga = log --graph --abbrev-commit --decorate --date=short --format=format:'%w(75, 0, 1) %C(bold cyan)%h%C(reset) %C(green)- %C(bold yellow)/%ad/%C(reset) %C(green)- %C(bold magenta)%an%C(reset)%n%C(bold green)<%D>%C(reset) %C(white)%s%C(reset)%n' --all
+	lgs = !"git lga" -15
+	lgl = !"git lga" -30
+
+[credential]
+	helper = manager
+	username = Underdisc
+[status]
+	submoduleSummary = true

@@ -26,7 +26,12 @@ for source_fullpath in $script_dir/$source_dir/*; do
     if [ -f "$destination_fullpath" ] || [ -L "$destination_fullpath" ]; then
         rm $destination_fullpath
     fi
-    ln -s $source_fullpath $filename
+
+    if [ $filename == ".bashrc" ]; then
+        cp $source_fullpath $filename
+    else
+        ln -s $source_fullpath $filename
+    fi
 done
 cd $script_dir
 shopt -u dotglob
