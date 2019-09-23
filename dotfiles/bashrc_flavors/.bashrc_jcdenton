@@ -44,6 +44,9 @@
 # Command line ack usage
 alias ack='perl ~/home/sys/bin/ack.pl'
 
+# Command line git number usage
+alias gin='git number'
+
 # Command line csc (C# compiler) usage
 {
     exe=/cygdrive/c/Windows/Microsoft.NET/Framework/v4.0.30319/csc.exe
