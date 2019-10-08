@@ -3,22 +3,22 @@
 # cll to be used for linking
 {
     # Microsoft Compiler Version
-    vs_version=2017/Community
+    vs_version=2019/Community
 
     # Setup clc and cll (cl and link)
     prgx86="Program Files (x86)"
     mvs="Microsoft Visual Studio"
     winkit="Windows Kits"
     vsdir=$prgx86/$mvs
-    versiondir=$vs_version/VC/Tools/MSVC/14.16.27023
-    bindir=$vsdir/$versiondir/bin/HostX86/x86
+    versiondir=$vs_version/VC/Tools/MSVC/14.22.27905
+    bindir=$vsdir/$versiondir/bin/Hostx64/x64
     
     invoke_vsdir=/cygdrive/c/$bindir
     invoke_cl=$invoke_vsdir/cl.exe
     invoke_link=$invoke_vsdir/link.exe
 
     vs_include=$vsdir/$versiondir/include
-    winkit_include_root=$prgx86/$winkit/10/Include/10.0.15063.0
+    winkit_include_root=$prgx86/$winkit/10/Include/10.0.18362.0
     winkit_include_um=$winkit_include_root/um
     winkit_include_ucrt=$winkit_include_root/ucrt
     winkit_include_shared=$winkit_include_root/shared
@@ -28,10 +28,10 @@
     inc_d=/I/$winkit_include_shared
     include="$inc_a $inc_b $inc_c $inc_d"
 
-    vs_lib=C:/$vsdir/$versiondir/lib/x86
-    winkit_lib_root=C:/$prgx86/$winkit/10/Lib/10.0.15063.0
-    winkit_lib_um=$winkit_lib_root/um/x86
-    winkit_lib_ucrt=$winkit_lib_root/ucrt/x86
+    vs_lib=C:/$vsdir/$versiondir/lib/x64
+    winkit_lib_root=C:/$prgx86/$winkit/10/Lib/10.0.18362.0
+    winkit_lib_um=$winkit_lib_root/um/x64
+    winkit_lib_ucrt=$winkit_lib_root/ucrt/x64
     lib_a=/LIBPATH:$vs_lib
     lib_b=/LIBPATH:$winkit_lib_um
     lib_c=/LIBPATH:$winkit_lib_ucrt
