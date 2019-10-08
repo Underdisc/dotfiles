@@ -41,11 +41,9 @@
     alias cll='"$invoke_link" "$lib_a" "$lib_b" "$lib_c"'
 }
 
-# Command line ack usage
 alias ack='perl ~/home/sys/bin/ack.pl'
-
-# Command line git number usage
 alias gin='git number'
+alias vsc='C:/"Program Files"/"Microsoft VS Code"/Code.exe'
 
 # Command line csc (C# compiler) usage
 {
