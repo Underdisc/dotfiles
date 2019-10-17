@@ -12,6 +12,9 @@ hi SpecialKey ctermfg=LightMagenta
 " Color Column
 set colorcolumn=80
 
+" Line endings
+:set nofixendofline
+
 " Show line number
 :set number
 

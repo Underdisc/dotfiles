@@ -12,3 +12,10 @@ mkcd()
     mkdir $1
     cd $1
 }
+
+# Copies the current working directory to the clipboard. This only works on
+# Windows, but could be expanded to work with other OSs.
+cwd()
+{
+    echo "${PWD}" | clip
+}

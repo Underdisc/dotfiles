@@ -42,11 +42,17 @@
 }
 
 alias ack='perl ~/home/sys/bin/ack.pl'
-alias gin='git number'
 alias vsc='C:/"Program Files"/"Microsoft VS Code"/Code.exe'
 
 # Command line csc (C# compiler) usage
 {
     exe=/cygdrive/c/Windows/Microsoft.NET/Framework/v4.0.30319/csc.exe
     alias csc='"$exe" /nologo'
+}
+
+# Aliases for git number
+{
+    alias gin='git number'
+    alias ga='git number add'
+    alias gd='git number diff'
 }
