@@ -1,13 +1,13 @@
 [user]
-	email = connortdeakin@gmail.com
-	name = Underdisc
+    email = connortdeakin@gmail.com
+    name = Underdisc
 
 [core]
-	autocrlf = false
-	editor = C:/cygwin64/bin/vim.exe
+    autocrlf = false
+    editor = C:/cygwin64/bin/vim.exe
 
 [alias]
-#SHORTENED COMMANDS
+    #SHORTENED COMMANDS
     b = branch
     cm = commit -m
     co = checkout
@@ -17,14 +17,17 @@
     ss = status --ignore-submodules=none
     vommit = commit -m \":O~==~ This is broken\"
 
-#LOG COMMANDS
-	# single line
-	lga = log --graph --abbrev-commit --decorate --date=short --format=format:'%w(75, 0, 1) %C(bold cyan)%h%C(reset) %C(green)- %C(bold yellow)/%ad/%C(reset) %C(green)- %C(bold magenta)%an%C(reset)%n%C(bold green)<%D>%C(reset) %C(white)%s%C(reset)%n' --all
-	lgs = !"git lga" -15
-	lgl = !"git lga" -30
+    wc = commit -m "wc"
+    awc = !git add . && git commit -m "wc" && :
+    rwc = !git reset HEAD~1
+
+    #LOG COMMANDS
+    lga = log --graph --abbrev-commit --decorate --date=short --format=format:'%w(75, 0, 1) %C(bold cyan)%h%C(reset) %C(green)- %C(bold yellow)/%ad/%C(reset) %C(green)- %C(bold magenta)%an%C(reset)%n%C(bold green)<%D>%C(reset) %C(white)%s%C(reset)%n' --all
+    lgs = !"git lga" -15
+    lgl = !"git lga" -30
 
 [credential]
-	helper = manager
-	username = Underdisc
+    helper = manager
+    username = Underdisc
 [status]
-	submoduleSummary = true
+    submoduleSummary = true
