@@ -33,7 +33,6 @@
     lib_b=/LIBPATH:$winkit_lib_um
     lib_c=/LIBPATH:$winkit_lib_ucrt
 
-    alias derp='"$vs_include"'
     alias clc='"$invoke_cl" /EHsc /c "$inc_a" "$inc_b" "$inc_c" "$inc_d"'
     alias cll='"$invoke_link" "$lib_a" "$lib_b" "$lib_c"'
 }

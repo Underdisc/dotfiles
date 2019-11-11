@@ -1,2 +1,5 @@
 CursorType=block
 CursorBlinks=no
+Scrollbar=none
+Locale=en_US
+

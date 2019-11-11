@@ -2,18 +2,25 @@
 set visualbell
 set t_vb=
 
+" Disable Swap Files
+set noswapfile
+
 " Colorscheme
 colorscheme evening
+hi SpecialKey ctermfg=LightMagenta
 
 " Color Column
 set colorcolumn=80
+
+" Line endings
+:set nofixendofline
 
 " Show line number
 :set number
 
 " Show invisibles
 :set list
-:set listchars=tab:->,space:.,nbsp:.,trail:.,eol:~,precedes:<,extends:>
+:set listchars=tab:>\ ,space:.,nbsp:.,trail:\ ,eol:~,precedes:<,extends:>
 
 " Make leading spaces more noticable
 highlight WhiteSpaceBol ctermfg=Magenta
@@ -29,6 +36,4 @@ match WhiteSpaceMol / /
 
 " Wrap by word
 :set linebreak
-
-" Disable swap files
-set noswapfile
+:set eol

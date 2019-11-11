@@ -1,0 +1,58 @@
+# Command line cl (Visual C++ Compiler) usage
+# clc to be used for compiling
+# cll to be used for linking
+{
+    # Microsoft Compiler Version
+    vs_version=2019/Community
+
+    # Setup clc and cll (cl and link)
+    prgx86="Program Files (x86)"
+    mvs="Microsoft Visual Studio"
+    winkit="Windows Kits"
+    vsdir=$prgx86/$mvs
+    versiondir=$vs_version/VC/Tools/MSVC/14.22.27905
+    bindir=$vsdir/$versiondir/bin/Hostx64/x64
+    
+    invoke_vsdir=/cygdrive/c/$bindir
+    invoke_cl=$invoke_vsdir/cl.exe
+    invoke_link=$invoke_vsdir/link.exe
+
+    vs_include=$vsdir/$versiondir/include
+    winkit_include_root=$prgx86/$winkit/10/Include/10.0.18362.0
+    winkit_include_um=$winkit_include_root/um
+    winkit_include_ucrt=$winkit_include_root/ucrt
+    winkit_include_shared=$winkit_include_root/shared
+    inc_a=/I/$vs_include
+    inc_b=/I/$winkit_include_um
+    inc_c=/I/$winkit_include_ucrt
+    inc_d=/I/$winkit_include_shared
+    include="$inc_a $inc_b $inc_c $inc_d"
+
+    vs_lib=C:/$vsdir/$versiondir/lib/x64
+    winkit_lib_root=C:/$prgx86/$winkit/10/Lib/10.0.18362.0
+    winkit_lib_um=$winkit_lib_root/um/x64
+    winkit_lib_ucrt=$winkit_lib_root/ucrt/x64
+    lib_a=/LIBPATH:$vs_lib
+    lib_b=/LIBPATH:$winkit_lib_um
+    lib_c=/LIBPATH:$winkit_lib_ucrt
+    library="$lib_a $lib_b $lib_c"
+
+    alias clc='"$invoke_cl" /EHsc /c "$inc_a" "$inc_b" "$inc_c" "$inc_d"'
+    alias cll='"$invoke_link" "$lib_a" "$lib_b" "$lib_c"'
+}
+
+alias ack='perl ~/home/sys/bin/ack.pl'
+alias vsc='C:/"Program Files"/"Microsoft VS Code"/Code.exe'
+
+# Command line csc (C# compiler) usage
+{
+    exe=/cygdrive/c/Windows/Microsoft.NET/Framework/v4.0.30319/csc.exe
+    alias csc='"$exe" /nologo'
+}
+
+# Aliases for git number
+{
+    alias gin='git number'
+    alias ga='git number add'
+    alias gd='git number diff'
+}

@@ -8,7 +8,7 @@ There is a shell script called `setup.sh` in the root of this repo. Run it like 
 
 `fullpath_to_home` should be the full path to your home directory (`~/`). Mine is `C:/cygwin64/home/underdisc` for my cygwin setup.
 
-This will take all of the files within `dotfiles/` and create soft symlinks for them inside of your home directory. These symlinks will point to your local copy of the files within this repo.
+This will take all of the files within `dotfiles/` and create soft symlinks for them inside of your home directory. The only file that will not be a symlink in `.bashrc`. It is just a copy. The symlinks will point to your local copy of the files within this repo.
 
 **Warning:** If a file or symlink within your home directory has the same name as one within `dotfiles/`, the file will be deleted so the new symlink file can have the filename.
 
