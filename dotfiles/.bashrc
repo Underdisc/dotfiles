@@ -5,3 +5,4 @@ source .bashrc_all
 #source .bashrc_dominus
 #source .bashrc_breakout
 #source .bashrc_jcdenton
+#source .bashrc_windows

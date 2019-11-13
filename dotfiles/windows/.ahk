@@ -1,0 +1,3 @@
+^j::
+Send, test
+return

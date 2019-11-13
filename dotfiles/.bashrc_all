@@ -1,4 +1,5 @@
 alias home='cd ~/home'
+alias dl='cd ~/home/download/new'
 
 alias ls='ls --color=auto'
 alias la='ls -a'
@@ -11,11 +12,4 @@ mkcd()
 {
     mkdir $1
     cd $1
-}
-
-# Copies the current working directory to the clipboard. This only works on
-# Windows, but could be expanded to work with other OSs.
-cwd()
-{
-    echo "${PWD}" | clip
 }
