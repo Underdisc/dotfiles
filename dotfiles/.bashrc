@@ -4,5 +4,6 @@ source .bashrc_all
 # Choose the bashrc flavor you want to use depending on your machine.
 #source .bashrc_dominus
 #source .bashrc_breakout
+#source .bashrc_octane
 #source .bashrc_jcdenton
 #source .bashrc_windows
