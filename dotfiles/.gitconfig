@@ -16,7 +16,7 @@
     s = status --ignore-submodules=all
     ss = status --ignore-submodules=none
     vommit = commit -m \":O~==~ This is broken\"
-    view = "!f() { git diff $1~1 $1; }; f"
+    view = "!f() { git diff $1~1 $1 $2 $3; }; f"
 
     wc = commit -m "wc"
     awc = !git add . && git commit -m "wc" && :
