@@ -34,6 +34,12 @@ match WhiteSpaceMol / /
 :set shiftwidth=4
 :set smartindent
 
+" Display line cursor movments
+noremap <silent> k gk
+noremap <silent> j gj
+noremap <silent> 0 g0
+noremap <silent> $ g$
+
 " Wrap by word
 :set linebreak
 :set eol
