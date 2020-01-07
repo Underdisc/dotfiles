@@ -5,7 +5,7 @@ source .bashrc_all
 hostname="$(hostname)"
 breakout="breakout"
 dominus="dominus"
-jcdenton="jcdenton"
+jcdenton="JCDenton"
 octane="octane"
 
 if [ "$hostname" = "$breakout" ]; then

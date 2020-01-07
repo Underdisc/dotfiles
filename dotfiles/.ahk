@@ -1,6 +1,6 @@
 breakout := "breakout"
 dominus := "dominus"
-jcdenton := "jcdenton"
+jcdenton := "JCDenton"
 octane := "octane"
 
 !d::
@@ -12,6 +12,10 @@ return
 if(%A_ComputerName% == %octane%)
 {
     Run, C:\Users\underdisc\home\sys\prgf\notepadpp\notepad++.exe U:\ctd.vault
+}
+else if(%A_ComputerName% == %jcdenton%)
+{
+    Run, %ProgramFiles%\Notepad++\notepad++.exe U:\ctd.vault
 }
 return
 
