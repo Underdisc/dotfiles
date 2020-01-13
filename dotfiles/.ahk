@@ -23,3 +23,11 @@ return
 !k::Send,{Up}
 !h::Send,{Left}
 !l::Send,{Right}
+
+^h::
+Send,^#{Left}
+return
+
+^l::
+Send,^#{Right}
+return
