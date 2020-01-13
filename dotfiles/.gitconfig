@@ -32,6 +32,6 @@
 
 [credential]
     helper = manager
-    username = Underdisc
+    username = underdisc
 [status]
     submoduleSummary = true
