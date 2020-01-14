@@ -4,3 +4,5 @@ cwd()
     echo "${PWD}" | clip
 }
 
+alias exp='explorer'
+
