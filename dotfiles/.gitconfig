@@ -5,6 +5,7 @@
 [core]
     autocrlf = false
     editor = C:/cygwin64/bin/vim.exe
+    pager = cat
 
 [alias]
     #SHORTENED COMMANDS
@@ -33,9 +34,9 @@
 [status]
     submoduleSummary = true
 [credential]
-	helper = store
+    helper = store
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
