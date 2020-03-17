@@ -30,8 +30,12 @@
     lgs = !"git lga" -15
     lgl = !"git lga" -30
 
-[credential]
-    helper = manager
-    username = underdisc
 [status]
     submoduleSummary = true
+[credential]
+	helper = store
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
