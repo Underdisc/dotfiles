@@ -26,7 +26,7 @@
     rwc = !git reset HEAD~1
 
     #LOG COMMANDS
-    lga = log --graph --abbrev-commit --decorate --date=short --format=format:'%w(75, 0, 1) %C(bold cyan)%h%C(reset) %C(green)- %C(bold yellow)/%ad/%C(reset) %C(green)- %C(bold magenta)%an%C(reset)%n%C(bold green)<%D>%C(reset) %C(white)%s%C(reset)%n' --all
+    lga = log --graph --abbrev-commit --decorate --date=short --format=format:'%w(75, 0, 1) %C(bold cyan)%h%C(reset) %C(green)- %C(bold yellow)/%ad/%C(reset) %C(green)- %C(bold magenta)%an%C(reset)%n%C(bold green)<%D>%C(reset) %C(white)%s%C(reset)%n'
     lgs = !"git lga" -15
     lgl = !"git lga" -30
 

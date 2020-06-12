@@ -24,10 +24,10 @@ return
 !h::Send,{Left}
 !l::Send,{Right}
 
-^h::
-Send,^#{Left}
-return
+^#h::Send,^#{Left}
+^#l::Send,^#{Right}
 
-^l::
-Send,^#{Right}
-return
+^j::Send,#{Down}
+^k::Send,#{Up}
+^h::Send,#{Left}
+^l::Send,#{Right}
