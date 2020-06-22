@@ -11,16 +11,17 @@ hi SpecialKey ctermfg=LightMagenta
 
 " Color Column
 set colorcolumn=80
+hi ColorColumn ctermbg=green
 
 " Line endings
-:set nofixendofline
+set nofixendofline
 
 " Show line number
-:set number
+set number
 
 " Show invisibles
-:set list
-:set listchars=tab:>\ ,space:.,nbsp:.,trail:\ ,eol:~,precedes:<,extends:>
+set list
+set listchars=tab:>\ ,space:.,nbsp:.,trail:\ ,eol:~,precedes:<,extends:>
 
 " Make leading spaces more noticable
 highlight WhiteSpaceBol ctermfg=Magenta
@@ -29,10 +30,10 @@ match WhiteSpaceMol / /
 2match WhiteSpaceBol /^ \+/
 
 " Tab options
-:set tabstop=4
-:set expandtab
-:set shiftwidth=4
-:set smartindent
+set tabstop=2
+set expandtab
+set shiftwidth=2
+set smartindent
 
 " Display line cursor movments
 noremap <silent> k gk
@@ -41,5 +42,9 @@ noremap <silent> 0 g0
 noremap <silent> $ g$
 
 " Wrap by word
-:set linebreak
-:set eol
+set linebreak
+set eol
+
+" Display status line at the bottom of the terminal.
+set laststatus=2
+hi StatusLine ctermfg=DarkGreen ctermbg=Black

@@ -46,11 +46,12 @@
     alias cll='"$invoke_link" "$lib_a" "$lib_b" "$lib_c"'
 }
 
-alias py='C:/Users/underdisc/AppData/Local/Programs/Python/Python37/python.exe'
+alias py=python
 
-# Aliases for git number.
 alias gin='git number'
 alias ga='git number add'
 alias gd='git number diff'
 alias gc='git number checkout'
 
+export SHELLOPTS
+set -o igncr

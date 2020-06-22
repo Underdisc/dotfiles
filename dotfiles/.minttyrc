@@ -3,3 +3,5 @@ CursorBlinks=no
 Scrollbar=none
 Locale=en_US
 
+BellType=0
+ConfirmExit=no
