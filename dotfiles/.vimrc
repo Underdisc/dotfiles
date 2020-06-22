@@ -8,6 +8,8 @@ set noswapfile
 " Colorscheme
 colorscheme evening
 hi SpecialKey ctermfg=LightMagenta
+hi Search ctermbg=DarkBlue
+hi Search ctermfg=Green
 
 " Color Column
 set colorcolumn=80
