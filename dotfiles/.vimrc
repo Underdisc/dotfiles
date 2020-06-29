@@ -25,12 +25,6 @@ set number
 set list
 set listchars=tab:>\ ,space:.,nbsp:.,trail:\ ,eol:~,precedes:<,extends:>
 
-" Make leading spaces more noticable
-highlight WhiteSpaceBol ctermfg=Magenta
-highlight WhiteSpaceMol ctermfg=DarkGray
-match WhiteSpaceMol / /
-2match WhiteSpaceBol /^ \+/
-
 " Tab options
 set tabstop=2
 set expandtab
