@@ -2,18 +2,17 @@
 set visualbell
 set t_vb=
 
-" Disable Swap Files
 set noswapfile
-
-" Colorscheme
 colorscheme evening
-hi SpecialKey ctermfg=LightMagenta
+
+" Highlight search matches.
+set hlsearch
 hi Search ctermbg=DarkBlue
 hi Search ctermfg=Green
 
 " Color Column
 set colorcolumn=80
-hi ColorColumn ctermbg=green
+hi ColorColumn ctermbg=Green
 
 " Line endings
 set nofixendofline
@@ -21,9 +20,10 @@ set nofixendofline
 " Show line number
 set number
 
-" Show invisibles
+" Show invisibles as gray.
 set list
-set listchars=tab:>\ ,space:.,nbsp:.,trail:\ ,eol:~,precedes:<,extends:>
+set listchars=tab:>\ ,space:·,nbsp:.,trail:\ ,eol:~,precedes:<,extends:>
+hi SpecialKey ctermfg=Gray
 
 " Tab options
 set tabstop=2

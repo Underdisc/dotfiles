@@ -4,7 +4,7 @@
 
 [core]
     autocrlf = false
-    editor = C:/cygwin64/bin/vim.exe
+    editor = vim
     pager = cat
 
 [alias]
