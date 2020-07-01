@@ -5,3 +5,4 @@ Locale=en_US
 
 BellType=0
 ConfirmExit=no
+ThemeFile=xterm
