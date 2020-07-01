@@ -4,18 +4,10 @@ source .bashrc_all
 # Choose the correct bashrc flavors depending on the current host.
 hostname="$(hostname)"
 breakout="breakout"
-dominus="dominus"
-jcdenton="JCDenton"
 octane="octane"
 
 if [ "$hostname" = "$breakout" ]; then
     source .bashrc_breakout
-    source .bashrc_windows
-elif [ "$hostname" = "$dominus" ]; then
-    source .bashrc_dominus
-    source .bashrc_windows
-elif [ "$hostname" = "$jcdenton" ]; then
-    source .bashrc_jcdenton
     source .bashrc_windows
 elif [ "$hostname" = "$octane" ]; then
     source .bashrc_octane
