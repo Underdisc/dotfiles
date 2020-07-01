@@ -20,7 +20,7 @@ set number
 
 " Show invisibles in gray.
 set list
-set listchars=tab:>\ ,space:Â·,nbsp:.,trail:\ ,eol:~,precedes:<,extends:>
+set listchars=tab:>\ ,space:.·,nbsp:.,trail:\ ,eol:~,precedes:<,extends:>
 hi SpecialKey ctermfg=Gray
 
 " Tab options
