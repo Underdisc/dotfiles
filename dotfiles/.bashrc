@@ -1,3 +1,6 @@
+# Change directories to the home directory.
+cd ~
+
 # Source all of the bashrc files you want to use.
 source .bashrc_all
 
