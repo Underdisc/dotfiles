@@ -47,3 +47,7 @@ set eol
 set laststatus=2
 hi StatusLine ctermbg=Black ctermfg=Green
 
+" Plugin Options
+" Change the indent markers from the indentLine plugin to green.
+let g:indentLine_color_term=2
+
