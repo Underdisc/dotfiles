@@ -1,3 +1,8 @@
+# Creat a prompt that looks like this with some different colors for each field.
+# user@hostname ~/dir$
+PS1="\[\033[1;92m\]\u\[\033[1;97m\]@\[\033[1;95m\]\h \
+\[\033[1;94m\]\w\[\033[1;97m\]$ \[\033[0m\]"
+
 alias home='cd ~/home'
 alias dl='cd ~/home/download/new'
 
