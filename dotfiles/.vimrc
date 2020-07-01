@@ -15,13 +15,17 @@ hi Search ctermfg=Green
 " Line endings
 set nofixendofline
 
-" Show line number
+" Show gray line numbers.
 set number
+hi LineNr cterm=bold ctermfg=0
 
 " Show invisibles in gray.
+" hi SpecialKey makes the color of spaces gray.
+" hi NonText makes the color of eol characters gray.
 set list
-set listchars=tab:>\ ,space:.·,nbsp:.,trail:\ ,eol:~,precedes:<,extends:>
-hi SpecialKey ctermfg=Gray
+set listchars=tab:>\ ,space:.,nbsp:.,trail:.,eol:~,precedes:<,extends:>
+hi SpecialKey cterm=bold ctermfg=0
+hi NonText cterm=bold ctermfg=0
 
 " Tab options
 set tabstop=2
@@ -41,5 +45,5 @@ set eol
 
 " Display status line at the bottom of the terminal.
 set laststatus=2
-hi StatusLine ctermfg=DarkGreen ctermbg=Black
+hi StatusLine ctermbg=Black ctermfg=Green
 
