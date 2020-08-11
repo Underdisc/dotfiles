@@ -51,5 +51,7 @@ alias ga='git number add'
 alias gd='git number diff'
 alias gc='git number checkout'
 
+alias format='clang-format -style=file -i'
+
 export SHELLOPTS
 set -o igncr
