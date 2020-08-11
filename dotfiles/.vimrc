@@ -47,7 +47,5 @@ set eol
 set laststatus=2
 hi StatusLine ctermbg=Black ctermfg=Green
 
-" Plugin Options
-" Change the indent markers from the indentLine plugin to green.
-let g:indentLine_color_term=2
-
+map <C-K> :pyf ~/home/sys/script/clang-format.py<cr>
+imap <C-K> :pyf ~/home/sys/script/clang-format.py<cr>
