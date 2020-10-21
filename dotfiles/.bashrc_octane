@@ -4,7 +4,7 @@
     # versiondir, winkit_include_root, winkit_lib_root, and vs_version.
 
     # c/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/
-    # MSVC/14.23.28105
+    # MSVC/14.27.29110
 
     # /home/underdisc/drive/c/Program Files (x86)/Windows Kits/10/
     # Include/10.0.18362.0
@@ -17,7 +17,7 @@
     mvs="Microsoft Visual Studio"
     winkit="Windows Kits"
     vsdir=$prgx86/$mvs
-    versiondir=$vs_version/VC/Tools/MSVC/14.23.28105
+    versiondir=$vs_version/VC/Tools/MSVC/14.27.29110
     bindir=$vsdir/$versiondir/bin/HostX86/x86
 
     invoke_vsdir=/cygdrive/c/$bindir
@@ -48,6 +48,7 @@
 
 alias gin='git number'
 alias ga='git number add'
+alias grm='git number rm'
 alias gd='git number diff'
 alias gc='git number checkout'
 
