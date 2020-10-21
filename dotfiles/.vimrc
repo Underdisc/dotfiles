@@ -31,13 +31,22 @@ hi NonText cterm=bold ctermfg=0
 set tabstop=2
 set expandtab
 set shiftwidth=2
-set smartindent
 
-" Display line cursor movments
+" After pressing enter, the new line will be auto indented to match the
+" indentation of the above line.
+set autoindent
+
+" Instead of k and j traversing over a single physical line, they will only
+" traverse over visible lines. This makes editing very large wrapped lines
+" easier.
 noremap <silent> k gk
 noremap <silent> j gj
 noremap <silent> 0 g0
 noremap <silent> $ g$
+
+" Auto instert ending an curly brace and place the cursor on the line between
+" the braces.
+inoremap {<Enter> {<Enter><Enter>}<Esc>ki<Tab>
 
 " Wrap by word
 set linebreak
@@ -47,5 +56,6 @@ set eol
 set laststatus=2
 hi StatusLine ctermbg=Black ctermfg=Green
 
+" Run clang-format on ctrl-k.
 map <C-K> :pyf ~/home/sys/script/clang-format.py<cr>
 imap <C-K> :pyf ~/home/sys/script/clang-format.py<cr>
