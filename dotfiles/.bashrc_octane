@@ -54,5 +54,8 @@ alias gc='git number checkout'
 
 alias format='clang-format -style=file -i'
 
+alias vsrc='cd ~/varkor/src'
+alias vwork='cd ~/varkor/working'
+
 export SHELLOPTS
 set -o igncr
