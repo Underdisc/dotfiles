@@ -46,7 +46,23 @@ nnoremap <silent> $ g$
 
 " Auto instert ending an curly brace and place the cursor on the line between
 " the braces.
-inoremap {<Enter> {<Enter>}<Esc>kA<Enter><Tab>
+inoremap {<enter> {<enter>}<esc>kA<enter><tab>
+
+" Ctrl-i will exit insertion mode.
+inoremap <c-i> <esc>
+
+" Ctrl-h|j|k|l will move to a different vim pane.
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
+
+" Commands for quick file access that also allow for opening files inside of
+" new splits.
+nnoremap gc :e<space>**/
+nnoremap gs :vs<enter><c-w>l:e<space>**/
+nnoremap gh :sp<enter><c-w>j:e<space>**/
+nnoremap gb :ls<enter>:b<space>
 
 " Wrap by word
 set linebreak
@@ -56,6 +72,7 @@ set eol
 set laststatus=2
 hi StatusLine ctermbg=Black ctermfg=Green
 
-" Run clang-format on ctrl-k.
-map <C-K> :pyf ~/home/sys/script/clang-format.py<cr>
-imap <C-K> :pyf ~/home/sys/script/clang-format.py<cr>
+" Run clang-format with ctrl-z. This disables the default behavior of ctrl-z,
+" which ends the vim session.
+map <c-z> :pyf ~/home/sys/script/clang-format.py<cr>
+imap <c-z> :pyf ~/home/sys/script/clang-format.py<cr>
