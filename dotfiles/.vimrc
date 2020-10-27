@@ -39,14 +39,14 @@ set autoindent
 " Instead of k and j traversing over a single physical line, they will only
 " traverse over visible lines. This makes editing very large wrapped lines
 " easier.
-noremap <silent> k gk
-noremap <silent> j gj
-noremap <silent> 0 g0
-noremap <silent> $ g$
+nnoremap <silent> k gk
+nnoremap <silent> j gj
+nnoremap <silent> 0 g0
+nnoremap <silent> $ g$
 
 " Auto instert ending an curly brace and place the cursor on the line between
 " the braces.
-inoremap {<Enter> {<Enter><Enter>}<Esc>ki<Tab>
+inoremap {<Enter> {<Enter>}<Esc>kA<Enter><Tab>
 
 " Wrap by word
 set linebreak
