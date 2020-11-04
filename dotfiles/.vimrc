@@ -48,9 +48,6 @@ nnoremap <silent> $ g$
 " the braces.
 inoremap {<enter> {<enter>}<esc>kA<enter><tab>
 
-" Ctrl-i will exit insertion mode.
-inoremap <c-i> <esc>
-
 " Ctrl-h|j|k|l will move to a different vim pane.
 nnoremap <c-h> <c-w>h
 nnoremap <c-j> <c-w>j
