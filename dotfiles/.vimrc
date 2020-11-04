@@ -1,6 +1,6 @@
 set noswapfile
 colorscheme evening
-set colorcolumn=80
+set colorcolumn=81
 hi ColorColumn ctermbg=Green
 
 " Disable Bell Sound
