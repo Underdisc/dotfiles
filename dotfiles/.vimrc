@@ -57,9 +57,10 @@ nnoremap <c-l> <c-w>l
 " Commands for quick file access that also allow for opening files inside of
 " new splits.
 nnoremap gc :e<space>**/
+nnoremap gv :ls<enter>:bd<space>
+nnoremap gb :ls<enter>:b<space>
 nnoremap gs :vs<enter><c-w>l:e<space>**/
 nnoremap gh :sp<enter><c-w>j:e<space>**/
-nnoremap gb :ls<enter>:b<space>
 
 " Wrap by word
 set linebreak
