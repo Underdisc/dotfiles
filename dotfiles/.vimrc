@@ -3,6 +3,9 @@ colorscheme evening
 set colorcolumn=81
 hi ColorColumn ctermbg=Green
 
+" Set the filetype of files that are not handled by a default vim install.
+au BufNewFile,BufRead *.vs,*.fs set filetype=glsl
+
 " Disable Bell Sound
 set visualbell
 set t_vb=
