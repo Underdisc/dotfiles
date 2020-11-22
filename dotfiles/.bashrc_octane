@@ -51,6 +51,7 @@ alias ga='git number add'
 alias grm='git number rm'
 alias gd='git number diff'
 alias gc='git number checkout'
+alias gf='git number -c clang-format -style=file -i'
 
 alias format='clang-format -style=file -i'
 
