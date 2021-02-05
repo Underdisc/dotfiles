@@ -39,6 +39,11 @@ set shiftwidth=2
 " indentation of the above line.
 set autoindent
 
+" Automatically read an open file if it has been changed outside of vim after
+" running checktime. The full functionality of autoread does not work with
+" tmux on cygwin.
+set autoread
+
 " Instead of k and j traversing over a single physical line, they will only
 " traverse over visible lines. This makes editing very large wrapped lines
 " easier.
