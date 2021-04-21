@@ -82,3 +82,6 @@ hi StatusLine ctermbg=Black ctermfg=Green
 " which ends the vim session.
 map <c-z> :pyf ~/home/sys/script/clang-format.py<cr>
 imap <c-z> :pyf ~/home/sys/script/clang-format.py<cr>
+
+" Command for creating a seperator.
+command Sep :r ~/.vim/snippets/Separator.txt
