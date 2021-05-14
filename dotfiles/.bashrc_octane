@@ -52,6 +52,10 @@ alias grm='git number rm'
 alias gd='git number diff'
 alias gc='git number checkout'
 alias gf='git number -c clang-format -style=file -i'
+function gfd(){
+  gf $1
+  gd $1
+}
 
 alias format='clang-format -style=file -i'
 
