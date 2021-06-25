@@ -58,6 +58,7 @@ function gfd(){
 }
 
 alias format='clang-format -style=file -i'
+alias py3='C:/Users/underdisc/AppData/Local/Programs/Python/Python39/python.exe'
 
 alias vsrc='cd ~/varkor/src'
 alias vwork='cd ~/varkor/working'
