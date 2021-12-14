@@ -2,6 +2,7 @@ set noswapfile
 colorscheme evening
 set colorcolumn=81
 hi ColorColumn ctermbg=Green
+hi Error None
 
 " Set the filetype of files that are not handled by a default vim install.
 au BufNewFile,BufRead *.vs,*.fs,*.glsl set filetype=glsl
@@ -23,12 +24,12 @@ set number
 hi LineNr cterm=bold ctermfg=0
 
 " Show invisibles in gray.
-" hi SpecialKey makes the color of spaces gray.
-" hi NonText makes the color of eol characters gray.
+" hi SpecialKey makes the color of spaces dark blue.
+" hi NonText makes the color of eol characters dark blue.
 set list
 set listchars=tab:>\ ,space:.,nbsp:.,trail:.,eol:~,precedes:<,extends:>
-hi SpecialKey cterm=bold ctermfg=0
-hi NonText cterm=bold ctermfg=0
+hi SpecialKey ctermfg=4
+hi NonText ctermfg=4
 
 " Tab options
 set tabstop=2
@@ -62,13 +63,27 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
 
-" Commands for quick file access that also allow for opening files inside of
-" new splits.
-nnoremap gc :e<space>**/
-nnoremap gv :ls<enter>:bd<space>
-nnoremap gb :ls<enter>:b<space>
-nnoremap gs :vs<enter><c-w>l:e<space>**/
-nnoremap gh :sp<enter><c-w>j:e<space>**/
+" Commands for quick file access.
+" Changes the working directory to the active file's directory. This will only
+" affect the working directory of the selected pane.
+nnoremap gcw :lcd %:h<CR>
+" Open a different file in the current pane.
+nnoremap gce :e<space>**/
+nnoremap gcE :E<CR>
+" Same as gc* but creates a new pane as a vertical split.
+nnoremap gvc :vs<enter><c-w>l
+nnoremap gve :vs<enter><c-w>l:e<space>**/
+nnoremap gvE :vs<enter><c-w>l:E<enter>
+" Same as gv* but creates a horizontal split.
+nnoremap ghc :sp<enter><c-w>j
+nnoremap ghe :sp<enter><c-w>j:e<space>**/
+nnoremap ghE :sp<enter><c-w>j:E<enter>
+" Switch to and remove active buffers.
+nnoremap gl :ls<enter>:b<space>
+nnoremap gr :ls<enter>:bd<space>
+" Finds all occurences of a string within the working directly recursively.
+" A quicklist of the matches will be displayed afterwards.
+command -nargs=1 Find :vimgrep /<args>/gj **/* | :belowright copen
 
 " Wrap by word
 set linebreak
