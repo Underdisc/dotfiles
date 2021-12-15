@@ -14,8 +14,7 @@
     co = checkout
     d = diff
     ds = diff --submodule=log
-    s = status --ignore-submodules=all
-    ss = status --ignore-submodules=none
+    s = status --ignore-submodules=none
     vommit = commit -m \":O~==~ This is broken\"
     view = "!f() { git diff $1~1 $1 $2 $3; }; f"
     reverseview = "!f() { git diff $1 $1~1 $2 $3; }; f"
@@ -27,8 +26,8 @@
     rwc = !git reset HEAD~1
 
     #LOG COMMANDS
-    lga = log --graph --abbrev-commit --decorate --date=short --format=format:'%w(75, 0, 1) %C(bold cyan)%h%C(reset) %C(green)- %C(bold yellow)/%ad/%C(reset) %C(green)- %C(bold magenta)%an%C(reset)%n%C(bold green)<%D>%C(reset) %C(white)%s%C(reset)%n'
-    lgs = !"git lga" -15
+    lga = log --graph --abbrev-commit --decorate --date=short --pretty=short --format=format:'%w(75, 0, 1) %C(bold cyan)%h%C(reset) %C(green)- %C(bold yellow)/%ad/%C(reset) %C(green)- %C(bold magenta)%an%C(reset)%n%C(bold green)<%D>%C(reset) %C(white)%s%C(reset)%n'
+    lgs = !"git lga" -10
     lgl = !"git lga" -30
 
 [status]

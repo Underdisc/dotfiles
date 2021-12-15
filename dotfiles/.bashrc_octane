@@ -46,7 +46,7 @@
     alias cll='"$invoke_link" "$lib_a" "$lib_b" "$lib_c"'
 }
 
-alias gin='git number'
+alias gin='git number -s'
 alias ga='git number add'
 alias grm='git number rm'
 alias gd='git number diff'
