@@ -4,6 +4,9 @@ set colorcolumn=81
 hi ColorColumn ctermbg=Green
 hi Error None
 
+" Stop vim from wrapping text when performing a git commit.
+au FileType gitcommit setlocal tw=0
+
 " Set the filetype of files that are not handled by a default vim install.
 au BufNewFile,BufRead *.vs,*.fs,*.glsl set filetype=glsl
 
