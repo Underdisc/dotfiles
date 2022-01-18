@@ -50,3 +50,9 @@ function gfd(){
   gf $1
   gd $1
 }
+function gshow(){
+  git show --color=always $1 | less -r
+}
+function glame(){
+  git blame -s --color-lines $1 | less -r
+}
