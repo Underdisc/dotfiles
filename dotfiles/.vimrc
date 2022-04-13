@@ -4,6 +4,9 @@ set colorcolumn=81
 hi ColorColumn ctermbg=Green
 hi Error None
 
+" Allow mouse usage in vim because sometimes I just want to sit back and scroll.
+set mouse=a
+
 " Stop vim from wrapping text when performing a git commit.
 au FileType gitcommit setlocal tw=0
 
