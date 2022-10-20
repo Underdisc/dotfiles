@@ -9,7 +9,7 @@ return
 !v::
 if(%A_ComputerName% == %octane%)
 {
-  Run, C:\Users\underdisc\home\sys\prgf\notepadpp\notepad++.exe U:\ctd.vault
+  Run, C:\Users\underdisc\home\sys\prgf\npp\notepad++.exe U:\ctd.vault
 }
 return
 
