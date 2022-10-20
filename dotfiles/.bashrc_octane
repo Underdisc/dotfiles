@@ -48,6 +48,7 @@
 
 alias gin='git number -s'
 alias ga='git number add'
+alias gap='git number add --patch'
 alias gu='git number restore --staged'
 alias grm='git number rm'
 alias gc='git number checkout'
