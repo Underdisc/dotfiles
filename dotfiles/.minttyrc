@@ -7,3 +7,7 @@ BellType=0
 ConfirmExit=no
 ThemeFile=xterm
 Term=xterm-256color
+Transparency=off
+Charset=UTF-8
+Font=Lucida Console
+CtrlShiftShortcuts=yes
