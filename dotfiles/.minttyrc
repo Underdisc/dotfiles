@@ -2,7 +2,6 @@ CursorType=block
 CursorBlinks=no
 Scrollbar=none
 Locale=en_US
-
 BellType=0
 ConfirmExit=no
 ThemeFile=xterm
@@ -10,4 +9,5 @@ Term=xterm-256color
 Transparency=off
 Charset=UTF-8
 Font=Lucida Console
+FontHeight=9
 CtrlShiftShortcuts=yes
