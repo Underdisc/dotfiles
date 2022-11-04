@@ -4,6 +4,9 @@ set colorcolumn=81
 hi ColorColumn ctermbg=Green
 hi Error None
 
+" Allow mouse usage in vim because sometimes I just want to sit back and scroll.
+set mouse=a
+
 " Stop vim from wrapping text when performing a git commit.
 au FileType gitcommit setlocal tw=0
 
@@ -56,7 +59,7 @@ nnoremap <silent> j gj
 nnoremap <silent> 0 g0
 nnoremap <silent> $ g$
 
-" Auto instert ending an curly brace and place the cursor on the line between
+" Auto insert an ending curly brace and place the cursor on the line between
 " the braces.
 inoremap {<enter> {<enter>}<esc>kA<enter><tab>
 
@@ -84,6 +87,11 @@ nnoremap ghE :sp<enter><c-w>j:E<enter>
 " Switch to and remove active buffers.
 nnoremap gl :ls<enter>:b<space>
 nnoremap gr :ls<enter>:bd<space>
+
+" Force the netrw file browser to display all contents of a directory
+" alphabetically, but starting with subdirectories.
+let g:netrw_sort_sequence = '[\/]$,*'
+
 " Finds all occurences of a string within the working directly recursively.
 " A quicklist of the matches will be displayed afterwards.
 command -nargs=1 Find :vimgrep /<args>/gj **/* | :belowright copen
