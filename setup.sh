@@ -29,4 +29,5 @@ for source_fullpath in $script_dir/$source_dir/*; do
     ln -s $source_fullpath $filename
 done
 cd $script_dir
+
 shopt -u dotglob
