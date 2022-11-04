@@ -88,6 +88,9 @@ nnoremap ghE :sp<enter><c-w>j:E<enter>
 nnoremap gl :ls<enter>:b<space>
 nnoremap gr :ls<enter>:bd<space>
 
+" An easier way to apply the last used macro.
+nnoremap , @@
+
 " Force the netrw file browser to display all contents of a directory
 " alphabetically, but starting with subdirectories.
 let g:netrw_sort_sequence = '[\/]$,*'
