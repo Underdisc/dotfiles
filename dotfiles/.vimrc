@@ -59,10 +59,6 @@ nnoremap <silent> j gj
 nnoremap <silent> 0 g0
 nnoremap <silent> $ g$
 
-" Auto insert an ending curly brace and place the cursor on the line between
-" the braces.
-inoremap {<enter> {<enter>}<esc>kA<enter><tab>
-
 " Ctrl-h|j|k|l will move to a different vim pane.
 nnoremap <c-h> <c-w>h
 nnoremap <c-j> <c-w>j
