@@ -1,3 +1,5 @@
+source .bashrc_git_helpers
+
 #Command line cl usage
 {
     # Make sure these directories exist. If they do not, you need to change
@@ -44,27 +46,6 @@
 
     alias clc='"$invoke_cl" /EHsc /c "$inc_a" "$inc_b" "$inc_c" "$inc_d"'
     alias cll='"$invoke_link" "$lib_a" "$lib_b" "$lib_c"'
-}
-
-alias gin='git number -s'
-alias ga='git number add'
-alias gap='git number add --patch'
-alias gu='git number restore --staged'
-alias grm='git number rm'
-alias gc='git number checkout'
-alias gf='git number -c clang-format -style=file -i'
-function gd(){
-  git number diff --color=always $1 | less -r
-}
-function gfd(){
-  gf $1
-  gd $1
-}
-function gshow(){
-  git show --color=always $1 | less -r
-}
-function glame(){
-  git blame -s --color-lines $1 | less -r
 }
 
 alias format='clang-format -style=file -i'
