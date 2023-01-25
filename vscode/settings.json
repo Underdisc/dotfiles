@@ -111,7 +111,6 @@
   "C_Cpp.clang_format_style": "file",
   "C_Cpp.default.cStandard": "c11",
   "C_Cpp.default.cppStandard": "c++17",
-  "C_Cpp.default.intelliSenseMode": "msvc-x64",
   "C_Cpp.loggingLevel": "None",
   "hexeditor.columnWidth": 16,
   "hexeditor.showDecodedText": true,
