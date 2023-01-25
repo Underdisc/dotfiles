@@ -1,0 +1,15 @@
+{
+  "C_Cpp.default.compilerPath": "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.32.31326/bin/HostX64/x64/cl.exe",
+  "C_Cpp.default.includePath": [
+    "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.32.31326/include",
+    "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.32.31326/atlmfc/include",
+    "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Auxiliary/VS/include",
+    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt",
+    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/um",
+    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/shared",
+    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/winrt",
+    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/cppwinrt/Include/um"
+  ],
+  "vim.vimrc.path": "C:/Users/underdisc/home/tech/dotfiles/dotfiles/.vimrc",
+  "git.path": "C:/Users/underdisc/home/sys/prgf/git_2.38.1/bin/git.exe"
+}
