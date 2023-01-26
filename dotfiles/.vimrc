@@ -1,5 +1,6 @@
 set noswapfile
 colorscheme evening
+hi Normal ctermbg=none ctermfg=none
 set colorcolumn=81
 hi ColorColumn ctermbg=Green
 hi Error None
