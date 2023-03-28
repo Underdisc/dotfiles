@@ -52,7 +52,9 @@ alias format='clang-format -style=file -i'
 alias py3='C:/Users/underdisc/AppData/Local/Programs/Python/Python39/python.exe'
 
 alias vsrc='cd ~/varkor/src'
-alias vwork='cd ~/varkor/working'
+alias vscript='cd ~/varkor/script'
+alias wbt='cmd /k C:/Users/underdisc/home/tech/dotfiles/script/wbt.bat'
+alias vbt='vscript && wbt'
 
 export SHELLOPTS
 set -o igncr
