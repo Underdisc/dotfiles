@@ -1,9 +1,12 @@
 set noswapfile
 colorscheme evening
 hi Normal ctermbg=none ctermfg=none
+hi Error None
+
+" Colored vertical bar.
 set colorcolumn=81
 hi ColorColumn ctermbg=Green
-hi Error None
+au BufNewFile,BufRead *.md,*.txt set colorcolumn=
 
 " Allow mouse usage in vim because sometimes I just want to sit back and scroll.
 set mouse=a
