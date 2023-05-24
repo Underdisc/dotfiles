@@ -45,8 +45,5 @@
   process = git-lfs filter-process
   required = true
 
-[include]
-  path=~/.gitconfig-sys
-
 [init]
   defaultBranch = master
