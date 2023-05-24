@@ -1,51 +1,52 @@
 [user]
-    email = connortdeakin@gmail.com
-    name = Underdisc
+  email = connortdeakin@gmail.com
+  name = Underdisc
 
 [core]
-    autocrlf = input
-    editor = vim
-    pager = cat
+  autocrlf = input
+  editor = vim
+  pager = cat
 
 [alias]
-    #SHORTENED COMMANDS
-    b = branch
-    cm = commit -m
-    co = checkout
-    d = diff
-    ds = diff --submodule=log
-    s = status --ignore-submodules=none
-    vommit = commit -m \":O~==~ This is broken\"
-    view = "!f() { git diff $1~1 $1 $2 $3; }; f"
-    reverseview = "!f() { git diff $1 $1~1 $2 $3; }; f"
-    applycommit = "!f() { git view $1 > p; git apply p; rm p; }; f"
-    stripcommit = "!f() { git reverseview $1 > p; git apply p; rm p; }; f"
+  #SHORTENED COMMANDS
+  b = branch
+  cm = commit -m
+  co = checkout
+  d = diff
+  ds = diff --submodule=log
+  s = status --ignore-submodules=none
+  vommit = commit -m \":O~==~ This is broken\"
+  view = "!f() { git diff $1~1 $1 $2 $3; }; f"
+  reverseview = "!f() { git diff $1 $1~1 $2 $3; }; f"
+  applycommit = "!f() { git view $1 > p; git apply p; rm p; }; f"
+  stripcommit = "!f() { git reverseview $1 > p; git apply p; rm p; }; f"
 
-    wc = commit -m "wc"
-    awc = !git add . && git commit -m "wc" && :
-    rwc = !git reset HEAD~1
+  wc = commit -m "wc"
+  awc = !git add . && git commit -m "wc" && :
+  rwc = !git reset HEAD~1
 
-    #LOG COMMANDS
-    lga = log --graph --abbrev-commit --decorate --date=short --pretty=short --format=format:'%w(75, 0, 1) %C(bold cyan)%h%C(reset) %C(green)- %C(bold yellow)/%ad/%C(reset) %C(green)- %C(bold magenta)%an%C(reset)%n%C(bold green)<%D>%C(reset) %C(white)%s%C(reset)%n'
-    lgs = !"git lga" -10
-    lgl = !"git lga" -30
+  #LOG COMMANDS
+  lga = log --graph --abbrev-commit --decorate --date=short --pretty=short --format=format:'%w(75, 0, 1) %C(bold cyan)%h%C(reset) %C(green)- %C(bold yellow)/%ad/%C(reset) %C(green)- %C(bold magenta)%an%C(reset)%n%C(bold green)<%D>%C(reset) %C(white)%s%C(reset)%n'
+  lgs = !"git lga" -10
+  lgl = !"git lga" -30
 
 [status]
-    submoduleSummary = true
+  submoduleSummary = true
 
 [credential]
-    helper = store
+  helper = store
 
 [pull]
-    rebase = false
+  rebase = false
 
 [filter "lfs"]
-    clean = git-lfs clean -- %f
-    smudge = git-lfs smudge -- %f
-    process = git-lfs filter-process
-    required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
 
 [include]
-    path=~/.gitconfig-sys
+  path=~/.gitconfig-sys
+
 [init]
   defaultBranch = master
