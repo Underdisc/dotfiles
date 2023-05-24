@@ -31,7 +31,7 @@
   },
   {
     "key": "ctrl+j",
-    "command": "workbench.action.previousEditorInGroup"
+    "command": "workbench.action.nextEditorInGroup"
   },
   {
     "key": "ctrl+k ctrl+pagedown",
@@ -47,7 +47,7 @@
   },
   {
     "key": "ctrl+k",
-    "command": "workbench.action.nextEditorInGroup"
+    "command": "workbench.action.previousEditorInGroup"
   },
   // ctrl+z formats the file.
   {

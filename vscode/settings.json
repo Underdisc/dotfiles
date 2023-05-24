@@ -16,6 +16,7 @@
   "editor.wordWrap": "wordWrapColumn",
   "editor.wrappingIndent": "indent",
   "workbench.editor.enablePreview": false,
+  "workbench.editor.showTabs": false,
   "workbench.colorTheme": "Default High Contrast",
   "workbench.colorCustomizations": {
     "editorBracketHighlight.foreground1": "#ffffff",
