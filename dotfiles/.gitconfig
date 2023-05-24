@@ -3,7 +3,7 @@
     name = Underdisc
 
 [core]
-    autocrlf = false
+    autocrlf = input
     editor = vim
     pager = cat
 
