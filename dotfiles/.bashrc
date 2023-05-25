@@ -1,7 +1,10 @@
 # Save the current directory in a tmux variable so that new panes start in the
 # same directory.
 function set_tmux_pwd() {
-  [ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D") "$PWD"
+  if [ -n "$TMUX" ]; then
+    tmux setenv TMUXPWD_$(tmux display -p "#D") "$PWD"
+    tmux rename-window "$(echo $PWD | sed 's|^/home/[[:alnum:]]\+|~|')"
+  fi
 }
 function cd_internal() {
   \cd $1
