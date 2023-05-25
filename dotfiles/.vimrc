@@ -99,9 +99,10 @@ let g:netrw_sort_sequence = '[\/]$,*'
 " A quicklist of the matches will be displayed afterwards.
 command -nargs=1 Find :vimgrep /<args>/gj **/* | :belowright copen
 
-" Wrap by word
+" Word wrapping
 set linebreak
 set eol
+set showbreak=
 
 " Display status line at the bottom of the terminal.
 set laststatus=2
@@ -114,3 +115,20 @@ imap <c-z> <c-o>:py3f ~/home/sys/script/clang-format.py<cr>
 
 " Command for creating a seperator.
 command Sep :r ~/.vim/snippets/Separator.txt
+
+function Dnd()
+  vs
+  e stats.md
+  vertical resize 32
+  wincmd l
+  e live.md
+  vs
+  vertical resize 32
+  sp
+  resize 10
+  wincmd j
+  e equipment.md
+  wincmd l
+  e quest.md
+endfunction
+command Dnd :call Dnd()
