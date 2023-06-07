@@ -1,4 +1,5 @@
-source ~/.bashrc_git_helpers
+source .bashrc_windows
+source .bashrc_git_helpers
 
 #Command line cl usage
 {
