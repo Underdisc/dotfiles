@@ -1,0 +1,4 @@
+source .bashrc_windows
+source .bashrc_git_helpers
+alias npp='C;/home/underdisc/home/sys/prgf/npp/notepad++.exe'
+
