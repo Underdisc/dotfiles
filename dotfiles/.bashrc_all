@@ -1,7 +1,12 @@
-# Creat a prompt that looks like this with some different colors for each field.
+# Create a prompt that looks like this with some different colors for each field.
 # user@hostname ~/dir$
-PS1="\[\033[1;92m\]\u\[\033[1;97m\]@\[\033[1;95m\]\h \
+export PS1="\[\033[1;92m\]\u\[\033[1;97m\]@\[\033[1;95m\]\h \
 \[\033[1;94m\]\w\[\033[1;97m\]$ \[\033[0m\]"
+
+export HISTTIMEFORMAT="|%g-%m-%d|%H:%M| "
+shopt -s histappend
+HISTSIZE=-1
+HISTFILESIZE=-1
 
 alias home='cd ~/home'
 alias dl='cd ~/home/download/new'
@@ -16,6 +21,6 @@ alias rmd='rm -rf'
 
 mkcd()
 {
-    mkdir $1
-    cd $1
+  mkdir $1
+  cd $1
 }
