@@ -41,10 +41,10 @@ set listchars=tab:>\ ,space:.,nbsp:.,trail:.,eol:~,precedes:<,extends:>
 hi SpecialKey ctermfg=4
 hi NonText ctermfg=4
 
-" Tab options
+" What tab does depends on the tab style in the open file.
+filetype plugin indent on
+" Tabs are rendered as two characters long.
 set tabstop=2
-set expandtab
-set shiftwidth=2
 
 " After pressing enter, the new line will be auto indented to match the
 " indentation of the above line.
