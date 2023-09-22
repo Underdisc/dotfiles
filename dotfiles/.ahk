@@ -17,4 +17,5 @@
 !h::Send("{Left}")
 !l::Send("{Right}")
 
+#HotIf WinActive("-bash")
 ^v::+Ins
