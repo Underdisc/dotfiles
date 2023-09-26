@@ -4,11 +4,8 @@
 }
 
 !v:: {
-  if (A_ComputerName == "octane") {
-    Run("C:\Users\underdisc\home\sys\prgf\npp\notepad++.exe",,"U:\ctd.vault")
-  }
-  else if (A_ComputerName == "JOEY-GUESKTOP") {
-    Run("C:\home\sys\prgf\npp\notepad++.exe U:\ctd.vault")
+  if (A_ComputerName == "OCTANE") {
+    Run "C:\Users\underdisc\home\sys\prgf\npp\notepad++.exe D:\user\underdisc\vault\ctd.vault"
   }
 }
 
