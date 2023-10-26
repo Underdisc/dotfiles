@@ -8,8 +8,8 @@ if %hostname% == %octane% (
   set ahk_program=%userprofile%\home\sys\prgf\auto_hotkey\v2\AutoHotkey64.exe
   goto start_ahk
 )
-if %hostname% == JOEY-GUESKTOP (
-  set ahk_program=C:\home\sys\prgf\auto_hotkey\v2\AutoHotKey64.exe
+if %hostname% == %breakout% (
+  set ahk_program=C:\home\sys\prgf\auto_hotkey\AutoHotKey64.exe
   goto start_ahk
 )
 goto end
