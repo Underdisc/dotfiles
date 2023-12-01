@@ -20,7 +20,7 @@ function set_tmux_pwd() {
   fi
 }
 function cd_internal() {
-  \cd $1
+  cd "$1"
   set_tmux_pwd
 }
 set_tmux_pwd
