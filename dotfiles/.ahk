@@ -19,3 +19,6 @@
 
 #HotIf WinActive("-bash")
 ^v::+Ins
+
+#HotIf WinActive("FL Studio 20")
+XButton2::p
