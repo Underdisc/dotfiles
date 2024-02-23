@@ -19,6 +19,8 @@ alias lla='ls -ls'
 
 alias rmd='rm -rf'
 
+alias archive='rsync --human-readable --recursive --times --verbose --modify-window=3 --itemize-changes'
+
 mkcd()
 {
   mkdir $1
