@@ -11,15 +11,14 @@ HISTFILESIZE=-1
 alias home='cd ~/home'
 alias dl='cd ~/home/download/new'
 alias nb='node build.js'
+alias rmd='rm -rf'
+alias diff='diff --color'
+alias archive='rsync --human-readable --recursive --times --verbose --modify-window=3 --itemize-changes'
 
 alias ls='ls --color=auto'
 alias la='ls -a'
 alias ll='ls -l --time-style=long-iso'
 alias lla='ls -ls'
-
-alias rmd='rm -rf'
-
-alias archive='rsync --human-readable --recursive --times --verbose --modify-window=3 --itemize-changes'
 
 mkcd()
 {
