@@ -26,17 +26,12 @@ hi Search ctermfg=Green
 " Line endings
 set nofixendofline
 
-" Show gray line numbers.
+" Show Line Numbers
 set number
-hi LineNr cterm=bold ctermfg=0
 
-" Show invisibles in gray.
-" hi SpecialKey makes the color of spaces dark blue.
-" hi NonText makes the color of eol characters dark blue.
+" Show Invisibles
 set list
 set listchars=tab:>\ ,space:.,nbsp:.,trail:.,eol:~,precedes:<,extends:>
-hi SpecialKey ctermfg=4
-hi NonText ctermfg=4
 
 " What tab does depends on the tab style in the open file.
 filetype plugin indent on
@@ -103,7 +98,6 @@ set showbreak=
 
 " Display status line at the bottom of the terminal.
 set laststatus=2
-hi StatusLine ctermbg=Black ctermfg=Green
 
 " Run clang-format with ctrl-z. This disables the default behavior of ctrl-z,
 " which ends the vim session.
