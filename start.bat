@@ -5,7 +5,7 @@ set octane=OCTANE
 
 set ahk_script=dotfiles\.ahk
 if %hostname% == %octane% (
-  set ahk_program=%userprofile%\home\sys\prgf\auto_hotkey\v2\AutoHotkey64.exe
+  set ahk_program=%userprofile%\home\sys\win64\prgf\auto_hotkey_2.0\v2\AutoHotkey64.exe
   goto start_ahk
 )
 if %hostname% == %breakout% (
