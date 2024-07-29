@@ -12,13 +12,5 @@
   }
 }
 
-!j::Send("{Down}")
-!k::Send("{Up}")
-!h::Send("{Left}")
-!l::Send("{Right}")
-
-#HotIf WinActive("-bash")
-^v::+Ins
-
 #HotIf WinActive("FL Studio 20")
 XButton2::p
