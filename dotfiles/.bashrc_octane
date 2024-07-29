@@ -49,6 +49,8 @@ source .bashrc_git_helpers
   alias cll='"$invoke_link" "$lib_a" "$lib_b" "$lib_c"'
 }
 
+TERM=xterm
+
 alias format='clang-format.exe -style=file -i'
 alias py3='C:/Users/underdisc/AppData/Local/Programs/Python/Python39/python.exe'
 
