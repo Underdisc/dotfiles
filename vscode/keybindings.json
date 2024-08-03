@@ -1,20 +1,20 @@
 [
   // ctrl+h and ctrl+l switch between vertical split groups.
   {
-    "key": "ctrl+k ctrl+left",
-    "command": "-workbench.action.focusLeftGroup"
+    "key": "ctrl+k",
+    "command": "-workbench.action.files.saveWithoutFormatting"
   },
   {
-    "key": "ctrl+h",
-    "command": "workbench.action.focusLeftGroup"
+    "key": "ctrl+k ctrl+left",
+    "command": "-workbench.action.focusLeftGroup"
   },
   {
     "key": "ctrl+k ctrl+right",
     "command": "-workbench.action.focusRightGroup"
   },
   {
-    "key": "ctrl+k",
-    "command": "-workbench.action.files.saveWithoutFormatting"
+    "key": "ctrl+h",
+    "command": "workbench.action.focusLeftGroup"
   },
   {
     "key": "ctrl+l",
@@ -30,8 +30,8 @@
     "command": "-extension.vim_ctrl+j"
   },
   {
-    "key": "ctrl+j",
-    "command": "workbench.action.nextEditorInGroup"
+    "key": "ctrl+k",
+    "command": "-extension.vim_ctrl+k"
   },
   {
     "key": "ctrl+k ctrl+pagedown",
@@ -42,8 +42,8 @@
     "command": "-workbench.action.previousEditorInGroup"
   },
   {
-    "key": "ctrl+k",
-    "command": "-extension.vim_ctrl+k"
+    "key": "ctrl+j",
+    "command": "workbench.action.nextEditorInGroup"
   },
   {
     "key": "ctrl+k",
