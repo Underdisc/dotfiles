@@ -103,8 +103,8 @@ set laststatus=2
 
 " Run clang-format with ctrl-z. This disables the default behavior of ctrl-z,
 " which ends the vim session.
-map <c-z> :py3f ~/home/sys/script/clang-format.py<cr>
-imap <c-z> <c-o>:py3f ~/home/sys/script/clang-format.py<cr>
+map <c-z> :py3f ~/home/sys/win64/script/clang-format.py<cr>
+imap <c-z> <c-o>:py3f ~/home/sys/win64/script/clang-format.py<cr>
 
 " Command for creating a seperator.
 command Sep :r ~/.vim/snippets/Separator.txt
