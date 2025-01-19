@@ -27,7 +27,7 @@ hi Search ctermfg=Green
 set nofixendofline
 
 " Show Line Numbers
-set number
+set relativenumber
 
 " Show Invisibles
 set list
