@@ -3,7 +3,10 @@ colorscheme rainbow
 
 " Vertical bar.
 set colorcolumn=81
-au BufNewFile,BufRead *.md,*.txt set colorcolumn=
+au BufNewFile,BufRead *.md,*.txt,*.tex set colorcolumn=
+
+" Spellchecking
+set spell spelllang=en_us
 
 " Allow mouse usage in vim because sometimes I just want to sit back and scroll.
 set mouse=a

@@ -83,10 +83,10 @@ hi Question         guisp=NONE guifg=#ffffff guibg=#1c1c1c ctermfg=231 ctermbg=2
 hi QuickFixLine     guisp=NONE guifg=#ffffff guibg=#1c1c1c ctermfg=231 ctermbg=234 gui=NONE cterm=NONE
 hi Search           guisp=NONE guifg=#ffffff guibg=#1c1c1c ctermfg=231 ctermbg=234 gui=NONE cterm=NONE
 hi SpecialKey       guisp=NONE guifg=#ffffff guibg=#1c1c1c ctermfg=239 ctermbg=234 gui=NONE cterm=NONE
-hi SpellBad         guisp=NONE guifg=#ffffff guibg=#1c1c1c ctermfg=231 ctermbg=234 gui=NONE cterm=NONE
-hi SpellCap         guisp=NONE guifg=#ffffff guibg=#1c1c1c ctermfg=231 ctermbg=234 gui=NONE cterm=NONE
-hi SpellLocal       guisp=NONE guifg=#ffffff guibg=#1c1c1c ctermfg=231 ctermbg=234 gui=NONE cterm=NONE
-hi SpellRare        guisp=NONE guifg=#ffffff guibg=#1c1c1c ctermfg=231 ctermbg=234 gui=NONE cterm=NONE
+hi SpellBad         guisp=NONE guifg=#ff0000 guibg=#1c0000 ctermfg=196 ctermbg=234 gui=NONE cterm=underline
+hi SpellCap         guisp=NONE guifg=#ff0000 guibg=#1c0000 ctermfg=196 ctermbg=234 gui=NONE cterm=underline
+hi SpellLocal       guisp=NONE guifg=#ff0000 guibg=#1c0000 ctermfg=196 ctermbg=234 gui=NONE cterm=underline
+hi SpellRare        guisp=NONE guifg=#ff5f00 guibg=#1c1c00 ctermfg=202 ctermbg=234 gui=NONE cterm=NONE
 hi StatusLine       guisp=NONE guifg=#ffffff guibg=#1c1c1c ctermfg=21  ctermbg=46  gui=NONE cterm=NONE
 hi StatusLineNC     guisp=NONE guifg=#ffffff guibg=#1c1c1c ctermfg=231 ctermbg=234 gui=NONE cterm=NONE
 hi StatusLineTerm   guisp=NONE guifg=#ffffff guibg=#1c1c1c ctermfg=231 ctermbg=234 gui=NONE cterm=NONE
@@ -112,7 +112,7 @@ hi Type       guisp=NONE guifg=#00ff00 guibg=#1c1c1c ctermfg=46  ctermbg=234 gui
 hi Special    guisp=NONE guifg=#ffffff guibg=#1c1c1c ctermfg=231 ctermbg=234 gui=NONE cterm=NONE
 hi Underlined guisp=NONE guifg=#ffffff guibg=#1c1c1c ctermfg=231 ctermbg=234 gui=NONE cterm=NONE
 hi Ignore     guisp=NONE guifg=#ffffff guibg=#1c1c1c ctermfg=231 ctermbg=234 gui=NONE cterm=NONE
-hi Error      guisp=NONE guifg=#ffffff guibg=#1c1c1c ctermfg=231 ctermbg=234 gui=NONE cterm=NONE
+hi Error      guisp=NONE guifg=#ff0000 guibg=#1c1c1c ctermfg=196 ctermbg=234 gui=NONE cterm=underline
 hi Todo       guisp=NONE guifg=#ffffff guibg=#1c1c1c ctermfg=231 ctermbg=234 gui=NONE cterm=NONE
 
 " minor
