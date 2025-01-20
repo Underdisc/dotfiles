@@ -38,11 +38,9 @@ set list
 set listchars=tab:>\ ,space:.,nbsp:.,trail:.,eol:~,precedes:<,extends:>
 
 " Tabs are two spaces wide and pressing tab inserts two spaces by default.
-set tabstop=2
 set softtabstop=2
+set shiftwidth=2
 set expandtab
-" What tab does depends on the tab style in the open file.
-filetype plugin indent on
 
 " After pressing enter, the new line will be auto indented to match the
 " indentation of the above line.
