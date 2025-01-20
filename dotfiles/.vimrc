@@ -3,7 +3,8 @@ colorscheme rainbow
 
 " Vertical bar.
 set colorcolumn=81
-au BufNewFile,BufRead *.md,*.txt,*.tex set colorcolumn=
+au BufNewFile,BufRead *.md,*.txt,*.tex,gitcommit set colorcolumn=
+au FileType gitcommit set colorcolumn=
 
 " Spellchecking
 set spell spelllang=en_us
