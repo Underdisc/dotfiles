@@ -12,7 +12,7 @@
   b = branch
   cm = commit -m
   co = checkout
-  d = diff
+  d = diff --color=always
   ds = diff --submodule=log
   s = status --ignore-submodules=none
   vommit = commit -m \":O~==~ This is broken\"
