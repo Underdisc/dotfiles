@@ -25,3 +25,15 @@ mkcd()
   mkdir $1
   cd $1
 }
+
+clgl()
+{
+  clear
+  git lgl
+}
+
+clgs()
+{
+  clear
+  git lgs
+}
