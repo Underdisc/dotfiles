@@ -65,6 +65,12 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
 
+" Copy and pasting from clipboard using Ctrl-p|v
+nnoremap <c-p> "+p
+vnoremap <c-p> "+p
+inoremap <c-p> <c-r>*
+vnoremap <c-y> "+y
+
 " Commands for quick file access.
 " Changes the working directory to the active file's directory. This will only
 " affect the working directory of the selected pane.
