@@ -13,7 +13,8 @@ alias dl='cd ~/home/download/new'
 alias nb='node build.js'
 alias rmd='rm -rf'
 alias diff='diff --color'
-alias archive='rsync --human-readable --recursive --times --verbose --modify-window=3 --itemize-changes'
+alias lapdf='latex -c-style-errors -output-format=pdf'
+alias archive='rsync --human-readable --recursive --times --modify-window=3 --devices --links --specials  --verbose --itemize-changes'
 
 alias ls='ls --color=auto'
 alias la='ls -a'
@@ -24,4 +25,16 @@ mkcd()
 {
   mkdir $1
   cd $1
+}
+
+clgl()
+{
+  clear
+  git lgl
+}
+
+clgs()
+{
+  clear
+  git lgs
 }

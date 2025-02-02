@@ -1,12 +1,13 @@
 set noswapfile
-colorscheme evening
-hi Normal ctermbg=none ctermfg=none
-hi Error None
+colorscheme rainbow
 
-" Colored vertical bar.
+" Vertical bar.
 set colorcolumn=81
-hi ColorColumn ctermbg=Green
-au BufNewFile,BufRead *.md,*.txt set colorcolumn=
+au BufNewFile,BufRead *.md,*.txt,*.tex,gitcommit set colorcolumn=
+au FileType gitcommit set colorcolumn=
+
+" Spellchecking
+set spell spelllang=en_us
 
 " Allow mouse usage in vim because sometimes I just want to sit back and scroll.
 set mouse=a
@@ -29,22 +30,17 @@ hi Search ctermfg=Green
 " Line endings
 set nofixendofline
 
-" Show gray line numbers.
-set number
-hi LineNr cterm=bold ctermfg=0
+" Show Line Numbers
+set relativenumber
 
-" Show invisibles in gray.
-" hi SpecialKey makes the color of spaces dark blue.
-" hi NonText makes the color of eol characters dark blue.
+" Show Invisibles
 set list
 set listchars=tab:>\ ,space:.,nbsp:.,trail:.,eol:~,precedes:<,extends:>
-hi SpecialKey ctermfg=4
-hi NonText ctermfg=4
 
-" What tab does depends on the tab style in the open file.
-filetype plugin indent on
-" Tabs are rendered as two characters long.
-set tabstop=2
+" Tabs are two spaces wide and pressing tab inserts two spaces by default.
+set softtabstop=2
+set shiftwidth=2
+set expandtab
 
 " After pressing enter, the new line will be auto indented to match the
 " indentation of the above line.
@@ -68,6 +64,12 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
+
+" Copy and pasting from clipboard using Ctrl-p|v
+nnoremap <c-p> "+p
+vnoremap <c-p> "+p
+inoremap <c-p> <c-r>*
+vnoremap <c-y> "+y
 
 " Commands for quick file access.
 " Changes the working directory to the active file's directory. This will only
@@ -106,12 +108,11 @@ set showbreak=
 
 " Display status line at the bottom of the terminal.
 set laststatus=2
-hi StatusLine ctermbg=Black ctermfg=Green
 
 " Run clang-format with ctrl-z. This disables the default behavior of ctrl-z,
 " which ends the vim session.
-map <c-z> :py3f ~/home/sys/script/clang-format.py<cr>
-imap <c-z> <c-o>:py3f ~/home/sys/script/clang-format.py<cr>
+map <c-z> :py3f ~/home/sys/win64/script/clang-format.py<cr>
+imap <c-z> <c-o>:py3f ~/home/sys/win64/script/clang-format.py<cr>
 
 " Command for creating a seperator.
 command Sep :r ~/.vim/snippets/Separator.txt
