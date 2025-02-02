@@ -13,6 +13,7 @@ alias dl='cd ~/home/download/new'
 alias nb='node build.js'
 alias rmd='rm -rf'
 alias diff='diff --color'
+alias lapdf='latex -c-style-errors -output-format=pdf'
 
 alias ls='ls --color=auto'
 alias la='ls -a'
