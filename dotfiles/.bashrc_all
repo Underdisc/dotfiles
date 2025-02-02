@@ -14,6 +14,7 @@ alias nb='node build.js'
 alias rmd='rm -rf'
 alias diff='diff --color'
 alias lapdf='latex -c-style-errors -output-format=pdf'
+alias rsyncd='rsync --daemon --no-detach'
 alias archive='rsync --human-readable --recursive --times --modify-window=3 --devices --links --specials  --verbose --itemize-changes'
 
 alias ls='ls --color=auto'
