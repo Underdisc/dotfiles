@@ -1,52 +1,30 @@
 [
-  // ctrl+h and ctrl+l switch between vertical split groups.
+  // alt+h and alt+l switch between vertical split groups.
   {
-    "key": "ctrl+k",
-    "command": "-workbench.action.files.saveWithoutFormatting"
-  },
-  {
-    "key": "ctrl+k ctrl+left",
-    "command": "-workbench.action.focusLeftGroup"
-  },
-  {
-    "key": "ctrl+k ctrl+right",
-    "command": "-workbench.action.focusRightGroup"
-  },
-  {
-    "key": "ctrl+h",
+    "key": "alt+h",
     "command": "workbench.action.focusLeftGroup"
   },
   {
-    "key": "ctrl+l",
+    "key": "alt+l",
     "command": "workbench.action.focusRightGroup"
   },
-  // ctrl+j and ctrl+k switch between files in a group.
+  // alt+j and alt+k switch between files in a group.
   {
-    "key": "ctrl+j",
-    "command": "-workbench.action.togglePanel"
+    "key": "alt+l",
+    "command": "-toggleSearchEditorContextLines",
+    "when": "inSearchEditor"
   },
   {
-    "key": "ctrl+j",
-    "command": "-extension.vim_ctrl+j"
+    "key": "alt+h",
+    "command": "-testing.toggleTestingPeekHistory",
+    "when": "testing.isPeekVisible"
   },
   {
-    "key": "ctrl+k",
-    "command": "-extension.vim_ctrl+k"
-  },
-  {
-    "key": "ctrl+k ctrl+pagedown",
-    "command": "-workbench.action.nextEditorInGroup"
-  },
-  {
-    "key": "ctrl+k ctrl+pageup",
-    "command": "-workbench.action.previousEditorInGroup"
-  },
-  {
-    "key": "ctrl+j",
+    "key": "alt+j",
     "command": "workbench.action.nextEditorInGroup"
   },
   {
-    "key": "ctrl+k",
+    "key": "alt+k",
     "command": "workbench.action.previousEditorInGroup"
   },
   // ctrl+5 and ctrl+6 changes an editor's group.
@@ -59,11 +37,11 @@
     "command": "-workbench.action.moveEditorToNextGroup"
   },
   {
-    "key": "ctrl+6",
+    "key": "alt+6",
     "command": "workbench.action.moveEditorToPreviousGroup"
   },
   {
-    "key": "ctrl+5",
+    "key": "alt+5",
     "command": "workbench.action.moveEditorToNextGroup"
   },
   // ctrl+z formats the file.
@@ -85,5 +63,158 @@
     "key": "ctrl+z",
     "command": "editor.action.formatDocument",
     "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && !inCompositeEditor"
+  },
+  // ctrl+2 stages the selected range.
+  {
+    "key": "ctrl+2",
+    "command": "git.stageSelectedRanges",
+    "when": "editorTextFocus && editorHasSelection"
+  },
+  {
+    "key": "ctrl+k ctrl+alt+s",
+    "command": "-git.stageSelectedRanges",
+    "when": "isInDiffEditor"
+  },
+  // ctrl+3 opens file diff and moves to next hunk.
+  {
+    "key": "ctrl+3",
+    "command": "git.openChange",
+    "when": "editorFocus && !isInDiffEditor"
+  },
+  {
+    "key": "ctrl+k ctrl+3",
+    "command": "-editor.foldLevel3",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "ctrl+3",
+    "command": "-workbench.action.focusThirdEditorGroup"
+  },
+  {
+    "key": "ctrl+3",
+    "command": "workbench.action.compareEditor.nextChange",
+    "when": "editorFocus && isInDiffEditor"
+  },
+  {
+    "key": "alt+f5",
+    "command": "-workbench.action.editor.nextChange",
+    "when": "editorTextFocus && !textCompareEditorActive"
+  },
+  // ctrl+e only acts on the vim extension. 
+  {
+    "key": "ctrl+e",
+    "command": "-editor.action.toggleScreenReaderAccessibilityMode",
+    "when": "accessibilityHelpIsShown"
+  },
+  {
+    "key": "ctrl+e",
+    "command": "extension.vim_ctrl+e",
+    "when": "editorTextFocus && vim.active && vim.use<C-e> && !inDebugRepl"
+  },
+  {
+    "key": "ctrl+e",
+    "command": "-workbench.action.quickOpen"
+  },
+  // ctrl+q closes the open file.
+  {
+    "key": "ctrl+q",
+    "command": "-workbench.action.quickOpenView"
+  },
+  {
+    "key": "ctrl+q",
+    "command": "-workbench.action.quickOpenNavigateNextInViewPicker",
+    "when": "inQuickOpen && inViewsPicker"
+  },
+  {
+    "key": "ctrl+shift+w",
+    "command": "-workbench.action.closeWindow"
+  },
+  {
+    "key": "ctrl+w",
+    "command": "-workbench.action.terminal.killEditor",
+    "when": "terminalEditorFocus && terminalFocus && terminalHasBeenCreated || terminalEditorFocus && terminalFocus && terminalProcessSupported"
+  },
+  {
+    "key": "ctrl+q",
+    "command": "workbench.action.terminal.killActiveTab",
+    "when": "terminalHasBeenCreated && terminalTabsFocus || terminalIsOpen && terminalTabsFocus || terminalProcessSupported && terminalTabsFocus"
+  },
+  {
+    "key": "delete",
+    "command": "-workbench.action.terminal.killActiveTab",
+    "when": "terminalHasBeenCreated && terminalTabsFocus || terminalIsOpen && terminalTabsFocus || terminalProcessSupported && terminalTabsFocus"
+  },
+  // ctrl+g opens file search.
+  {
+    "key": "ctrl+g",
+    "command": "-hexEditor.goToOffset",
+    "when": "activeCustomEditorId == 'hexEditor.hexedit'"
+  },
+  {
+    "key": "ctrl+g",
+    "command": "-workbench.action.terminal.goToRecentDirectory",
+    "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
+  },
+  {
+    "key": "ctrl+g",
+    "command": "-extension.vim_ctrl+g",
+    "when": "editorTextFocus && vim.active && vim.use<C-g> && !inDebugRepl"
+  },
+  {
+    "key": "ctrl+g",
+    "command": "-workbench.action.gotoLine"
+  },
+  {
+    "key": "ctrl+g",
+    "command": "workbench.action.quickOpen"
+  },
+  // ctrl+hjkl for scope based cursor movement.
+  {
+    "key": "ctrl+h",
+    "command": "scope-navigator.ascend"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "scope-navigator.next-branch"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "scope-navigator.previous-branch"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "scope-navigator.descend"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "-workbench.action.togglePanel"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "-extension.vim_ctrl+j"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "-workbench.action.files.saveWithoutFormatting"
+  },
+  {
+    "key": "ctrl+k ctrl+left",
+    "command": "-workbench.action.focusLeftGroup"
+  },
+  {
+    "key": "ctrl+k ctrl+right",
+    "command": "-workbench.action.focusRightGroup"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "-extension.vim_ctrl+k"
+  },
+  {
+    "key": "ctrl+k ctrl+pagedown",
+    "command": "-workbench.action.nextEditorInGroup"
+  },
+  {
+    "key": "ctrl+k ctrl+pageup",
+    "command": "-workbench.action.previousEditorInGroup"
   }
 ]

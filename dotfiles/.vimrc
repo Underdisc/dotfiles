@@ -71,6 +71,26 @@ vnoremap <c-p> "+p
 inoremap <c-p> <c-r>*
 vnoremap <c-y> "+y
 
+" Apply and remove indents with tab and shift-tab in visual and normal modes.
+nnoremap <tab> >l
+vnoremap <tab> > gv
+nnoremap <s-tab> <h
+vnoremap <s-tab> < gv
+
+" Faster up and down motions.
+nnoremap <s-j> 5j
+nnoremap <s-k> 5k
+vnoremap <s-j> 5j
+vnoremap <s-k> 5k
+
+" Easier exit mapping.
+nnoremap <c-e> <c-[>
+inoremap <c-e> <c-[>
+vnoremap <c-e> <c-[>
+
+" Easier quit mapping.
+nnoremap <c-q> :q<enter>
+
 " Commands for quick file access.
 " Changes the working directory to the active file's directory. This will only
 " affect the working directory of the selected pane.
