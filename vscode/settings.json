@@ -15,21 +15,36 @@
   "editor.renderWhitespace": "all",
   "editor.wordWrap": "wordWrapColumn",
   "editor.wrappingIndent": "indent",
+  "editor.inlayHints.enabled": "off",
+  "editor.lineNumbers": "relative",
+  "editor.minimap.enabled": false,
+  "editor.cursorStyle": "block",
+  "editor.cursorBlinking": "solid",
+  "editor.cursorSurroundingLines": 5,
+  "editor.cursorSurroundingLinesStyle": "all",
+  "diffEditor.renderSideBySide": false,
+  "workbench.sideBar.location": "right",
   "workbench.editor.enablePreview": false,
-  "workbench.editor.showTabs": false,
+  "workbench.editor.showTabs": "single",
   "workbench.colorTheme": "Default High Contrast",
   "workbench.colorCustomizations": {
     "editorBracketHighlight.foreground1": "#ffffff",
     "editorBracketHighlight.foreground2": "#68aeff",
     "editorBracketHighlight.foreground3": "#5de1ff",
-    "editorBracketHighlight.foreground4": "#5bffa5"
+    "editorBracketHighlight.foreground4": "#5bffa5",
+    "editorCursor.foreground": "#00ff00",
+    "editorCursor.background": "#303030",
+    "editor.selectionBackground": "#00b0b0",
+    "editor.selectionForeground": "#303030",
+    "editor.lineHighlightBorder": "#00ffff",
+    "diffEditor.removedTextBorder": "#ff5500",
   },
   "explorer.compactFolders": false,
   "explorer.autoReveal": false,
   "explorer.confirmDragAndDrop": false,
   "files.eol": "\n",
   "files.exclude": {
-    "**/.git": false
+    "**/.git": false,
   },
   "files.associations": {
     "*.glh": "glsl",
@@ -103,19 +118,41 @@
     "xutility": "cpp"
   },
   "git.requireGitUserConfig": false,
+  "scm.diffDecorations": "gutter",
+  "chat.commandCenter.enabled": false,
+  // language specific
+  "[javascript]": {
+    "editor.defaultFormatter": "xaver.clang-format"
+  },
+  "[cpp]": {
+    "editor.defaultFormatter": "xaver.clang-format"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "xaver.clang-format"
+  },
   // extensions
   "vim.hlsearch": true,
   "vim.searchHighlightColor": "#006000",
   "vim.searchHighlightTextColor": "#FFFFFF",
   "vim.vimrc.enable": true,
   "C_Cpp.errorSquiggles": "enabled",
-  "C_Cpp.clang_format_style": "file",
   "C_Cpp.default.cStandard": "c11",
   "C_Cpp.default.cppStandard": "c++17",
+  "C_Cpp.default.intelliSenseMode": "msvc-x64",
   "C_Cpp.loggingLevel": "None",
-  "hexeditor.columnWidth": 16,
+  "C_Cpp.codeAnalysis.clangTidy.codeAction.formatFixes": false,
+  "hexeditor.columnWidth": 24,
   "hexeditor.showDecodedText": true,
   "hexeditor.defaultEndianness": "little",
   "hexeditor.inspectorType": "aside",
-  "glassit.alpha": 220
+  "glassit.alpha": 220,
+  "gitlens.codeLens.enabled": false,
+  "gitlens.currentLine.enabled": false,
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.defaultGravatarsStyle": "identicon",
+  "cmake.showOptionsMovedNotification": false,
+  "cmake.pinnedCommands": [
+    "workbench.action.tasks.configureTaskRunner",
+    "workbench.action.tasks.runTask"
+  ],
 }
