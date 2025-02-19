@@ -7,7 +7,9 @@ au BufNewFile,BufRead *.md,*.txt,*.tex,gitcommit set colorcolumn=
 au FileType gitcommit set colorcolumn=
 
 " Spellchecking
-set spell spelllang=en_us
+command Spellen set spell spelllang=en_us
+command Spellde set spell spelllang=de
+command Spellno set nospell
 
 " Allow mouse usage in vim because sometimes I just want to sit back and scroll.
 set mouse=a
