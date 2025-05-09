@@ -95,9 +95,6 @@ nnoremap <c-e> <c-[>
 inoremap <c-e> <c-[>
 vnoremap <c-e> <c-[>
 
-" Easier quit mapping.
-nnoremap <c-q> :q<enter>
-
 " Commands for quick file access.
 " Changes the working directory to the active file's directory. This will only
 " affect the working directory of the selected pane.

@@ -1,14 +1,6 @@
 [
-  // alt+h and alt+l switch between vertical split groups.
-  {
-    "key": "alt+h",
-    "command": "workbench.action.focusLeftGroup"
-  },
-  {
-    "key": "alt+l",
-    "command": "workbench.action.focusRightGroup"
-  },
-  // alt+j and alt+k switch between files in a group.
+  // alt+j|k to switch between editors in a group.
+  // alt+h|l to switch between the groups themselves.
   {
     "key": "alt+l",
     "command": "-toggleSearchEditorContextLines",
@@ -20,6 +12,14 @@
     "when": "testing.isPeekVisible"
   },
   {
+    "key": "alt+h",
+    "command": "workbench.action.focusLeftGroup"
+  },
+  {
+    "key": "alt+l",
+    "command": "workbench.action.focusRightGroup"
+  },
+  {
     "key": "alt+j",
     "command": "workbench.action.nextEditorInGroup"
   },
@@ -27,7 +27,8 @@
     "key": "alt+k",
     "command": "workbench.action.previousEditorInGroup"
   },
-  // ctrl+5 and ctrl+6 changes an editor's group.
+  //alt+down/up moves the editor up/down within the group.
+  //alt+left/right moves the editor to the next/previous group.
   {
     "key": "ctrl+alt+right",
     "command": "-workbench.action.moveEditorToPreviousGroup"
@@ -37,12 +38,28 @@
     "command": "-workbench.action.moveEditorToNextGroup"
   },
   {
-    "key": "alt+6",
+    "key": "ctrl+shift+pageup",
+    "command": "-workbench.action.moveEditorLeftInGroup"
+  },
+  {
+    "key": "ctrl+shift+pagedown",
+    "command": "-workbench.action.moveEditorRightInGroup"
+  },
+  {
+    "key": "alt+left",
     "command": "workbench.action.moveEditorToPreviousGroup"
   },
   {
-    "key": "alt+5",
+    "key": "alt+right",
     "command": "workbench.action.moveEditorToNextGroup"
+  },
+  {
+    "key": "alt+up",
+    "command": "workbench.action.moveEditorLeftInGroup"
+  },
+  {
+    "key": "alt+down",
+    "command": "workbench.action.moveEditorRightInGroup"
   },
   // ctrl+z formats the file.
   {
@@ -115,19 +132,14 @@
     "key": "ctrl+e",
     "command": "-workbench.action.quickOpen"
   },
-  // ctrl+q closes the open file.
-  {
-    "key": "ctrl+q",
-    "command": "-workbench.action.quickOpenView"
-  },
-  {
-    "key": "ctrl+q",
-    "command": "-workbench.action.quickOpenNavigateNextInViewPicker",
-    "when": "inQuickOpen && inViewsPicker"
-  },
+  // alt+q closes the open file.
   {
     "key": "ctrl+shift+w",
     "command": "-workbench.action.closeWindow"
+  },
+  {
+    "key": "ctrl+w",
+    "command": "-workbench.action.closeActiveEditor"
   },
   {
     "key": "ctrl+w",
@@ -135,37 +147,17 @@
     "when": "terminalEditorFocus && terminalFocus && terminalHasBeenCreated || terminalEditorFocus && terminalFocus && terminalProcessSupported"
   },
   {
-    "key": "ctrl+q",
-    "command": "workbench.action.terminal.killActiveTab",
-    "when": "terminalHasBeenCreated && terminalTabsFocus || terminalIsOpen && terminalTabsFocus || terminalProcessSupported && terminalTabsFocus"
-  },
-  {
     "key": "delete",
     "command": "-workbench.action.terminal.killActiveTab",
     "when": "terminalHasBeenCreated && terminalTabsFocus || terminalIsOpen && terminalTabsFocus || terminalProcessSupported && terminalTabsFocus"
   },
-  // ctrl+g opens file search.
   {
-    "key": "ctrl+g",
-    "command": "-hexEditor.goToOffset",
-    "when": "activeCustomEditorId == 'hexEditor.hexedit'"
+    "key": "alt+q",
+    "command": "workbench.action.closeActiveEditor"
   },
+  // alt+g opens file search.
   {
-    "key": "ctrl+g",
-    "command": "-workbench.action.terminal.goToRecentDirectory",
-    "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
-  },
-  {
-    "key": "ctrl+g",
-    "command": "-extension.vim_ctrl+g",
-    "when": "editorTextFocus && vim.active && vim.use<C-g> && !inDebugRepl"
-  },
-  {
-    "key": "ctrl+g",
-    "command": "-workbench.action.gotoLine"
-  },
-  {
-    "key": "ctrl+g",
+    "key": "alt+g",
     "command": "workbench.action.quickOpen"
   },
   // ctrl+hjkl for scope based cursor movement.
