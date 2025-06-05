@@ -1,5 +1,6 @@
 set noswapfile
 colorscheme rainbow
+syntax on
 
 " Vertical bar.
 set colorcolumn=81
