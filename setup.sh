@@ -3,30 +3,21 @@
 # fullpath_to_home is the full path to your home directory (~/)
 # For example: C:/cygwin64/home/underdisc
 
-destination_dir=$1
-source_dir="dotfiles"
-script_dir=$PWD
+home_full_path=$1
+script_full_path=$(realpath "$0")
+script_dir=$(dirname "$script_full_path")
 
 # This will allow us to account for dotfiles. Dotfiles are not
 # extracted from a directory in a shell script by default.
 shopt -s dotglob
 
-cd $destination_dir
-for source_fullpath in $script_dir/$source_dir/*; do
-    # We ignore all directories.
-    if [ -d "$source_fullpath" ]; then
-        continue;
-    fi
-    
-    # Remove a file in the destination if it occupies the name for the new
-    # symlink and create the symlink.
-    filename=`basename $source_fullpath`
-    destination_fullpath=$destination_dir/$filename
-    if [ -f "$destination_fullpath" ] || [ -L "$destination_fullpath" ]; then
-        rm $destination_fullpath
-    fi
-    ln -s $source_fullpath $filename
+# Create a symlink for every entry in dotfiles/. Existing files are overwritten.
+for repo_dotfile in $script_dir/dotfiles/*; do
+  home_dotfile=$home_full_path/$(basename $repo_dotfile)
+  if [ -f "$home_dotfile" ] || [ -L "$home_dotfile" ]; then
+    rm $home_dotfile
+  fi
+  ln -s $repo_dotfile $home_dotfile
 done
-cd $script_dir
 
 shopt -u dotglob
