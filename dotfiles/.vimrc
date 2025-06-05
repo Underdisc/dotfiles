@@ -96,6 +96,12 @@ nnoremap <c-e> <c-[>
 inoremap <c-e> <c-[>
 vnoremap <c-e> <c-[>
 
+" Quick write and quit
+execute "set <M-w>=\ew"
+nnoremap <M-w> :w<enter>
+execute "set <M-q>=\eq"
+nnoremap <M-q> :q<enter>
+
 " Commands for quick file access.
 " Changes the working directory to the active file's directory. This will only
 " affect the working directory of the selected pane.
