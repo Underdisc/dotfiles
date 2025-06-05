@@ -1,5 +1,4 @@
-#!/bin/sh
-
+#!/bin/bash
 # Usage: ./setup.sh <fullpath_to_home>
 # fullpath_to_home is the full path to your home directory (~/)
 # For example: C:/cygwin64/home/underdisc
