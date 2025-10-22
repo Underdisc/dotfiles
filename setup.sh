@@ -11,8 +11,8 @@ script_dir=$(dirname "$script_full_path")
 # extracted from a directory in a shell script by default.
 shopt -s dotglob
 
-# Create a symlink for every entry in dotfiles/. Existing files are overwritten.
-for repo_dotfile in $script_dir/dotfiles/*; do
+# Create a symlink for every entry in home/. Existing files are overwritten.
+for repo_dotfile in $script_dir/home/*; do
   home_dotfile=$home_full_path/$(basename $repo_dotfile)
   if [ -f "$home_dotfile" ] || [ -L "$home_dotfile" ]; then
     rm $home_dotfile
