@@ -1,8 +1,11 @@
 # dotfiles
-Just a place to keep my dotfiles.
+A place to keep, maintain, and share my dotfiles.
 
 # Before you clone
 Make sure you set autocrlf to false in your git config so the line endings of files aren't changed when they are cloned. `git config --global core.autocrlf false` will handle it.
+
+# After cloning
+This repo contains git submodules. Before proceeding with the setup script, run `git submodule update --init --recursive`.
 
 # setup.sh
 There is a shell script called `setup.sh` in the root of this repo. Run it like this.
