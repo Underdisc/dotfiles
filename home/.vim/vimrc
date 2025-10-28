@@ -1,3 +1,4 @@
+so ~/.vim/grund_keybinds.vim
 set noswapfile
 colorscheme rainbow
 syntax on
@@ -53,54 +54,6 @@ set autoindent
 " running checktime. The full functionality of autoread does not work with
 " tmux on cygwin.
 set autoread
-
-" Instead of k and j traversing over a single physical line, they will only
-" traverse over visible lines. This makes editing very large wrapped lines
-" easier.
-nnoremap <silent> k gk
-nnoremap <silent> j gj
-nnoremap <silent> 0 g0
-nnoremap <silent> $ g$
-
-" Ctrl-h|j|k|l will move to a different vim pane.
-nnoremap <c-h> <c-w>h
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-l> <c-w>l
-
-" Copy and pasting from clipboard using Ctrl-p|v
-nnoremap <c-p> "+p
-vnoremap <c-p> "+p
-inoremap <c-p> <c-r>*
-vnoremap <c-y> "+y
-
-" Apply and remove indents with tab and shift-tab in visual and normal modes.
-nnoremap <tab> >l
-vnoremap <tab> > gv
-nnoremap <s-tab> <h
-vnoremap <s-tab> < gv
-
-" Faster fundamental motions.
-nnoremap <s-h> 5h
-nnoremap <s-j> 5j
-nnoremap <s-k> 5k
-nnoremap <s-l> 5l
-
-vnoremap <s-h> 5h
-vnoremap <s-j> 5j
-vnoremap <s-k> 5k
-vnoremap <s-l> 5l
-
-" Easier exit mapping.
-nnoremap <c-e> <c-[>
-inoremap <c-e> <c-[>
-vnoremap <c-e> <c-[>
-
-" Quick write and quit
-execute "set <M-w>=\ew"
-nnoremap <M-w> :w<enter>
-execute "set <M-q>=\eq"
-nnoremap <M-q> :q<enter>
 
 " Commands for quick file access.
 " Changes the working directory to the active file's directory. This will only
