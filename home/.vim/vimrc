@@ -3,6 +3,10 @@ set noswapfile
 colorscheme rainbow
 syntax on
 
+" Escape will not make it possible to enter alternate keys while in insert mode.
+" It will instead exit insert mode instantly.
+set noesckeys
+
 " Vertical bar.
 set colorcolumn=81
 au BufNewFile,BufRead *.md,*.txt,*.tex,gitcommit set colorcolumn=
