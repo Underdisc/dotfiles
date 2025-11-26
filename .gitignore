@@ -1,1 +1,3 @@
+home/.config/awesome/local_paths.lua
 .netrwhist
+.luarc.json
