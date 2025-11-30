@@ -1,4 +1,6 @@
 so ~/.vim/grund_keybinds.vim
+so ~/.vim/defaults.vim
+
 set noswapfile
 colorscheme rainbow
 syntax on
@@ -44,11 +46,6 @@ set relativenumber
 " Show Invisibles
 set list
 set listchars=tab:>\ ,space:.,nbsp:.,trail:.,eol:~,precedes:<,extends:>
-
-" Tabs are two spaces wide and pressing tab inserts two spaces by default.
-set softtabstop=2
-set shiftwidth=2
-set expandtab
 
 " After pressing enter, the new line will be auto indented to match the
 " indentation of the above line.
