@@ -71,8 +71,3 @@ nnoremap <tab> >l
 vnoremap <tab> > gv
 nnoremap <s-tab> <h
 vnoremap <s-tab> < gv
-
-" Easier exit mapping.
-nnoremap <c-e> <c-[>
-inoremap <c-e> <c-[>
-vnoremap <c-e> <c-[>
