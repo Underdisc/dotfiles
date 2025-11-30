@@ -61,6 +61,9 @@ vnoremap <c-y> "+y
 nnoremap <c-c> "+y
 vnoremap <c-c> "+y
 
+" Enforce c-i jump navigation
+nnoremap <c-i> <c-i>
+
 " Visual block is activated with Alt-v in order to avoid conflict with Ctrl-v.
 execute "set <a-v>=\ev"
 nnoremap <a-v> <c-v>
