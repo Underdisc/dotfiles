@@ -72,17 +72,6 @@ vnoremap <tab> > gv
 nnoremap <s-tab> <h
 vnoremap <s-tab> < gv
 
-" Faster fundamental motions.
-nnoremap <s-h> 5h
-nnoremap <s-j> 5j
-nnoremap <s-k> 5k
-nnoremap <s-l> 5l
-
-vnoremap <s-h> 5h
-vnoremap <s-j> 5j
-vnoremap <s-k> 5k
-vnoremap <s-l> 5l
-
 " Easier exit mapping.
 nnoremap <c-e> <c-[>
 inoremap <c-e> <c-[>
