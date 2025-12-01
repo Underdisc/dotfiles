@@ -8,6 +8,11 @@ shopt -s histappend
 HISTSIZE=-1
 HISTFILESIZE=-1
 
+# Set environment variables
+export EDITOR="nvim"
+export MANPAGER="nvim +Man!"
+export PAGER="less"
+
 alias home='cd ~/home'
 alias dl='cd ~/home/download/new'
 alias nb='node build.js'
