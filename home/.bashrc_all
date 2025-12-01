@@ -21,6 +21,7 @@ alias diff='diff --color'
 alias lapdf='latex -c-style-errors -output-format=pdf'
 alias rsyncd='rsync --daemon --no-detach'
 alias archive='rsync --human-readable --recursive --times --modify-window=3 --devices --links --specials  --verbose --itemize-changes --progress'
+alias vim='nvim'
 
 alias ls='ls --color=auto'
 alias la='ls -a'
