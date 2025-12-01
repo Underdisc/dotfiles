@@ -45,3 +45,5 @@ clgs()
   clear
   git lgs
 }
+
+eval "$(zoxide init bash)"
