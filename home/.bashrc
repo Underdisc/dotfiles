@@ -5,7 +5,9 @@ hostname=$(hostname)
 if [[ $hostname =~ breakout ]]; then
   source .bashrc_breakout
 elif [[ $hostname =~ octane ]]; then
-  source .bashrc_octane
+  PATH=$PATH:~/.local/bin
+  source .bashrc_git_helpers
+  source .bashrc_octane_locals
 elif [[ $hostname =~ takumi ]]; then
   source .bashrc_takumi
 elif [[ $hostname =~ Joey-Guesktop ]]; then
