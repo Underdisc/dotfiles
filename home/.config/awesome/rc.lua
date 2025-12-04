@@ -197,17 +197,15 @@ end
 
 -- Create the widgets representing the different tasks on each screen.
 local tasklist_buttons = gears.table.join(
-  awful.button({}, 1, function (c)
-    if c == client.focus then
-      c.minimized = true
-    else
+  awful.button({}, 1,
+    function (c)
       c:emit_signal(
         "request::activate",
         "tasklist",
         {raise = true}
       )
     end
-  end)
+  )
 )
 
 for s in screen do
@@ -586,30 +584,26 @@ local clientkeys = gears.table.join(
     function(c) c:kill() end,
     {description = "close", group = "client"}),
   awful.key({super}, "c",
-    function(c) c.minimized = true end,
-    {description = "minimize", group = "client"}),
+    function(c)
+      c.floating = false
+      c.maximized = false
+      c.border_width = beautiful.border_width
+    end,
+    {description = "tiling mode", group = "client"}),
   awful.key({super}, "v",
     function(c)
-      if c.maximized == false then
-        c.floating = false
-        c.maximized = true
-      else
-        c.maximized = false
-      end
+      c.floating = false
+      c.maximized = true
       c.border_width = beautiful.border_width
     end,
-    {description = "maximize", group = "client"}),
+    {description = "maximized mode", group = "client"}),
   awful.key({super}, "f",
     function(c)
-      if c.floating == false then
-        c.maximized = false
-        c.floating = true
-      else
-        c.floating = false
-      end
+      c.floating = true
+      c.maximized = false
       c.border_width = beautiful.border_width
     end,
-    {description = "toggle floating", group = "client"})
+    {description = "floating mode", group = "client"})
 )
 
 -- Mouse controls for moving and resizing floating clients.
