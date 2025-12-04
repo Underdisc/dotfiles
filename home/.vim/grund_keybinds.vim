@@ -54,13 +54,8 @@ nnoremap <a-x> :close<enter>
 " Ctrl-Backspace deletes the previous word in insert mode.
 inoremap <c-bs> <c-W>
 
-" Copy and pasting from clipboard using Ctrl-p|v and Ctrl-y|c. Ctrl-v is handled
-" by the terminal emulator.
-nnoremap <c-p> "+p
-vnoremap <c-p> "+p
-inoremap <c-p> <c-r>*
-nnoremap <c-y> "+y
-vnoremap <c-y> "+y
+" Copy to clipboard with Ctrl-c. Ctrl-v pasting is handled by the terminal
+" emulator (kitty).
 nnoremap <c-c> "+y
 vnoremap <c-c> "+y
 
