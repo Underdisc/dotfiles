@@ -4,4 +4,5 @@ xrandr \
   --output DVI-D-0 --auto --rotate left   --pos 1920x0
 xset r rate 370 30
 unclutter --timeout 3 -jitter 5 &
+xrdb <<< "Xcursor.size: 16"
 exec i3
