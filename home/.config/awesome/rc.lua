@@ -492,7 +492,10 @@ local globalkeys = gears.table.join(
     {description = "create a screenshot", group = "launcher"}),
   awful.key({super, ctrl}, "r",
     awesome.restart,
-    {description = "reload awesome", group = "awesome"})
+    {description = "reload awesome", group = "awesome"}),
+  awful.key({super, ctrl}, "Escape",
+    awesome.quit,
+    {description = "quit awesome", group = "awesome"})
 )
 
 -- Keybinds for switching and moving clients between tags
