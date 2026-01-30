@@ -1,0 +1,4 @@
+# Forwards and backwards searching automatically wrap upon reaching the end or
+# top of the file.
+/ forw-search ^W
+? back-search ^W
