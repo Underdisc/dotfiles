@@ -1,0 +1,108 @@
+# i3 config: refer to https://i3wm.org/docs/userguide.html
+
+# Variables to make all keybindings more readable
+set $alt Mod1
+set $super Mod4
+
+# Start a terminal.
+bindsym $super+t exec kitty
+# Start rofi (a program launcher).
+bindsym $super+r exec --no-startup-id rofi -show run
+
+# Split verticaly and horizontaly.
+bindsym $super+v split v
+bindsym $super+b split h
+
+# Kill focused window.
+bindsym $super+x kill
+
+# Change focus.
+bindsym $super+h focus left
+bindsym $super+j focus down
+bindsym $super+k focus up
+bindsym $super+l focus right
+
+# Move focused window.
+bindsym $super+Shift+0 move left
+bindsym $super+5       move down
+bindsym $super+6       move up
+bindsym $super+7       move right
+
+# Focus parent/child container.
+bindsym $super+$alt+j focus child
+bindsym $super+$alt+k focus parent
+
+# Define the workspaces and the displays they occupy.
+set $wsh 1:h
+set $wsj 2:j
+set $wsk 3:k
+set $wsl 4:l
+set $wss 5:;
+set $wsa 6:'
+workspace "$wsh" output primary
+workspace "$wsj" output primary
+workspace "$wsk" output primary
+workspace "$wsl" output DVI-D-0
+workspace "$wss" output DVI-D-0
+workspace "$wsa" output DVI-D-0
+
+# Switch workspaces.
+bindsym $super+Control+h          workspace "$wsh"
+bindsym $super+Control+j          workspace "$wsj"
+bindsym $super+Control+k          workspace "$wsk"
+bindsym $super+Control+l          workspace "$wsl"
+bindsym $super+Control+semicolon  workspace "$wss"
+bindsym $super+Control+apostrophe workspace "$wsa"
+
+# Move focused container to a workspace.
+bindsym $super+Control+Shift+0 move container to workspace "$wsh"; workspace "$wsh"
+bindsym $super+Control+5       move container to workspace "$wsj"; workspace "$wsj"
+bindsym $super+Control+6       move container to workspace "$wsk"; workspace "$wsk"
+bindsym $super+Control+7       move container to workspace "$wsl"; workspace "$wsl"
+bindsym $super+Control+8       move container to workspace "$wss"; workspace "$wss"
+bindsym $super+Control+9       move container to workspace "$wsa"; workspace "$wsa"
+
+# Change container layouts.
+bindsym $super+a layout tabbed
+bindsym $super+s layout toggle split
+bindsym $super+d layout stacking
+bindsym $super+f floating toggle
+bindsym $super+g fullscreen toggle
+
+# Restart i3 while perserving the session.
+bindsym $super+Control+r restart
+# Exit the X session.
+bindsym $super+Control+Escape \
+  exec "i3-nagbar -t warning -m 'Exit X session?' -B 'Yes' 'i3-msg exit'"
+
+# Use Mouse+$super to drag floating windows to their wanted position.
+floating_modifier $super
+tiling_drag modifier
+
+# Set font and background images.
+font pango:JetBrainsMono Nerd Font Italic Bold 10
+exec_always feh --bg-fill $WALLPAPER_HORIZONTAL --bg-fill $WALLPAPER_VERTICAL
+
+# Color themeing for clients
+title_align center
+default_border pixel 1
+hide_edge_borders none
+# Order of colors: border, background, text, indicator, child_border
+client.focused           #cccccc #cccccc #222222 #cccccc #cccccc
+client.focused_tab_title #cccccc #cccccc #222222 #cccccc #cccccc
+client.focused_inactive  #444444 #444444 #dddddd #444444 #444444
+client.unfocused         #222222 #222222 #cccccc #222222 #222222
+client.urgent            #cccccc #cccccc #222222 #cccccc #cccccc
+client.background        #ffffff00
+
+# Begin on the correct workspace.
+exec --no-startup-id i3-msg workspace 3:k
+
+exec --no-startup-id picom -b
+exec --no-startup-id polybar primary
+exec --no-startup-id polybar secondary
+
+# Lock the screen upon sleep, hibernation, screen saver, or a hotkey.
+exec --no-startup-id xss-lock ~/.config/i3/lock.sh
+bindsym $super+Escape exec ~/.config/i3/lock.sh
+

@@ -1,3 +1,0 @@
-export PATH=$PATH:~/sys/bin
-
-source ~/.bashrc_git_helpers

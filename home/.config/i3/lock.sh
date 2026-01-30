@@ -1,0 +1,34 @@
+i3lock \
+  --image=$WALLPAPER_FULL \
+  --bar-indicator \
+  --bar-orientation=horizontal \
+  --bar-total-width=420 \
+  --bar-base-width=7 \
+  --bar-pos=140:1120 \
+  --bar-count=10 \
+  --bar-max-height=300 \
+  --bar-step=300 \
+  --bar-periodic-step=100 \
+  --bar-color=ffffffff \
+  --ringver-color=00ff00ff \
+  --ringwrong-color=ff0000ff \
+  --keyhl-color=ffffffff \
+  --bshl-color=ffffffff \
+  --separator-color=ffffffff \
+  --redraw-thread \
+  --refresh-rate=1 \
+  --verif-text="" \
+  --wrong-text="" \
+  --noinput-text="" \
+  --force-clock \
+  --date-color=ffffffff \
+  --time-color=ffffffff \
+  --date-font="JetBrainsMono Nerd Font:slant=italic" \
+  --time-font="JetBrainsMono Nerd Font:slant=italic" \
+  --date-size=90 \
+  --time-size=90 \
+  --date-pos=350:1000 \
+  --time-pos=350:1100 \
+  --date-str="%y-%m-%d" \
+  --time-str="%H:%M:%S"
+
