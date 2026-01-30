@@ -12,8 +12,6 @@ theme.bg_normal   = "#222222"
 theme.fg_normal   = "#cccccc"
 theme.bg_contrast = "#333333"
 theme.fg_contrast = "#dddddd"
-theme.bg_unfocus  = "#444444"
-theme.fg_unfocus  = "#eeeeee"
 theme.bg_hover    = "#444444"
 theme.fg_hover    = "#ffffff"
 theme.bg_focus    = "#cccccc"
@@ -27,7 +25,7 @@ theme.wallpaper_horizontal = local_paths.wallpaper_horizontal
 theme.wallpaper_vertical = local_paths.wallpaper_vertical
 
 theme.border_width  = 2
-theme.border_normal = theme.bg_unfocus
+theme.border_normal = theme.bg_contrast
 theme.border_focus  = theme.bg_focus
 
 theme.tasklist_bg_normal = theme.bg_contrast

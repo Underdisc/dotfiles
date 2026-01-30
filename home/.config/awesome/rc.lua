@@ -3,7 +3,6 @@
 require("awful.autofocus")
 local awful = require("awful")
 local beautiful = require("beautiful")
-local common = require("awful.widget.common")
 local gears = require("gears")
 local naughty = require("naughty")
 local wibox = require("wibox")
@@ -49,7 +48,6 @@ end)
 client.connect_signal("focus",
   function(c)
     c.border_color = beautiful.border_focus
-    c.screen.last_focus = c
   end
 )
 client.connect_signal("unfocus",
@@ -80,7 +78,7 @@ for s in screen do
   s.focus_widget = wibox.widget {
     wibox.widget.base.empty_widget(),
     forced_width = 26,
-    bg = beautiful.bg_unfocus,
+    bg = beautiful.bg_contrast,
     widget = wibox.container.background,
   }
 end
@@ -92,7 +90,7 @@ local function focus_screen(new_focus_screen)
       s.focus_widget.bg = beautiful.bg_focus
     else
       s.overlay_widget.input_passthrough = false
-      s.focus_widget.bg = beautiful.bg_unfocus
+      s.focus_widget.bg = beautiful.bg_contrast
     end
   end
 end
@@ -170,28 +168,7 @@ for s in screen do
       },
       id = 'background_role',
       widget = wibox.container.background,
-      create_callback = function(self, tag) tag.wibar_widget = self end,
     },
-    update_function = function(w, buttons, label, data, tags, args)
-      common.list_update(w, buttons, label, data, tags, args)
-      for s_update in screen do
-        for _, t in ipairs(s_update.tags) do
-          if not t.wibar_widget then goto continue end
-          t.wibar_widget.bg = beautiful.bg_contrast
-          t.wibar_widget.fg = beautiful.fg_contrast
-          if t.selected then
-            if t.screen == awful.screen.focused() then
-              t.wibar_widget.bg = beautiful.bg_focus
-              t.wibar_widget.fg = beautiful.fg_focus
-            else
-              t.wibar_widget.bg = beautiful.bg_unfocus
-              t.wibar_widget.fg = beautiful.fg_unfocus
-            end
-          end
-          ::continue::
-        end
-      end
-    end
   }
 end
 
@@ -242,28 +219,7 @@ for s in screen do
       },
       id = 'background_role',
       widget = wibox.container.background,
-      create_callback = function(self, client) client.wibar_widget = self end,
     },
-    update_function = function(w, buttons, label, data, clients, args)
-      common.list_update(w, buttons, label, data, clients, args)
-      for s_update in screen do
-        for _, c in pairs(s_update.clients) do
-          if not c.wibar_widget then
-            goto continue
-          end
-          c.wibar_widget.bg = beautiful.bg_contrast
-          c.wibar_widget.fg = beautiful.fg_contrast
-          if c == client.focus then
-            c.wibar_widget.bg = beautiful.bg_focus
-            c.wibar_widget.fg = beautiful.fg_focus
-          elseif s.last_focus and c == s.last_focus then
-            c.wibar_widget.bg = beautiful.bg_unfocus
-            c.wibar_widget.fg = beautiful.fg_unfocus
-          end
-          ::continue::
-        end
-      end
-    end
   }
 end
 
