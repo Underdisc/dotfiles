@@ -6,8 +6,14 @@ set $super Mod4
 
 # Start a terminal.
 bindsym $super+t exec kitty
+
 # Start rofi (a program launcher).
 bindsym $super+r exec --no-startup-id rofi -show run
+
+# Start flameshot (screen capture). The flameshot daemon must be running in
+# order to use copy/pasting features.
+exec flameshot
+bindsym $super+Shift+s exec flameshot gui
 
 # Split verticaly and horizontaly.
 bindsym $super+v split v
