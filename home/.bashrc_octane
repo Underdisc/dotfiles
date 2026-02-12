@@ -1,0 +1,5 @@
+  source .bashrc_git_helpers
+  source .bashrc_octane_locals
+
+  PATH=$PATH:~/.local/bin
+  alias nb="node build.js"
