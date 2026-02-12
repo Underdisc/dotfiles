@@ -9,4 +9,7 @@ xrandr \
 xset r rate 370 30
 unclutter --timeout 3 -jitter 5 &
 xrdb <<< "Xcursor.size: 16"
+
+xmodmap "$XMODMAP_CONFIG"
+
 exec i3
