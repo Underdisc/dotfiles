@@ -8,11 +8,11 @@ set $super Mod4
 bindsym $super+t exec kitty
 
 # Start rofi (a program launcher).
-bindsym $super+r exec --no-startup-id rofi -show run
+bindsym $super+r exec rofi -show run
 
 # Start flameshot (screen capture). The flameshot daemon must be running in
 # order to use copy/pasting features.
-exec flameshot
+exec --no-startup-id flameshot
 bindsym $super+Shift+s exec flameshot gui
 
 # Split verticaly and horizontaly.
@@ -87,7 +87,7 @@ tiling_drag modifier
 
 # Set font and background images.
 font pango:JetBrainsMono Nerd Font Italic Bold 10
-exec_always feh --bg-fill $WALLPAPER_HORIZONTAL --bg-fill $WALLPAPER_VERTICAL
+exec_always --no-startup-id feh --bg-fill $WALLPAPER_HORIZONTAL --bg-fill $WALLPAPER_VERTICAL
 
 # Color themeing for clients
 title_align center
