@@ -1,4 +1,8 @@
 #!/bin/sh
+
+# Enable drive automounting.
+udiskie --automount --no-notify &
+
 xrandr \
   --output DP-0    --auto --rotate normal --pos 0x683 --primary \
   --output DVI-D-0 --auto --rotate left   --pos 1920x0
