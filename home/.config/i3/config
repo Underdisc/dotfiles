@@ -4,6 +4,9 @@
 set $alt Mod1
 set $super Mod4
 
+# Open a file browser.
+bindsym $super+e exec thunar
+
 # Start a terminal.
 bindsym $super+t exec kitty
 
