@@ -1,0 +1,65 @@
+// Rofi Theme
+// A heavily edited version of `rofi -dump-theme` from rofi version 2.0.0.
+
+* {
+  bg-normal:   #222222;
+  fg-normal:   #cccccc;
+  bg-focused:  #cccccc;
+  fg-focused:  #222222;
+  bg-selected: var(bg-focused);
+  fg-selected: var(fg-focused);
+  bg-contrast: #333333;
+  fg-contrast: #dddddd;
+  spacing: 0px;
+}
+
+window {
+  width:   15em;
+  border:  1px;
+  padding: 0px;
+  border-color:     var(bg-focused);
+  background-color: var(bg-normal);
+  font: "JetBrainsMono Nerd Font Italic 12";
+}
+
+inputbar {
+  enabled: true;
+  padding: 2px 5px;
+  background-color: var(bg-contrast);
+  text-color:       var(fg-contrast);
+  children: ["prompt", "textbox-prompt-colon", "entry", "overlay", "num-filtered-rows", "textbox-num-sep", "num-rows", "case-indicator"];
+}
+entry {
+  margin:  0px;
+  padding: 0px;
+  text-color:   var(fg-normal);
+  font: "JetBrainsMono Nerd Font Italic Bold 12";
+  placeholder:  "";
+  cursor:       text;
+  cursor-width: 2px;
+}
+prompt, textbox-prompt-colon, overlay, num-filtered-rows, textbox-num-sep, num-rows, case-indicator {
+  enabled: false;
+}
+
+listview {
+  border:  0px;
+  margin:  0px;
+  padding: 0px;
+  spacing: 0px;
+  scrollbar: false;
+}
+element {
+  border:  0px;
+  padding: 1px 5px;
+  cursor:  pointer;
+}
+element normal.normal, element alternate.normal {
+  background-color: var(bg-normal);
+  text-color:       var(fg-normal);
+}
+element selected.normal {
+  background-color: var(bg-selected);
+  text-color:       var(fg-selected);
+}
+
