@@ -27,6 +27,7 @@ vim.o.mouse = 'a'
 -- Wrapped lines use the indent of the original line with one additional ident.
 vim.o.breakindent = true
 vim.o.breakindentopt = "shift:2"
+vim.o.linebreak = true
 -- Display tabs and trailing spaces.
 vim.o.list = true
 vim.opt.listchars = {space = ' ', tab = '-->', trail = '⋅'}
