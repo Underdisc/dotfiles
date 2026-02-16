@@ -94,7 +94,7 @@ exec_always --no-startup-id feh --bg-fill $WALLPAPER_HORIZONTAL --bg-fill $WALLP
 
 # Color themeing for clients
 title_align center
-default_border pixel 1
+default_border normal 1
 hide_edge_borders none
 # Order of colors: border, background, text, indicator, child_border
 client.focused           #cccccc #cccccc #222222 #cccccc #cccccc
