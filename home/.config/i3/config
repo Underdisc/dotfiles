@@ -6,10 +6,8 @@ set $super Mod4
 
 # Open a file browser.
 bindsym $super+e exec thunar
-
 # Start a terminal.
 bindsym $super+t exec kitty
-
 # Start rofi (a program launcher).
 bindsym $super+r exec rofi -show run
 
@@ -18,12 +16,33 @@ bindsym $super+r exec rofi -show run
 exec --no-startup-id flameshot
 bindsym $super+s exec flameshot gui
 
+# Lock the screen upon sleep, hibernation, screen saver, or a hotkey.
+exec --no-startup-id xss-lock ~/.config/i3/lock.sh
+bindsym $super+Escape exec ~/.config/i3/lock.sh
+
+# Restart i3 while perserving the session.
+bindsym $super+Control+r restart
+# Exit the X session.
+bindsym $super+Control+Escape \
+  exec "i3-nagbar -t warning -m 'Exit X session?' -B 'Yes' 'i3-msg exit'"
+
+# Kill focused window.
+bindsym $super+x kill
+
 # Split verticaly and horizontaly.
 bindsym $super+v split v
 bindsym $super+Shift+v split h
 
-# Kill focused window.
-bindsym $super+x kill
+# Change container layouts.
+bindsym $super+d layout toggle split
+bindsym $super+Shift+d layout stacking
+bindsym $super+Control+d layout tabbed
+bindsym $super+f fullscreen toggle
+bindsym $super+Shift+f floating toggle
+
+# Focus parent/child container.
+bindsym $super+$alt+j focus child
+bindsym $super+$alt+k focus parent
 
 # Change focus.
 bindsym $super+h focus left
@@ -36,10 +55,6 @@ bindsym $super+Shift+0 move left
 bindsym $super+5       move down
 bindsym $super+6       move up
 bindsym $super+7       move right
-
-# Focus parent/child container.
-bindsym $super+$alt+j focus child
-bindsym $super+$alt+k focus parent
 
 # Define the workspaces and the displays they occupy.
 set $wsh 1:h
@@ -71,19 +86,6 @@ bindsym $super+Control+7       move container to workspace "$wsl"; workspace "$w
 bindsym $super+Control+8       move container to workspace "$wss"; workspace "$wss"
 bindsym $super+Control+9       move container to workspace "$wsa"; workspace "$wsa"
 
-# Change container layouts.
-bindsym $super+d layout toggle split
-bindsym $super+Shift+d layout stacking
-bindsym $super+Control+d layout tabbed
-bindsym $super+f fullscreen toggle
-bindsym $super+Shift+f floating toggle
-
-# Restart i3 while perserving the session.
-bindsym $super+Control+r restart
-# Exit the X session.
-bindsym $super+Control+Escape \
-  exec "i3-nagbar -t warning -m 'Exit X session?' -B 'Yes' 'i3-msg exit'"
-
 # Use Mouse+$super to drag floating windows to their wanted position.
 floating_modifier $super
 tiling_drag modifier
@@ -111,8 +113,4 @@ workspace_layout tabbed
 exec --no-startup-id picom -b
 exec --no-startup-id polybar primary
 exec --no-startup-id polybar secondary
-
-# Lock the screen upon sleep, hibernation, screen saver, or a hotkey.
-exec --no-startup-id xss-lock ~/.config/i3/lock.sh
-bindsym $super+Escape exec ~/.config/i3/lock.sh
 
