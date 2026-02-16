@@ -16,11 +16,11 @@ bindsym $super+r exec rofi -show run
 # Start flameshot (screen capture). The flameshot daemon must be running in
 # order to use copy/pasting features.
 exec --no-startup-id flameshot
-bindsym $super+Shift+s exec flameshot gui
+bindsym $super+s exec flameshot gui
 
 # Split verticaly and horizontaly.
 bindsym $super+v split v
-bindsym $super+b split h
+bindsym $super+Shift+v split h
 
 # Kill focused window.
 bindsym $super+x kill
@@ -72,11 +72,11 @@ bindsym $super+Control+8       move container to workspace "$wss"; workspace "$w
 bindsym $super+Control+9       move container to workspace "$wsa"; workspace "$wsa"
 
 # Change container layouts.
-bindsym $super+a layout tabbed
-bindsym $super+s layout toggle split
-bindsym $super+d layout stacking
-bindsym $super+f floating toggle
-bindsym $super+g fullscreen toggle
+bindsym $super+d layout toggle split
+bindsym $super+Shift+d layout stacking
+bindsym $super+Control+d layout tabbed
+bindsym $super+f fullscreen toggle
+bindsym $super+Shift+f floating toggle
 
 # Restart i3 while perserving the session.
 bindsym $super+Control+r restart
