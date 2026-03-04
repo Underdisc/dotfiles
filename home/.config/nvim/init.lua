@@ -49,6 +49,8 @@ vim.o.list = true
 vim.o.confirm = true
 -- Auto reload buffer if the file changes externally.
 vim.opt.autoread = true
+-- Save history between sessions.
+vim.opt.shada = "!,'100,f1,<50,:50,@50,/50,h"
 
 -- Bootstrap lazy
 vim.cmd('filetype plugin indent on')
