@@ -1,0 +1,5 @@
+# Mandatory parameters (uncomment and edit)
+SOUND_FONT=/usr/share/soundfonts/FluidR3_GM.sf2
+
+# Additional optional parameters (may be useful, see 'man fluidsynth' for further info)
+OTHER_OPTS='--server --audio-driver=pipewire --gain=0.2 --sample-rate=44100 --audio-bufcount=2 --audio-bufsize=1024 --audio-channels=2 --audio-groups=1 --no-shell -o midi.autoconnect=1 -o synth.reverb.active=True -o synth.reverb.damp=0.4 -o synth.reverb.level=0.7 -o synth.reverb.width=1.0 -o synth.reverb.room-size=0.3'
