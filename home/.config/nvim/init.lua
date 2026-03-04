@@ -15,8 +15,6 @@ vim.cmd("source ~/.vim/defaults.vim")
 vim.keymap.set('n', '<esc>', '<cmd>nohlsearch<cr>')
 -- Source the init.lua file.
 vim.keymap.set('n', '<leader>s', '<cmd>luafile $MYVIMRC<cr>')
--- Disable Ctrl-z suspension
-vim.keymap.set({'n', 'v'}, '<c-z>', '<nop>')
 -- Use <Esc> to exit terminal mode
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 vim.keymap.set('n', '<leader>b', ':buffers<cr>:buffer ')
