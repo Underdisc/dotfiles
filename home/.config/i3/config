@@ -41,8 +41,10 @@ bindsym $super+f fullscreen toggle
 bindsym $super+Shift+f floating toggle
 
 # Focus parent/child container.
+bindsym $super+$alt+h focus output left
 bindsym $super+$alt+j focus child
 bindsym $super+$alt+k focus parent
+bindsym $super+$alt+l focus output right
 
 # Change focus.
 bindsym $super+h focus left
@@ -89,6 +91,9 @@ bindsym $super+Control+9       move container to workspace "$wsa"; workspace "$w
 # Use Mouse+$super to drag floating windows to their wanted position.
 floating_modifier $super
 tiling_drag modifier
+
+# Switching focus never leaves the current container.
+focus_wrapping force
 
 # Set font and background images.
 font pango:JetBrainsMono Nerd Font Italic Bold 10
