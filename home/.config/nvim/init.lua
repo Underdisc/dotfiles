@@ -26,7 +26,7 @@ vim.g.have_nerd_font = true
 vim.o.mouse = 'a'
 -- Wrapped lines use the indent of the original line with one additional ident.
 vim.o.breakindent = true
-vim.o.breakindentopt = "shift:2"
+vim.o.showbreak = " "
 vim.o.linebreak = true
 -- Display tabs and trailing spaces.
 vim.o.list = true
@@ -141,6 +141,7 @@ vim.api.nvim_set_hl(0, 'WinSeparator', {fg = '#bbbbbb'})
 vim.api.nvim_set_hl(0, 'CursorLineNr', {fg = '#cccccc'})
 vim.api.nvim_set_hl(0, 'LineNr', {fg = '#555555'})
 vim.api.nvim_set_hl(0, 'CursorLine', {bg = '#1e1e1e'})
+vim.api.nvim_set_hl(0, 'NonText', {fg = '#555555'})
 
 -- Configure the character used for color columns
 require("virt-column").setup({
