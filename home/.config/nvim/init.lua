@@ -18,6 +18,9 @@ vim.keymap.set('n', '<leader>s', '<cmd>luafile $MYVIMRC<cr>')
 -- Use <Esc> to exit terminal mode
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 vim.keymap.set('n', '<leader>b', ':buffers<cr>:buffer ')
+-- Use <c-bs> to delete the previous word in command line mode.
+vim.keymap.set('c', '<c-w>', '<nop>')
+vim.keymap.set('c', '<c-bs>', '<c-w>')
 
 vim.g.have_nerd_font = true
 -- Enable mouse for all modes
