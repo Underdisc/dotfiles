@@ -109,12 +109,11 @@ require("lazy").setup({
     },
     -- File browser
     {
-      "nvim-neo-tree/neo-tree.nvim",
-      branch = "v3.x",
+      'nvim-tree/nvim-tree.lua',
+      version = '*',
+      lazy = false,
       dependencies = {
-        "nvim-lua/plenary.nvim",
-        "MunifTanjim/nui.nvim",
-        "nvim-tree/nvim-web-devicons",
+        'nvim-tree/nvim-web-devicons',
       },
     },
     -- Improved syntax highlighting and more
@@ -250,78 +249,91 @@ require('nvim-treesitter.configs').setup({
   modules = {},
 })
 
--- Configure the file explorer
-require("neo-tree").setup({
-  filesystem = {
-    filtered_items = {
-      bind_to_cwd = true,
-      hide_dotfiles = false,
-      hide_gitignored = false
-    },
-    window = {
-      width = 32,
-      mappings = {
-        -- Change keybinds for modifying the current working directory.
-        ["<bs>"] = "noop",
-        ["-"] = "navigate_up",
-        ["."] = "noop",
-        ["*"] = "set_root",
-        -- Change keybind for adding new files and directories.
-        ["a"] = "noop",
-        ["%"] = "add",
-        -- Remove neotree fuzzy finding and use default search instead.
-        ["/"] = "noop",
+-- File browser configuration
+-- Disable netrw.
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- File browser toggle
+local treeApi = require("nvim-tree.api")
+vim.keymap.set("n", "<leader>E", function() treeApi.tree.toggle() end)
+vim.keymap.set("n", "<leader>e", function() treeApi.tree.open() end)
+
+-- File browser keybinds
+local function nvim_tree_on_attach(bufnr)
+    local function opts(desc)
+      return {
+        desc = "nvim-tree: " .. desc,
+        buffer = bufnr,
+        noremap = true,
+        silent = true,
+        nowait = true
       }
-    }
+    end
+    vim.keymap.set("n", "?", treeApi.tree.toggle_help, opts("Help"))
+    vim.keymap.set("n", "s", treeApi.tree.reload, opts("Refresh"))
+    vim.keymap.set("n", "+", treeApi.tree.change_root_to_node, opts("Down"))
+    vim.keymap.set("n", "-", treeApi.tree.change_root_to_parent, opts("Up"))
+    vim.keymap.set("n", "*", treeApi.tree.collapse_all, opts("Collapse"))
+    vim.keymap.set("n", "J", treeApi.node.navigate.sibling.next,
+      opts("Next Sibling"))
+    vim.keymap.set("n", "K", treeApi.node.navigate.sibling.prev,
+      opts("Prev Sibling"))
+    vim.keymap.set("n", "<cr>", treeApi.node.open.edit, opts("Open"))
+    vim.keymap.set("n", "o", treeApi.node.open.edit, opts("Open"))
+    vim.keymap.set("n", "O", treeApi.node.open.no_window_picker, opts("Open"))
+    vim.keymap.set("n", "a", treeApi.fs.create, opts("Add"))
+    vim.keymap.set("n", "d", treeApi.fs.remove, opts("Delete"))
+    vim.keymap.set("n", "r", treeApi.fs.rename, opts("Rename"))
+    vim.keymap.set("n", "c", treeApi.fs.copy.node, opts("Copy"))
+    vim.keymap.set("n", "p", treeApi.fs.paste, opts("Paste"))
+    vim.keymap.set("n", "b", treeApi.marks.toggle, opts("Bookmark"))
+    vim.keymap.set("n", "M", treeApi.marks.bulk.move, opts("Move Bookmarked"))
+    vim.keymap.set("n", "D", treeApi.marks.bulk.delete,
+      opts("Delete Bookmarked"))
+end
+
+-- File browser settings
+require("nvim-tree").setup({
+  on_attach = nvim_tree_on_attach,
+  sync_root_with_cwd = true,
+  view = {
+    signcolumn = "no",
+    width = 39,
   },
-  default_component_configs = {
-    indent = {
-      indent_size = 2,
-      padding = 0,
-    },
-    name = {
-      use_git_status_colors = false,
-      use_filtered_colors = false,
-    },
-    git_status = {
-      symbols = {
-        -- Change type
-        added    = "✚",
-        deleted  = "✖",
-        modified = "",
-        renamed  = "󰁕",
-        -- Status type
-        untracked = "",
-        ignored   = "",
-        unstaged  = "",
-        staged    = "",
-        conflict  = "",
-      }
-    },
-    diagnostics = {
-      symbols = {
-        error = "",
-        warn  = "",
-        info  = "",
-        hint  = "󰌵",
-      },
-      highlights = {
-        hint = "DiagnosticSignHint",
-        info = "DiagnosticSignInfo",
-        warn = "DiagnosticSignWarn",
-        error = "DiagnosticSignError",
+  sort = {
+    sorter = "case_sensitive",
+  },
+  renderer = {
+    root_folder_label = ":~:s?$?",
+    icons = {
+      git_placement = "after",
+      modified_placement = "after",
+      hidden_placement = "after",
+      diagnostics_placement = "after",
+      bookmarks_placement = "after",
+      glyphs = {
+        folder = {
+          arrow_closed = "",
+          arrow_open = "",
+        }
       },
     },
+    indent_markers = {
+      enable = true,
+      icons = {
+        corner = "└",
+        edge = "│",
+        item = "├",
+        bottom = "─",
+        none = " ",
+      },
+    },
+  },
+  filters = {
+    dotfiles = false,
   },
 })
-vim.keymap.set("n", "<leader>e", function()
-  vim.cmd('Neotree toggle')
-  vim.cmd('wincmd =')
-end)
-vim.cmd [[
-  highlight NeoTreeGitUnstaged  guifg=#e5c2ff
-  highlight NeoTreeGitUntracked guifg=#e5c2ff
-]]
 
 -- For fuzzy finding files, strings, buffers, and help tags.
 require('telescope').setup{
