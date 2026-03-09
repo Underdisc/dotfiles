@@ -22,6 +22,7 @@ vim.keymap.set('n', '<leader>b', ':buffers<cr>:buffer ')
 vim.keymap.set('c', '<c-w>', '<nop>')
 vim.keymap.set('c', '<c-bs>', '<c-w>')
 
+local sidebar_width = 39
 vim.g.have_nerd_font = true
 -- Enable mouse for all modes
 vim.o.mouse = 'a'
@@ -83,6 +84,8 @@ require("lazy").setup({
     {"tpope/vim-commentary"},
     -- Close buffers while preserving windows
     {"moll/vim-bbye"},
+    -- Undotree
+    {"mbbill/undotree"},
     -- Improved git integration
     {"lewis6991/gitsigns.nvim"},
     {'tpope/vim-fugitive'},
@@ -167,6 +170,46 @@ end)
 require('ibl').setup({
   indent = {highlight = ibl_color_groups},
   scope = {enabled = false},
+})
+
+-- Retrieve the id for a window displaying a buffer with the desired filetype.
+local function get_filetype_win(filetype)
+  for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    local bufid = vim.api.nvim_win_get_buf(winid)
+    local ft = vim.api.nvim_buf_get_option(bufid, "filetype")
+    if ft == filetype then
+      return winid
+    end
+  end
+  return -1
+end
+
+-- Undotree configuration
+vim.g.undotree_DiffAutoOpen = 0
+vim.g.undotree_SetFocusWhenToggle = true
+vim.g.undotree_HelpLine = 0
+vim.g.undotree_ShortIndicators = 1
+vim.g.undotree_HighlightChangedText = 0
+
+vim.keymap.set("n", "u", "g-")
+vim.keymap.set("n", "U", "g+")
+vim.keymap.set("n", "<leader>U", vim.cmd.UndotreeToggle)
+vim.keymap.set("n", "<leader>u", function()
+  -- Open the undotree window or focus it if it already exists.
+  local undotree_winid = get_filetype_win('undotree')
+  if undotree_winid == -1 then
+    vim.cmd('UndotreeToggle')
+  else
+    vim.api.nvim_set_current_win(undotree_winid)
+  end
+end)
+
+-- Prevent unnecessary indentation lines from appearing in the undotree.
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'undotree',
+  callback = function()
+    require('ibl').setup_buffer(0, {enabled = false})
+  end,
 })
 
 -- Keybinds for interacting with git
@@ -299,7 +342,7 @@ require("nvim-tree").setup({
   sync_root_with_cwd = true,
   view = {
     signcolumn = "no",
-    width = 39,
+    width = sidebar_width,
   },
   sort = {
     sorter = "case_sensitive",
@@ -413,3 +456,108 @@ vim.keymap.set('n', '<leader>dd', function()
     vim.cmd('echom "' .. diagnostics[1].message .. '"')
   end
 end, {desc = 'Display diagnostic message'})
+
+-- The sidebar windows use the following top to bottom order.
+local sidebar_window_filetypes = {'undotree', 'NvimTree'}
+-- Give all sidebar windows the same height and resize other windows.
+local function format_sidebar()
+  -- Find all active sidebar windows.
+  local active_windows = {}
+  for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    local bufid = vim.api.nvim_win_get_buf(winid)
+    local window_filetype = vim.api.nvim_buf_get_option(bufid, "filetype")
+    for _, sidebar_filetype in ipairs(sidebar_window_filetypes) do
+      if window_filetype == sidebar_filetype then
+        active_windows[#active_windows + 1] = winid
+      end
+    end
+  end
+  -- Give each sidebar window the same height.
+  -- -2 accounts for the status and command lines.
+  local totalHeight = vim.opt.lines:get() - 2
+  local height = math.floor(totalHeight / #active_windows)
+  for _, winid in ipairs(active_windows) do
+    vim.api.nvim_win_set_config(winid, {height = height})
+  end
+  vim.cmd('wincmd =')
+end
+
+-- Place sidebar windows in the correct position with the correct height.
+vim.api.nvim_create_autocmd('BufWinEnter', {
+  pattern = '*',
+  callback = function()
+    -- Ensure that the new window is one that belongs on the sidebar.
+    local bufid = vim.api.nvim_win_get_buf(0)
+    local new_filetype = vim.api.nvim_buf_get_option(bufid, 'filetype')
+    local new_sidebar_window_pos = -1
+    for i, sidebar_filetype in ipairs(sidebar_window_filetypes) do
+      if new_filetype == sidebar_filetype then
+        new_sidebar_window_pos = i
+        break
+      end
+    end
+    if new_sidebar_window_pos == -1 then
+      return
+    end
+
+    -- Find the sidebar windows that should be directly above and directly below
+    -- the new sidebar window.
+    local above_sidebar_winid = -1
+    local below_sidebar_winid = -1
+    for i=new_sidebar_window_pos - 1, 1, -1 do
+      above_sidebar_winid = get_filetype_win(sidebar_window_filetypes[i])
+      if above_sidebar_winid ~= -1 then
+        break
+      end
+    end
+    for i=new_sidebar_window_pos + 1, #sidebar_window_filetypes, 1 do
+      below_sidebar_winid = get_filetype_win(sidebar_window_filetypes[i])
+      if below_sidebar_winid ~= -1 then
+        break
+      end
+    end
+
+    -- Place the new sidebar window in the correct position.
+    if above_sidebar_winid ~= -1 then
+      vim.api.nvim_win_set_config(0, {
+        split = 'below',
+        win = above_sidebar_winid,
+        width = sidebar_width,
+      })
+    elseif below_sidebar_winid ~= -1 then
+      vim.api.nvim_win_set_config(0, {
+        split = 'above',
+        win = below_sidebar_winid,
+        width = sidebar_width,
+      })
+    end
+    format_sidebar()
+  end
+})
+
+-- The undotree window does not trigger the BufWinEnter event, thus we are
+-- forced to configure its position and size here separately.
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'undotree',
+  callback = function()
+    -- Place the undotree in the correct sidebar position if a sidebar window
+    -- exists.
+    for i = 2, #sidebar_window_filetypes, 1 do
+      local winid = get_filetype_win(sidebar_window_filetypes[i])
+      if winid ~= -1 then
+        vim.api.nvim_win_set_config(0, {
+          split = 'above',
+          win = winid,
+          height = 1,
+        })
+        break
+      end
+    end
+    -- Ensure the undotree uses the correct width.
+    local current_win_id = vim.api.nvim_get_current_win()
+    vim.api.nvim_set_option_value('winfixwidth', true, {win = current_win_id})
+    vim.api.nvim_win_set_width(current_win_id, sidebar_width)
+    format_sidebar()
+  end,
+})
+
