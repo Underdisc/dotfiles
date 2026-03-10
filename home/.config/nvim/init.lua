@@ -89,6 +89,8 @@ require("lazy").setup({
     -- Improved git integration
     {"lewis6991/gitsigns.nvim"},
     {'tpope/vim-fugitive'},
+    -- Autoformatting
+    {'stevearc/conform.nvim'},
     -- Colorscheme
     {
       "rockyzhang24/arctic.nvim",
@@ -137,6 +139,23 @@ require("lazy").setup({
     border = "single"
   }
 })
+
+-- Autoformatting
+local conform = require('conform')
+conform.setup({
+  formatters_by_ft = {
+    cpp = {'clang_format'},
+    c = {'clang_format'},
+  },
+  formatters = {
+    clang_format = {
+      prepend_args = {'--style=file'}
+    }
+  }
+})
+vim.keymap.set('n', '<leader>z', function()
+  conform.format()
+end)
 
 vim.cmd("colorscheme arctic")
 -- Use the terminal's background color (allows transparency)
