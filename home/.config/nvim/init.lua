@@ -149,6 +149,10 @@ vim.api.nvim_set_hl(0, 'CursorLineNr', {fg = '#cccccc'})
 vim.api.nvim_set_hl(0, 'LineNr', {fg = '#555555'})
 vim.api.nvim_set_hl(0, 'CursorLine', {bg = '#1e1e1e'})
 vim.api.nvim_set_hl(0, 'NonText', {fg = '#555555'})
+vim.api.nvim_set_hl(0, 'WinBar', {
+  bg = "#444444", fg = "#eeeeee", italic = true, bold = true})
+vim.api.nvim_set_hl(0, 'WinBarNC', {
+  bg = "#1e1e1e", fg = "#cccccc", italic = true})
 
 -- Configure the character used for color columns
 require("virt-column").setup({
@@ -499,6 +503,8 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
       end
     end
     if new_sidebar_window_pos == -1 then
+      local current_win_id = vim.api.nvim_get_current_win()
+      vim.api.nvim_set_option_value("winbar", '%f', {win = current_win_id})
       return
     end
 
@@ -559,6 +565,7 @@ vim.api.nvim_create_autocmd('FileType', {
     local current_win_id = vim.api.nvim_get_current_win()
     vim.api.nvim_set_option_value('winfixwidth', true, {win = current_win_id})
     vim.api.nvim_win_set_width(current_win_id, sidebar_width)
+    vim.cmd('setlocal winbar=')
     format_sidebar()
   end,
 })
