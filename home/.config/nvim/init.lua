@@ -308,37 +308,36 @@ vim.keymap.set("n", "<leader>e", function() treeApi.tree.open() end)
 
 -- File browser keybinds
 local function nvim_tree_on_attach(bufnr)
-    local function opts(desc)
-      return {
-        desc = "nvim-tree: " .. desc,
-        buffer = bufnr,
-        noremap = true,
-        silent = true,
-        nowait = true
-      }
-    end
-    vim.keymap.set("n", "?", treeApi.tree.toggle_help, opts("Help"))
-    vim.keymap.set("n", "s", treeApi.tree.reload, opts("Refresh"))
-    vim.keymap.set("n", "+", treeApi.tree.change_root_to_node, opts("Down"))
-    vim.keymap.set("n", "-", treeApi.tree.change_root_to_parent, opts("Up"))
-    vim.keymap.set("n", "*", treeApi.tree.collapse_all, opts("Collapse"))
-    vim.keymap.set("n", "J", treeApi.node.navigate.sibling.next,
-      opts("Next Sibling"))
-    vim.keymap.set("n", "K", treeApi.node.navigate.sibling.prev,
-      opts("Prev Sibling"))
-    vim.keymap.set("n", "<2-LeftMouse>", treeApi.node.open.edit, opts("Open"))
-    vim.keymap.set("n", "<cr>", treeApi.node.open.edit, opts("Open"))
-    vim.keymap.set("n", "o", treeApi.node.open.edit, opts("Open"))
-    vim.keymap.set("n", "O", treeApi.node.open.no_window_picker, opts("Open"))
-    vim.keymap.set("n", "a", treeApi.fs.create, opts("Add"))
-    vim.keymap.set("n", "d", treeApi.fs.remove, opts("Delete"))
-    vim.keymap.set("n", "r", treeApi.fs.rename, opts("Rename"))
-    vim.keymap.set("n", "c", treeApi.fs.copy.node, opts("Copy"))
-    vim.keymap.set("n", "p", treeApi.fs.paste, opts("Paste"))
-    vim.keymap.set("n", "b", treeApi.marks.toggle, opts("Bookmark"))
-    vim.keymap.set("n", "M", treeApi.marks.bulk.move, opts("Move Bookmarked"))
-    vim.keymap.set("n", "D", treeApi.marks.bulk.delete,
-      opts("Delete Bookmarked"))
+  local function opts(desc)
+    return {
+      desc = "nvim-tree: " .. desc,
+      buffer = bufnr,
+      noremap = true,
+      silent = true,
+      nowait = true
+    }
+  end
+  vim.keymap.set("n", "?", treeApi.tree.toggle_help, opts("Help"))
+  vim.keymap.set("n", "s", treeApi.tree.reload, opts("Refresh"))
+  vim.keymap.set("n", "+", treeApi.tree.change_root_to_node, opts("Down"))
+  vim.keymap.set("n", "-", treeApi.tree.change_root_to_parent, opts("Up"))
+  vim.keymap.set("n", "*", treeApi.tree.collapse_all, opts("Collapse"))
+  vim.keymap.set("n", "J", treeApi.node.navigate.sibling.next,
+    opts("Next Sibling"))
+  vim.keymap.set("n", "K", treeApi.node.navigate.sibling.prev,
+    opts("Prev Sibling"))
+  vim.keymap.set("n", "<2-LeftMouse>", treeApi.node.open.edit, opts("Open"))
+  vim.keymap.set("n", "<cr>", treeApi.node.open.edit, opts("Open"))
+  vim.keymap.set("n", "o", treeApi.node.open.edit, opts("Open"))
+  vim.keymap.set("n", "O", treeApi.node.open.no_window_picker, opts("Open"))
+  vim.keymap.set("n", "a", treeApi.fs.create, opts("Add"))
+  vim.keymap.set("n", "d", treeApi.fs.remove, opts("Delete"))
+  vim.keymap.set("n", "r", treeApi.fs.rename, opts("Rename"))
+  vim.keymap.set("n", "c", treeApi.fs.copy.node, opts("Copy"))
+  vim.keymap.set("n", "p", treeApi.fs.paste, opts("Paste"))
+  vim.keymap.set("n", "b", treeApi.marks.toggle, opts("Bookmark"))
+  vim.keymap.set("n", "M", treeApi.marks.bulk.move, opts("Move Bookmarked"))
+  vim.keymap.set("n", "D", treeApi.marks.bulk.delete, opts("Delete Bookmarked"))
 end
 
 -- File browser settings
