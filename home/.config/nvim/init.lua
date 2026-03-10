@@ -322,6 +322,7 @@ local function nvim_tree_on_attach(bufnr)
       opts("Next Sibling"))
     vim.keymap.set("n", "K", treeApi.node.navigate.sibling.prev,
       opts("Prev Sibling"))
+    vim.keymap.set("n", "<2-LeftMouse>", treeApi.node.open.edit, opts("Open"))
     vim.keymap.set("n", "<cr>", treeApi.node.open.edit, opts("Open"))
     vim.keymap.set("n", "o", treeApi.node.open.edit, opts("Open"))
     vim.keymap.set("n", "O", treeApi.node.open.no_window_picker, opts("Open"))
