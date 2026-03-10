@@ -349,6 +349,7 @@ require("nvim-tree").setup({
     sorter = "case_sensitive",
   },
   renderer = {
+    symlink_destination = false,
     root_folder_label = ":~:s?$?",
     icons = {
       git_placement = "after",
