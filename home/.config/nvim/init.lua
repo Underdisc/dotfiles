@@ -235,28 +235,31 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
--- Keybinds for interacting with git
+-- Gitsigns configuration
 local gitsigns = require('gitsigns')
 gitsigns.setup({
   signcolumn = false,
   numhl = true,
 })
-vim.keymap.set('n', '<leader>gc',
+
+local function toggle_hunk()
+  local mode = string.lower(vim.fn.mode())
+  if mode == 'n' then
+    gitsigns.stage_hunk()
+  elseif mode == 'v' or mode == '\22' then
+    local range = {vim.fn.line('v'), vim.fn.line('.')}
+    gitsigns.stage_hunk(range)
+  end
+end
+
+vim.keymap.set('n', '<leader>gs',
   function()
     gitsigns.toggle_deleted()
     gitsigns.toggle_word_diff()
   end)
-vim.keymap.set({'n', 'v'}, '<leader>ga',
-  function()
-    local mode = string.lower(vim.fn.mode())
-    if mode == 'n' then
-      gitsigns.stage_hunk()
-    elseif mode == 'v' or mode == '\22' then
-      local range = {vim.fn.line('v'), vim.fn.line('.')}
-      gitsigns.stage_hunk(range)
-    end
-  end)
-vim.keymap.set('n', '<leader>gr', function() gitsigns.reset_hunk() end)
+vim.keymap.set({'n', 'v'}, '<leader>ga', toggle_hunk)
+vim.keymap.set({'n', 'v'}, '<leader>gu', toggle_hunk)
+vim.keymap.set('n', '<leader>gch', function() gitsigns.reset_hunk() end)
 vim.keymap.set({'n', 'v'}, ']g', '<cmd>Gitsigns nav_hunk next<cr>')
 vim.keymap.set({'n', 'v'}, '[g', '<cmd>Gitsigns nav_hunk prev<cr>')
 vim.keymap.set({'n', 'v'}, ']G', '<cmd>Gitsigns nav_hunk last<cr>')
