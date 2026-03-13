@@ -128,6 +128,11 @@ require("lazy").setup({
       lazy = false,
       build = ":TSUpdate"
     },
+    -- Language features
+    {'neovim/nvim-lspconfig'},
+    -- Autocompletion
+    {'hrsh7th/cmp-nvim-lsp'},
+    {'hrsh7th/nvim-cmp'},
   },
   install = {
     colorscheme = {"arctic"}
@@ -161,7 +166,8 @@ vim.cmd("colorscheme arctic")
 -- Use the terminal's background color (allows transparency)
 vim.api.nvim_set_hl(0, 'Normal', {bg = 'none'})
 vim.api.nvim_set_hl(0, 'NormalNC', {bg = 'none'})
-vim.api.nvim_set_hl(0, 'Pmenu', {bg = 'none'})
+vim.api.nvim_set_hl(0, 'Pmenu', {bg = "#1e1e1e", italic = true})
+
 -- Colors of other UI like elements
 vim.api.nvim_set_hl(0, 'WinSeparator', {fg = '#bbbbbb'})
 vim.api.nvim_set_hl(0, 'CursorLineNr', {fg = '#cccccc'})
@@ -424,7 +430,7 @@ vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>")
 vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>")
 vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>")
 
--- Configure options for lsps
+-- Configure options for lsps.
 vim.lsp.config['lua_ls'] = {
   cmd = {'lua-language-server'},
   filetypes = {'lua'},
@@ -438,6 +444,30 @@ vim.lsp.config['lua_ls'] = {
   }
 }
 vim.lsp.enable('lua_ls')
+
+vim.lsp.config['clangd'] = {
+  filetypes = {'cpp', 'c'},
+  root_markers = {"compile_commands.json", ".git"},
+  capabilities = {
+    textDocument = {
+      completion = {
+        completionItem = {
+          snippetSupport = true,
+        }
+      },
+    },
+  },
+  cmd = {
+    "clangd",
+    "--enable-config",
+    "--background-index",
+    "--clang-tidy",
+    "--header-insertion=never",
+    "--header-insertion-decorators=false",
+    "--completion-style=detailed",
+  },
+}
+vim.lsp.enable('clangd')
 
 -- Configure diagnostic options
 vim.diagnostic.config({
@@ -483,6 +513,45 @@ vim.keymap.set('n', '<leader>dd', function()
     vim.cmd('echom "' .. diagnostics[1].message .. '"')
   end
 end, {desc = 'Display diagnostic message'})
+
+-- Configure Autocomplete.
+local cmp = require('cmp')
+cmp.setup({
+  enabled = function()
+    return not require('cmp.config.context').in_treesitter_capture('comment')
+  end,
+  window = {
+    completion = {
+      winblend = 20,
+      max_height = 10,
+    },
+    documentation = {
+      winblend = 20,
+    }
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<down>'] = cmp.mapping.select_next_item(
+      {behavior = cmp.SelectBehavior.Select}),
+    ['<up>'] = cmp.mapping.select_prev_item(
+      {behavior = cmp.SelectBehavior.Select}),
+    ['<tab>'] = cmp.mapping.confirm({select = true}),
+  }),
+  sources = cmp.config.sources({
+    {name = 'nvim_lsp'},
+  }),
+})
+
+-- Toggle autocomplete suggestions.
+local cmp_enabled = true
+vim.keymap.set({'n', 'i', 's', 'c'}, '<c-tab>', function()
+  cmp_enabled = not cmp_enabled
+  cmp.setup({enabled = cmp_enabled})
+  if not cmp_enabled and cmp.visible() then
+    cmp.close()
+  elseif cmp_enabled and not cmp.visible() then
+    cmp.complete()
+  end
+end)
 
 -- The sidebar windows use the following top to bottom order.
 local sidebar_window_filetypes = {'undotree', 'NvimTree'}
