@@ -54,6 +54,8 @@ vim.o.confirm = true
 vim.opt.autoread = true
 -- Save history between sessions.
 vim.opt.shada = "!,'100,f1,<50,:50,@50,/50,h"
+-- Don't show mode on command line.
+vim.opt.showmode = false
 
 -- Bootstrap lazy
 vim.cmd('filetype plugin indent on')
@@ -468,6 +470,14 @@ vim.lsp.config['clangd'] = {
   },
 }
 vim.lsp.enable('clangd')
+
+-- Prevent indentation changes after typing ':'
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "cpp", "c" },
+  callback = function()
+    vim.opt_local.cinkeys:remove(":")
+  end,
+})
 
 -- Configure diagnostic options
 vim.diagnostic.config({
