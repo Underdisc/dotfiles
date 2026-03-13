@@ -476,6 +476,9 @@ vim.lsp.config['clangd'] = {
 }
 vim.lsp.enable('clangd')
 
+-- Go to definition
+vim.keymap.set('n', 'gd', '<c-]>')
+
 -- Prevent indentation changes after typing ':'
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "cpp", "c" },
