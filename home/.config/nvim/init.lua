@@ -349,8 +349,14 @@ local function nvim_tree_on_attach(bufnr)
   end
   vim.keymap.set("n", "?", treeApi.tree.toggle_help, opts("Help"))
   vim.keymap.set("n", "s", treeApi.tree.reload, opts("Refresh"))
-  vim.keymap.set("n", "+", treeApi.tree.change_root_to_node, opts("Down"))
-  vim.keymap.set("n", "-", treeApi.tree.change_root_to_parent, opts("Up"))
+  vim.keymap.set("n", "+", function()
+    treeApi.tree.change_root_to_node()
+    vim.cmd('cd ' .. vim.fn.getcwd())
+  end, opts("Down"))
+  vim.keymap.set("n", "-", function()
+    treeApi.tree.change_root_to_parent()
+    vim.cmd('cd ' .. vim.fn.getcwd())
+  end, opts("Up"))
   vim.keymap.set("n", "*", treeApi.tree.collapse_all, opts("Collapse"))
   vim.keymap.set("n", "J", treeApi.node.navigate.sibling.next,
     opts("Next Sibling"))
@@ -373,7 +379,6 @@ end
 -- File browser settings
 require("nvim-tree").setup({
   on_attach = nvim_tree_on_attach,
-  sync_root_with_cwd = true,
   view = {
     signcolumn = "no",
     width = sidebar_width,
