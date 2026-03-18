@@ -103,11 +103,8 @@ require("lazy").setup({
       "lukas-reineke/indent-blankline.nvim",
       main = "ibl",
     },
-    -- Improved status line
-    {
-      "nvim-lualine/lualine.nvim",
-      dependencies = {"nvim-tree/nvim-web-devicons"}
-    },
+    -- Improved window status bar
+    {'b0o/incline.nvim'},
     -- Fuzzy find many different things
     {
       'nvim-telescope/telescope.nvim',
@@ -174,12 +171,8 @@ vim.api.nvim_set_hl(0, 'Pmenu', {bg = "#1e1e1e", italic = true})
 vim.api.nvim_set_hl(0, 'WinSeparator', {fg = '#bbbbbb'})
 vim.api.nvim_set_hl(0, 'CursorLineNr', {fg = '#cccccc'})
 vim.api.nvim_set_hl(0, 'LineNr', {fg = '#555555'})
-vim.api.nvim_set_hl(0, 'CursorLine', {bg = '#1e1e1e'})
+vim.api.nvim_set_hl(0, 'CursorLine', {bg = '#222222'})
 vim.api.nvim_set_hl(0, 'NonText', {fg = '#555555'})
-vim.api.nvim_set_hl(0, 'WinBar', {
-  bg = "#444444", fg = "#eeeeee", italic = true, bold = true})
-vim.api.nvim_set_hl(0, 'WinBarNC', {
-  bg = "#1e1e1e", fg = "#cccccc", italic = true})
 
 -- Configure the character used for color columns
 require("virt-column").setup({
@@ -283,28 +276,254 @@ vim.api.nvim_set_hl(0, 'GitSignsStagedDeleteNr', {fg = '#905555'})
 vim.api.nvim_set_hl(0, 'GitSignsChangeNr',       {fg = '#55ccee'})
 vim.api.nvim_set_hl(0, 'GitSignsStagedChangeNr', {fg = '#558899'})
 
--- Configure the status line
-require('lualine').setup({
-  sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'filename'},
-    lualine_c = {'diagnostics'},
-    lualine_x = {'diff'},
-    lualine_y = {'branch', 'encoding', 'fileformat', 'progress'},
-    lualine_z = {'location'},
-  },
-  options = {
-    component_separators = {left = '│', right = '│'},
-    section_separators = {left = '▏', right = '▕'},
-    theme = {
-      normal = {
-        a = {bg = "#444444", fg = "#eeeeee", gui = 'bold,italic'},
-        b = {bg = "#1e1e1e", fg = "#cccccc", gui = 'italic'},
-        c = {bg = "#1e1e1e", fg = "#cccccc", gui = 'italic'},
-      }
+-- Configure the command line.
+vim.opt.cmdheight = 1
+vim.opt.ruler = false
+vim.api.nvim_set_hl(0, 'MsgArea', {bg = "#222222", fg = "#cccccc"})
+vim.api.nvim_set_hl(0, 'ModeMsg', {bg = "#222222", fg = "#cccccc"})
+
+-- The globals status line is removed in favor of per window status lines.
+vim.opt.laststatus = 0
+
+-- Highlight groups used in window titlebars
+vim.api.nvim_set_hl(0, 'WinBar', {bg = "#444444", fg = "#eeeeee"})
+vim.api.nvim_set_hl(0, 'WinBarNC', {bg = "#222222", fg = "#cccccc"})
+vim.api.nvim_set_hl(0, 'NormalModeIndicator',
+  {bg = "#cccccc", fg = "#222222", bold = true})
+vim.api.nvim_set_hl(0, 'InsertModeIndicator',
+  {bg = "#44cc44", fg = "#222222", bold = true})
+vim.api.nvim_set_hl(0, 'VisualModeIndicator',
+  {bg = "#4499cc", fg = "#222222", bold = true})
+vim.api.nvim_set_hl(0, 'CommandModeIndicator',
+  {bg = "#cc4444", fg = "#222222", bold = true})
+vim.api.nvim_set_hl(0, 'InactiveModeIndicator',
+  {bg = "#444444", fg = "#dddddd", bold = true})
+
+vim.api.nvim_set_hl(0, 'FiletypeIndicator',
+  {link = 'NormalModeIndicator'})
+vim.api.nvim_set_hl(0, 'InactiveFiletypeIndicator',
+  {link = 'InactiveModeIndicator'})
+
+-- The sidebar windows and information used for their titlebars. The windows
+-- maintain the top to bottom order of this table.
+local sidebar_infos = {
+  {filetype = 'undotree', icon = '', filename_replacement = 'Undo Tree'},
+  {filetype = 'NvimTree', icon = '', filename_replacement = 'File Tree'},
+}
+
+-- Constructs the left side of window title bars
+local function title_bar_left(winid, bufid, sidebar_info)
+  local bar_config = {}
+  -- Insert the mode indicator.
+  if winid == vim.api.nvim_get_current_win() then
+    local mode = vim.api.nvim_get_mode()['mode']
+    if mode == '\22' then mode = 'V' end
+    mode = string.sub(string.upper(mode), 1, 1)
+    local mode_elements = {
+      ['N'] = {' N ', group = 'NormalModeIndicator'},
+      ['I'] = {' I ', group = 'InsertModeIndicator'},
+      ['V'] = {' V ', group = 'VisualModeIndicator'},
+    }
+    local mode_element = mode_elements[mode]
+    if mode_element ~= nil then
+      table.insert(bar_config, mode_element)
+    else
+      table.insert(bar_config, mode_elements['N'])
+    end
+  else
+    table.insert(bar_config, {'   ', group = 'InactiveModeIndicator'})
+  end
+
+  if sidebar_info == nil then
+    -- Initialize git status information.
+    local statuses = {
+      {type = 'added',   symbol = '+', hl_group_substr = 'Add'},
+      {type = 'changed', symbol = '~', hl_group_substr = 'Change'},
+      {type = 'removed', symbol = '-', hl_group_substr = 'Delete'},
+    }
+    local status_dict = vim.b[bufid].gitsigns_status_dict
+    local git_config = {}
+    if status_dict ~= nil then
+      for _, status in ipairs(statuses) do
+        local count = tonumber(status_dict[status.type])
+        if count > 0 then
+          local text = status.symbol .. count
+          local hl_group = 'GitSigns' .. status.hl_group_substr .. 'Nr'
+          table.insert(git_config, {text, group = hl_group})
+        end
+      end
+    end
+
+    -- Initialize diagnostic information.
+    local diagnostics = {
+      {type = 'Error', symbol = ''},
+      {type = 'Warn',  symbol = ''},
+      {type = 'Info',  symbol = ''},
+      {type = 'Hint',  symbol = ''},
+    }
+    local diagnostic_config = {}
+    for _, diagnostic in ipairs(diagnostics) do
+      local type_number = vim.diagnostic.severity[string.upper(diagnostic.type)]
+      local count = #vim.diagnostic.get(bufid, {severity = type_number})
+      if count > 0 then
+        local text = diagnostic.symbol .. count
+        local hl_group = 'Diagnostic' .. diagnostic.type
+        table.insert(diagnostic_config, {text, group = hl_group})
+      end
+    end
+
+    -- Insert git and diagnostic information if present or a single separator if
+    -- not present.
+    if #git_config > 0 then
+      table.insert(bar_config, {' ', git_config, ' '})
+      table.insert(bar_config, '|')
+    end
+    if #diagnostic_config > 0 then
+      table.insert(bar_config, {' ', diagnostic_config, ' '})
+      table.insert(bar_config, '|')
+    end
+    if #git_config == 0 and #diagnostic_config == 0 then
+      table.insert(bar_config, '|')
+    end
+  end
+  return bar_config
+end
+
+-- Constructs the right side of window title bars
+local devicons = require('nvim-web-devicons')
+local function title_bar_right(winid, bufid, sidebar_info)
+  local bar_config = {}
+  local icon = ''
+  local filename = ''
+  if sidebar_info == nil then
+    -- Insert an icon for the file format.
+    local format_symbols = {
+      unix = '󰻀',
+      dos = '',
+      mac = '',
+    }
+    local fileformat = vim.bo.fileformat
+    table.insert(bar_config, '|')
+    table.insert(bar_config, {' ', {format_symbols[fileformat]}, ' '})
+    table.insert(bar_config, '|')
+
+    -- Insert line and cursor position information.
+    local cursor_pos = vim.api.nvim_win_get_cursor(winid)[1]
+    local line_count = vim.api.nvim_buf_line_count(bufid)
+    local percentage = 100;
+    if line_count > 0 then
+      percentage = math.floor(100 * (cursor_pos/line_count))
+    end
+    table.insert(bar_config, {' ', percentage .. '%' .. line_count, ' '})
+    table.insert(bar_config, '|')
+
+    -- Get the icon and filename relative to the current working directory.
+    local full_filename = vim.api.nvim_buf_get_name(bufid)
+    local file_tail = vim.fn.fnamemodify(full_filename, ':t')
+    local file_ext = vim.fn.fnamemodify(full_filename, ':e')
+    icon = devicons.get_icon(file_tail, file_ext, {default = true})
+    filename = vim.fn.fnamemodify(full_filename, ':.')
+  else
+    icon = sidebar_info.icon
+    filename = sidebar_info.filename_replacement
+  end
+
+  -- Insert the filename and file type icon.
+  table.insert(bar_config, {' ', {filename, gui = 'italic'}, ' '})
+  local icon_text = ' ' .. icon .. ' '
+  if winid == vim.api.nvim_get_current_win() then
+    table.insert(bar_config, {icon_text, group = 'FiletypeIndicator'})
+  else
+    table.insert(bar_config, {icon_text, group = 'InactiveFiletypeIndicator'})
+  end
+  return bar_config
+end
+
+-- Get the character length of the bar table.
+local function bar_string_length(bar_table)
+  local length = 0
+  for _, element in ipairs(bar_table) do
+    local type = type(element)
+    if type == "table" then
+      length = length + bar_string_length(element)
+    elseif type == "string" then
+      length = length + vim.str_utfindex(element)
+    end
+  end
+  return length
+end
+
+-- Enusre that the titlebar spans the width of the window. When the titlebar is
+-- too small, spaces are inserted between its left and right sides. When it's
+-- too large, leading characters are trimmed from the relative filename.
+local function bar_fit_to_window(bar, winid)
+  local bar_length = bar_string_length(bar)
+  local window_width = vim.api.nvim_win_get_width(winid)
+  if bar_length <= window_width then
+    local fill_amount = window_width - bar_length
+    local fill = string.rep(' ', fill_amount)
+    table.insert(bar, 2, fill)
+  else
+    local prefix_replacement = ''
+    local remove_count = (bar_length - window_width) + 1
+    local right_config = bar[#bar]
+    local filename_element = right_config[#right_config - 1][2]
+    local trimmed = string.sub(filename_element[1], remove_count + 1)
+    filename_element[1] = prefix_replacement .. trimmed
+  end
+  return bar
+end
+
+-- Configure window title bars.
+local incline = require('incline')
+incline.setup({
+  render = function(props)
+    local filetype = vim.bo[props.buf].filetype
+    local sidebar_info = nil
+    for _, info in ipairs(sidebar_infos) do
+      if filetype == info.filetype then
+        sidebar_info = info
+        break
+      end
+    end
+
+    local bar = {}
+    table.insert(bar, title_bar_left(props.win, props.buf, sidebar_info))
+    table.insert(bar, title_bar_right(props.win, props.buf, sidebar_info))
+    return bar_fit_to_window(bar, props.win)
+  end,
+
+  window = {
+    placement = {
+      vertical = 'top',
+      horizontal = 'right',
     },
-    globalstatus = true,
-  }
+    margin = {
+      horizontal = 0,
+      vertical = 0,
+    },
+    padding = 0,
+    winhighlight = {
+      active = {
+        Normal = 'WinBar',
+      },
+      inactive = {
+        Normal = 'WinBarNC',
+      },
+    },
+    overlap = {
+      borders = true,
+      winbar = true,
+      tabline = false,
+      statusline = false,
+    },
+  },
+  ignore = {
+    unlisted_buffers = false,
+    filetypes = {},
+    wintypes = {},
+    buftypes = {},
+  },
 })
 
 require('nvim-treesitter.configs').setup({
@@ -571,8 +790,6 @@ vim.keymap.set({'n', 'i', 's', 'c'}, '<c-tab>', function()
   end
 end)
 
--- The sidebar windows use the following top to bottom order.
-local sidebar_window_filetypes = {'undotree', 'NvimTree'}
 -- Give all sidebar windows the same height and resize other windows.
 local function format_sidebar()
   -- Find all active sidebar windows.
@@ -580,21 +797,58 @@ local function format_sidebar()
   for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
     local bufid = vim.api.nvim_win_get_buf(winid)
     local window_filetype = vim.api.nvim_buf_get_option(bufid, "filetype")
-    for _, sidebar_filetype in ipairs(sidebar_window_filetypes) do
-      if window_filetype == sidebar_filetype then
+    for _, sidebar_info in pairs(sidebar_infos) do
+      if window_filetype == sidebar_info.filetype then
         active_windows[#active_windows + 1] = winid
       end
     end
   end
   -- Give each sidebar window the same height.
-  -- -2 accounts for the status and command lines.
-  local totalHeight = vim.opt.lines:get() - 2
+  -- -1 accounts for the command line.
+  local totalHeight = vim.opt.lines:get() - 1
   local height = math.floor(totalHeight / #active_windows)
   for _, winid in ipairs(active_windows) do
     vim.api.nvim_win_set_config(winid, {height = height})
   end
   vim.cmd('wincmd =')
 end
+
+-- Valid windows at the top of the vim window receive a winbar while the
+-- winbars from all other windows are removed.
+local function ensure_winbar(winid)
+  local bufid = vim.api.nvim_win_get_buf(winid)
+  local filetype = vim.bo[bufid].filetype
+  if filetype == 'incline' then
+    return
+  end
+  local position = vim.api.nvim_win_get_position(winid)
+  if position[1] == 0 then
+    vim.api.nvim_set_option_value("winbar", ' ', {win = winid})
+  else
+    vim.api.nvim_set_option_value("winbar", '', {win = winid})
+  end
+end
+
+-- Ensure winbars for all windows.
+local function ensure_all_winbars()
+  local windows = vim.api.nvim_list_wins()
+  for _, winid in ipairs(windows) do
+    ensure_winbar(winid)
+  end
+end
+
+-- Winbars must be re-ensured after window resizing. When a vertical split is
+-- created, this ensures that the top window receives a winbar and the bottom
+-- one does not.
+vim.api.nvim_create_autocmd('WinResized', {
+  pattern = '*',
+  callback = function()
+    local affected_windows = vim.v.event.windows
+    for _, winid in pairs(affected_windows) do
+      ensure_winbar(winid)
+    end
+  end,
+})
 
 -- Place sidebar windows in the correct position with the correct height.
 vim.api.nvim_create_autocmd('BufWinEnter', {
@@ -604,15 +858,14 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
     local bufid = vim.api.nvim_win_get_buf(0)
     local new_filetype = vim.api.nvim_buf_get_option(bufid, 'filetype')
     local new_sidebar_window_pos = -1
-    for i, sidebar_filetype in ipairs(sidebar_window_filetypes) do
-      if new_filetype == sidebar_filetype then
+    for i, sidebar_info, _ in ipairs(sidebar_infos) do
+      if new_filetype == sidebar_info.filetype then
         new_sidebar_window_pos = i
         break
       end
     end
     if new_sidebar_window_pos == -1 then
-      local current_win_id = vim.api.nvim_get_current_win()
-      vim.api.nvim_set_option_value("winbar", '%f', {win = current_win_id})
+      ensure_winbar(vim.api.nvim_get_current_win())
       return
     end
 
@@ -621,13 +874,13 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
     local above_sidebar_winid = -1
     local below_sidebar_winid = -1
     for i=new_sidebar_window_pos - 1, 1, -1 do
-      above_sidebar_winid = get_filetype_win(sidebar_window_filetypes[i])
+      above_sidebar_winid = get_filetype_win(sidebar_infos[i].filetype)
       if above_sidebar_winid ~= -1 then
         break
       end
     end
-    for i=new_sidebar_window_pos + 1, #sidebar_window_filetypes, 1 do
-      below_sidebar_winid = get_filetype_win(sidebar_window_filetypes[i])
+    for i=new_sidebar_window_pos + 1, #sidebar_infos, 1 do
+      below_sidebar_winid = get_filetype_win(sidebar_infos[i].filetype)
       if below_sidebar_winid ~= -1 then
         break
       end
@@ -648,6 +901,7 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
       })
     end
     format_sidebar()
+    ensure_all_winbars()
   end
 })
 
@@ -658,8 +912,8 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function()
     -- Place the undotree in the correct sidebar position if a sidebar window
     -- exists.
-    for i = 2, #sidebar_window_filetypes, 1 do
-      local winid = get_filetype_win(sidebar_window_filetypes[i])
+    for i = 2, #sidebar_infos, 1 do
+      local winid = get_filetype_win(sidebar_infos[i].filetype)
       if winid ~= -1 then
         vim.api.nvim_win_set_config(0, {
           split = 'above',
@@ -675,6 +929,7 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.api.nvim_win_set_width(current_win_id, sidebar_width)
     vim.cmd('setlocal winbar=')
     format_sidebar()
+    ensure_all_winbars()
   end,
 })
 
