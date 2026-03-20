@@ -346,7 +346,7 @@ local function title_bar_left(winid, bufid, sidebar_info)
     if status_dict ~= nil then
       for _, status in ipairs(statuses) do
         local count = tonumber(status_dict[status.type])
-        if count > 0 then
+        if count ~= nil and count > 0 then
           local text = status.symbol .. count
           local hl_group = 'GitSigns' .. status.hl_group_substr .. 'Nr'
           table.insert(git_config, {text, group = hl_group})
