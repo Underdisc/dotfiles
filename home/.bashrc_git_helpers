@@ -24,6 +24,11 @@ function gfdl(){
   gdl $1
 }
 
+alias gds='git number diff --staged --color=always'
+function gdsl(){
+  git number diff --staged --color=always $1 | less -r
+}
+
 alias gls='git lgs'
 alias gll='git lgl'
 alias gla='git lga'
