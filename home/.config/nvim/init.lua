@@ -21,6 +21,9 @@ vim.keymap.set('n', '<leader>b', ':buffers<cr>:buffer ')
 -- Use <c-bs> to delete the previous word in command line mode.
 vim.keymap.set('c', '<c-w>', '<nop>')
 vim.keymap.set('c', '<c-bs>', '<c-w>')
+-- Writing and deleting buffers
+vim.keymap.set('n', '<c-s>', '<cmd>write<cr>')
+vim.keymap.set('n', '<c-x>', '<cmd>Bdelete<cr>')
 
 local sidebar_width = 39
 vim.g.have_nerd_font = true
