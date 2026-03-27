@@ -6,11 +6,13 @@ nnoremap <silent> j gj
 nnoremap <silent> 0 g0
 nnoremap <silent> $ g$
 
-" alt-a|s will create splits
+" Window creation and closure
 execute "set <a-a>=\ea"
 execute "set <a-s>=\es"
+execute "set <a-x>=\ex"
 nnoremap <a-a> :vsplit<cr>
 nnoremap <a-s> :split<cr>
+nnoremap <a-x> :close<enter>
 
 " alt-h|j|k|l will move to a different vim pane.
 execute "set <a-h>=\eh"
@@ -42,14 +44,6 @@ nnoremap <m-s-0> :call SwapWindows('h')<cr>
 nnoremap <m-5>   :call SwapWindows('j')<cr>
 nnoremap <m-6>   :call SwapWindows('k')<cr>
 nnoremap <m-7>   :call SwapWindows('l')<cr>
-
-" alt-w|q|x to write, close buffer, or close window
-execute "set <a-w>=\ew"
-execute "set <a-q>=\eq"
-execute "set <a-x>=\ex"
-nnoremap <a-w> :write<enter>
-nnoremap <a-q> :Bdelete<enter>
-nnoremap <a-x> :close<enter>
 
 " Ctrl-Backspace deletes the previous word in insert mode.
 inoremap <c-bs> <c-W>
