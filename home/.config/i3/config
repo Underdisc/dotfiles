@@ -95,7 +95,7 @@ floating_modifier $super
 tiling_drag modifier
 
 # Switching focus never leaves the current container.
-focus_wrapping force
+focus_wrapping workspace
 
 # Set font and background images.
 font pango:JetBrainsMono Nerd Font Italic Bold 10
