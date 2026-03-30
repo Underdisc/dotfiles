@@ -574,10 +574,12 @@ local function nvim_tree_on_attach(bufnr)
   vim.keymap.set("n", "+", function()
     treeApi.tree.change_root_to_node()
     vim.cmd('cd ' .. vim.fn.getcwd())
+    vim.api.nvim_exec_autocmds("DirChanged", { pattern = "global" })
   end, opts("Down"))
   vim.keymap.set("n", "-", function()
     treeApi.tree.change_root_to_parent()
     vim.cmd('cd ' .. vim.fn.getcwd())
+    vim.api.nvim_exec_autocmds("DirChanged", { pattern = "global" })
   end, opts("Up"))
   vim.keymap.set("n", "*", treeApi.tree.collapse_all, opts("Collapse"))
   vim.keymap.set("n", "J", treeApi.node.navigate.sibling.next,
@@ -697,6 +699,14 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function()
     vim.bo.buflisted = true
   end,
+})
+
+-- Regenerate the buffer lines on a global cwd change.
+vim.api.nvim_create_autocmd('DirChanged', {
+  pattern = 'global',
+  callback = function()
+    vuffers.reset_buffers()
+  end
 })
 
 vim.api.nvim_set_hl(0, 'VuffersWindowBackground', {link = 'Normal'})
