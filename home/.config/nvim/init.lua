@@ -218,8 +218,8 @@ vim.g.undotree_HelpLine = 0
 vim.g.undotree_ShortIndicators = 1
 vim.g.undotree_HighlightChangedText = 0
 
-vim.keymap.set("n", "u", "g-")
-vim.keymap.set("n", "U", "g+")
+vim.keymap.set("n", "u", "u")
+vim.keymap.set("n", "U", "<c-r>")
 vim.keymap.set("n", "<leader>U", vim.cmd.UndotreeToggle)
 vim.keymap.set("n", "<leader>u", function()
   -- Open the undotree window or focus it if it already exists.
