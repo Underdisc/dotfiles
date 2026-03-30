@@ -1,15 +1,15 @@
 -- Set the leader first such that the rest of the config uses the proper leader,
 -- prevent space (the leader key) from performing an 'l' motion, and prevent the
 -- leader from timing out.
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+vim.g.mapleader = ' '
+vim.g.maplocalleader = '\\'
 vim.keymap.set('n', '<space>', '<nop>')
 vim.keymap.set('v', '<space>', '<nop>')
 vim.o.timeout = false
 
 -- Source shared vimrc files
-vim.cmd("source ~/.vim/grund_keybinds.vim")
-vim.cmd("source ~/.vim/defaults.vim")
+vim.cmd('source ~/.vim/grund_keybinds.vim')
+vim.cmd('source ~/.vim/defaults.vim')
 
 -- Disable match highlighting by pressing escape.
 vim.keymap.set('n', '<esc>', '<cmd>nohlsearch<cr>')
@@ -30,15 +30,15 @@ vim.g.have_nerd_font = true
 vim.o.mouse = 'a'
 -- Wrapped lines use the indent of the original line with one additional ident.
 vim.o.breakindent = true
-vim.o.showbreak = " "
+vim.o.showbreak = ' '
 vim.o.linebreak = true
 -- Display tabs and trailing spaces.
 vim.o.list = true
-vim.opt.listchars = {space = ' ', tab = '-->', trail = '⋅'}
+vim.opt.listchars = { space = ' ', tab = '-->', trail = '⋅' }
 -- Disable spell checking by default.
 vim.opt.spell = false
 -- Show a column at line after line 80.
-vim.o.colorcolumn = "81"
+vim.o.colorcolumn = '81'
 -- Print the line number in front of each line
 vim.o.number = true
 vim.o.relativenumber = true
@@ -55,23 +55,28 @@ vim.o.confirm = true
 -- Auto reload buffer if the file changes externally.
 vim.opt.autoread = true
 -- Save history between sessions.
-vim.opt.shada = "!,'100,f1,<50,:50,@50,/50,h"
+vim.opt.shada = '!,\'100,f1,<50,:50,@50,/50,h'
 -- Don't show mode on command line.
 vim.opt.showmode = false
 
 -- Bootstrap lazy
 vim.cmd('filetype plugin indent on')
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
   local out = vim.fn.system({
-    "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath
+    'git',
+    'clone',
+    '--filter=blob:none',
+    '--branch=stable',
+    lazyrepo,
+    lazypath,
   })
   if vim.v.shell_error ~= 0 then
     vim.api.nvim_echo({
-      {"Failed to clone lazy.nvim:\n", "ErrorMsg"},
-      {out, "WarningMsg"},
-      {"\nPress any key to exit..."},
+      { 'Failed to clone lazy.nvim:\n', 'ErrorMsg' },
+      { out, 'WarningMsg' },
+      { '\nPress any key to exit...' },
     }, true, {})
     vim.fn.getchar()
     os.exit(1)
@@ -80,38 +85,38 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy
-require("lazy").setup({
+require('lazy').setup({
   spec = {
     -- Show color column as a thin line using characters.
-    {"lukas-reineke/virt-column.nvim"},
+    { 'lukas-reineke/virt-column.nvim' },
     -- Quickly comment and uncomment lines
-    {"tpope/vim-commentary"},
+    { 'tpope/vim-commentary' },
     -- Close buffers while preserving windows
-    {"moll/vim-bbye"},
+    { 'moll/vim-bbye' },
     -- Undotree
-    {"mbbill/undotree"},
+    { 'mbbill/undotree' },
     -- Improved git integration
-    {"lewis6991/gitsigns.nvim"},
-    {'tpope/vim-fugitive'},
+    { 'lewis6991/gitsigns.nvim' },
+    { 'tpope/vim-fugitive' },
     -- Autoformatting
-    {'stevearc/conform.nvim'},
+    { 'stevearc/conform.nvim' },
     -- Colorscheme
     {
-      "rockyzhang24/arctic.nvim",
-      dependencies = {"rktjmp/lush.nvim"},
+      'rockyzhang24/arctic.nvim',
+      dependencies = { 'rktjmp/lush.nvim' },
     },
     -- Highlight indentation levels
     {
-      "lukas-reineke/indent-blankline.nvim",
-      main = "ibl",
+      'lukas-reineke/indent-blankline.nvim',
+      main = 'ibl',
     },
     -- Improved window status bar
-    {'b0o/incline.nvim'},
+    { 'b0o/incline.nvim' },
     -- Fuzzy find many different things
     {
       'nvim-telescope/telescope.nvim',
       tag = 'v0.1.9',
-      dependencies = { 'nvim-lua/plenary.nvim' }
+      dependencies = { 'nvim-lua/plenary.nvim' },
     },
     -- File browser
     {
@@ -124,88 +129,85 @@ require("lazy").setup({
     },
     -- Improved syntax highlighting and more
     {
-      "nvim-treesitter/nvim-treesitter",
-      branch = "master",
+      'nvim-treesitter/nvim-treesitter',
+      branch = 'master',
       lazy = false,
-      build = ":TSUpdate"
+      build = ':TSUpdate',
     },
     -- Language features
-    {'neovim/nvim-lspconfig'},
+    { 'neovim/nvim-lspconfig' },
     -- Autocompletion
-    {'hrsh7th/cmp-nvim-lsp'},
-    {'hrsh7th/nvim-cmp'},
+    { 'hrsh7th/cmp-nvim-lsp' },
+    { 'hrsh7th/nvim-cmp' },
   },
   install = {
-    colorscheme = {"arctic"}
+    colorscheme = { 'arctic' },
   },
   checker = {
-    enabled = true
+    enabled = true,
   },
   ui = {
-    border = "single"
-  }
+    border = 'single',
+  },
 })
 
 -- Autoformatting
 local conform = require('conform')
 conform.setup({
   formatters_by_ft = {
-    cpp = {'clang_format'},
-    c = {'clang_format'},
+    lua = { 'stylua' },
+    cpp = { 'clang_format' },
+    c = { 'clang_format' },
   },
   formatters = {
     clang_format = {
-      prepend_args = {'--style=file'}
-    }
-  }
+      prepend_args = { '--style=file' },
+    },
+  },
 })
-vim.keymap.set('n', '<leader>z', function()
-  conform.format()
-end)
+vim.keymap.set('n', '<leader>z', function() conform.format() end)
 
-vim.cmd("colorscheme arctic")
+vim.cmd('colorscheme arctic')
 -- Use the terminal's background color (allows transparency)
-vim.api.nvim_set_hl(0, 'Normal', {bg = 'none'})
-vim.api.nvim_set_hl(0, 'NormalNC', {bg = 'none'})
-vim.api.nvim_set_hl(0, 'Pmenu', {bg = "#1e1e1e", italic = true})
+vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'Pmenu', { bg = '#1e1e1e', italic = true })
 
 -- Colors of other UI like elements
-vim.api.nvim_set_hl(0, 'WinSeparator', {fg = '#bbbbbb'})
-vim.api.nvim_set_hl(0, 'CursorLineNr', {fg = '#cccccc'})
-vim.api.nvim_set_hl(0, 'LineNr', {fg = '#555555'})
-vim.api.nvim_set_hl(0, 'CursorLine', {bg = '#222222'})
-vim.api.nvim_set_hl(0, 'NonText', {fg = '#555555'})
+vim.api.nvim_set_hl(0, 'WinSeparator', { fg = '#bbbbbb' })
+vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#cccccc' })
+vim.api.nvim_set_hl(0, 'LineNr', { fg = '#555555' })
+vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#222222' })
+vim.api.nvim_set_hl(0, 'NonText', { fg = '#555555' })
 
 -- Configure the character used for color columns
-require("virt-column").setup({
+require('virt-column').setup({
   char = '▎',
   highlight = 'ColorColumn',
 })
-vim.api.nvim_set_hl(0, 'ColorColumn', {fg = '#888888'})
+vim.api.nvim_set_hl(0, 'ColorColumn', { fg = '#888888' })
 
 -- Create indent lines and give them custom colors
-local ibl_color_groups = {"ibl1", "ibl2", "ibl3", "ibl4", "ibl5"}
-local ibl_hooks = require("ibl.hooks")
+local ibl_color_groups = { 'ibl1', 'ibl2', 'ibl3', 'ibl4', 'ibl5' }
+local ibl_hooks = require('ibl.hooks')
 ibl_hooks.register(ibl_hooks.type.HIGHLIGHT_SETUP, function()
-  vim.api.nvim_set_hl(0, ibl_color_groups[1], {fg = "#888A8A"})
-  vim.api.nvim_set_hl(0, ibl_color_groups[2], {fg = "#318A2D"})
-  vim.api.nvim_set_hl(0, ibl_color_groups[3], {fg = "#2F8A5F"})
-  vim.api.nvim_set_hl(0, ibl_color_groups[4], {fg = "#32818A"})
-  vim.api.nvim_set_hl(0, ibl_color_groups[5], {fg = "#32498A"})
+  vim.api.nvim_set_hl(0, ibl_color_groups[1], { fg = '#888A8A' })
+  vim.api.nvim_set_hl(0, ibl_color_groups[2], { fg = '#318A2D' })
+  vim.api.nvim_set_hl(0, ibl_color_groups[3], { fg = '#2F8A5F' })
+  vim.api.nvim_set_hl(0, ibl_color_groups[4], { fg = '#32818A' })
+  vim.api.nvim_set_hl(0, ibl_color_groups[5], { fg = '#32498A' })
 end)
 require('ibl').setup({
-  indent = {highlight = ibl_color_groups},
-  scope = {enabled = false},
+  indent = { highlight = ibl_color_groups },
+  scope = { enabled = false },
 })
 
 -- Retrieve the id for a window displaying a buffer with the desired filetype.
 local function get_filetype_win(filetype)
   for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
     local bufid = vim.api.nvim_win_get_buf(winid)
-    local ft = vim.api.nvim_buf_get_option(bufid, "filetype")
-    if ft == filetype then
-      return winid
-    end
+    local ft = vim.api.nvim_buf_get_option(bufid, 'filetype')
+    if ft == filetype then return winid end
   end
   return -1
 end
@@ -217,10 +219,10 @@ vim.g.undotree_HelpLine = 0
 vim.g.undotree_ShortIndicators = 1
 vim.g.undotree_HighlightChangedText = 0
 
-vim.keymap.set("n", "u", "u")
-vim.keymap.set("n", "U", "<c-r>")
-vim.keymap.set("n", "<leader>U", vim.cmd.UndotreeToggle)
-vim.keymap.set("n", "<leader>u", function()
+vim.keymap.set('n', 'u', 'u')
+vim.keymap.set('n', 'U', '<c-r>')
+vim.keymap.set('n', '<leader>U', vim.cmd.UndotreeToggle)
+vim.keymap.set('n', '<leader>u', function()
   -- Open the undotree window or focus it if it already exists.
   local undotree_winid = get_filetype_win('undotree')
   if undotree_winid == -1 then
@@ -233,9 +235,7 @@ end)
 -- Prevent unnecessary indentation lines from appearing in the undotree.
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'undotree',
-  callback = function()
-    require('ibl').setup_buffer(0, {enabled = false})
-  end,
+  callback = function() require('ibl').setup_buffer(0, { enabled = false }) end,
 })
 
 -- Gitsigns configuration
@@ -250,68 +250,84 @@ local function toggle_hunk()
   if mode == 'n' then
     gitsigns.stage_hunk()
   elseif mode == 'v' or mode == '\22' then
-    local range = {vim.fn.line('v'), vim.fn.line('.')}
+    local range = { vim.fn.line('v'), vim.fn.line('.') }
     gitsigns.stage_hunk(range)
   end
 end
 
-vim.keymap.set('n', '<leader>gs',
-  function()
-    gitsigns.toggle_deleted()
-    gitsigns.toggle_word_diff()
-  end)
-vim.keymap.set({'n', 'v'}, '<leader>ga', toggle_hunk)
-vim.keymap.set({'n', 'v'}, '<leader>gu', toggle_hunk)
+vim.keymap.set('n', '<leader>gs', function()
+  gitsigns.toggle_deleted()
+  gitsigns.toggle_word_diff()
+end)
+vim.keymap.set({ 'n', 'v' }, '<leader>ga', toggle_hunk)
+vim.keymap.set({ 'n', 'v' }, '<leader>gu', toggle_hunk)
 vim.keymap.set('n', '<leader>gch', function() gitsigns.reset_hunk() end)
-vim.keymap.set({'n', 'v'}, '>', '<cmd>Gitsigns nav_hunk next<cr>')
-vim.keymap.set({'n', 'v'}, '<', '<cmd>Gitsigns nav_hunk prev<cr>')
-vim.keymap.set({'n', 'v'}, ']G', '<cmd>Gitsigns nav_hunk last<cr>')
-vim.keymap.set({'n', 'v'}, '[G', '<cmd>Gitsigns nav_hunk first<cr>')
-vim.keymap.set({'o', 'x'}, 'ag', function() gitsigns.select_hunk() end)
+vim.keymap.set({ 'n', 'v' }, '>', '<cmd>Gitsigns nav_hunk next<cr>')
+vim.keymap.set({ 'n', 'v' }, '<', '<cmd>Gitsigns nav_hunk prev<cr>')
+vim.keymap.set({ 'n', 'v' }, ']G', '<cmd>Gitsigns nav_hunk last<cr>')
+vim.keymap.set({ 'n', 'v' }, '[G', '<cmd>Gitsigns nav_hunk first<cr>')
+vim.keymap.set({ 'o', 'x' }, 'ag', function() gitsigns.select_hunk() end)
 vim.keymap.set('n', '<leader>gb', '<cmd>Git blame<cr>')
 
 -- Numberline colors representing staged and unstaged changes
-vim.api.nvim_set_hl(0, 'GitSignsAddNr',          {fg = '#55d055'})
-vim.api.nvim_set_hl(0, 'GitSignsStagedAddNr',    {fg = '#558855'})
-vim.api.nvim_set_hl(0, 'GitSignsDeleteNr',       {fg = '#ff4d4d'})
-vim.api.nvim_set_hl(0, 'GitSignsStagedDeleteNr', {fg = '#905555'})
-vim.api.nvim_set_hl(0, 'GitSignsChangeNr',       {fg = '#55ccee'})
-vim.api.nvim_set_hl(0, 'GitSignsStagedChangeNr', {fg = '#558899'})
+vim.api.nvim_set_hl(0, 'GitSignsAddNr', { fg = '#55d055' })
+vim.api.nvim_set_hl(0, 'GitSignsStagedAddNr', { fg = '#558855' })
+vim.api.nvim_set_hl(0, 'GitSignsDeleteNr', { fg = '#ff4d4d' })
+vim.api.nvim_set_hl(0, 'GitSignsStagedDeleteNr', { fg = '#905555' })
+vim.api.nvim_set_hl(0, 'GitSignsChangeNr', { fg = '#55ccee' })
+vim.api.nvim_set_hl(0, 'GitSignsStagedChangeNr', { fg = '#558899' })
 
 -- Configure the command line.
 vim.opt.cmdheight = 1
 vim.opt.ruler = false
-vim.api.nvim_set_hl(0, 'MsgArea', {bg = "#222222", fg = "#cccccc"})
-vim.api.nvim_set_hl(0, 'ModeMsg', {bg = "#222222", fg = "#cccccc"})
+vim.api.nvim_set_hl(0, 'MsgArea', { bg = '#222222', fg = '#cccccc' })
+vim.api.nvim_set_hl(0, 'ModeMsg', { bg = '#222222', fg = '#cccccc' })
 
 -- The globals status line is removed in favor of per window status lines.
 vim.opt.laststatus = 0
 
 -- Highlight groups used in window titlebars
-vim.api.nvim_set_hl(0, 'WinBar', {bg = "#444444", fg = "#eeeeee"})
-vim.api.nvim_set_hl(0, 'WinBarNC', {bg = "#222222", fg = "#cccccc"})
-vim.api.nvim_set_hl(0, 'NormalModeIndicator',
-  {bg = "#cccccc", fg = "#222222", bold = true})
-vim.api.nvim_set_hl(0, 'InsertModeIndicator',
-  {bg = "#44cc44", fg = "#222222", bold = true})
-vim.api.nvim_set_hl(0, 'VisualModeIndicator',
-  {bg = "#4499cc", fg = "#222222", bold = true})
-vim.api.nvim_set_hl(0, 'CommandModeIndicator',
-  {bg = "#cc4444", fg = "#222222", bold = true})
-vim.api.nvim_set_hl(0, 'InactiveModeIndicator',
-  {bg = "#444444", fg = "#dddddd", bold = true})
+vim.api.nvim_set_hl(0, 'WinBar', { bg = '#444444', fg = '#eeeeee' })
+vim.api.nvim_set_hl(0, 'WinBarNC', { bg = '#222222', fg = '#cccccc' })
+vim.api.nvim_set_hl(
+  0,
+  'NormalModeIndicator',
+  { bg = '#cccccc', fg = '#222222', bold = true }
+)
+vim.api.nvim_set_hl(
+  0,
+  'InsertModeIndicator',
+  { bg = '#44cc44', fg = '#222222', bold = true }
+)
+vim.api.nvim_set_hl(
+  0,
+  'VisualModeIndicator',
+  { bg = '#4499cc', fg = '#222222', bold = true }
+)
+vim.api.nvim_set_hl(
+  0,
+  'CommandModeIndicator',
+  { bg = '#cc4444', fg = '#222222', bold = true }
+)
+vim.api.nvim_set_hl(
+  0,
+  'InactiveModeIndicator',
+  { bg = '#444444', fg = '#dddddd', bold = true }
+)
 
-vim.api.nvim_set_hl(0, 'FiletypeIndicator',
-  {link = 'NormalModeIndicator'})
-vim.api.nvim_set_hl(0, 'InactiveFiletypeIndicator',
-  {link = 'InactiveModeIndicator'})
+vim.api.nvim_set_hl(0, 'FiletypeIndicator', { link = 'NormalModeIndicator' })
+vim.api.nvim_set_hl(
+  0,
+  'InactiveFiletypeIndicator',
+  { link = 'InactiveModeIndicator' }
+)
 
 -- The sidebar windows and information used for their titlebars. The windows
 -- maintain the top to bottom order of this table.
 local sidebar_infos = {
-  {filetype = 'undotree', icon = '', filename_replacement = 'Undo Tree'},
-  {filetype = 'vuffers',  icon = '', filename_replacement = 'Buffers'},
-  {filetype = 'NvimTree', icon = '', filename_replacement = 'File Tree'},
+  { filetype = 'undotree', icon = '', filename_replacement = 'Undo Tree' },
+  { filetype = 'vuffers', icon = '', filename_replacement = 'Buffers' },
+  { filetype = 'NvimTree', icon = '', filename_replacement = 'File Tree' },
 }
 
 -- Constructs the left side of window title bars
@@ -323,9 +339,9 @@ local function title_bar_left(winid, bufid, sidebar_info)
     if mode == '\22' then mode = 'V' end
     mode = string.sub(string.upper(mode), 1, 1)
     local mode_elements = {
-      ['N'] = {' N ', group = 'NormalModeIndicator'},
-      ['I'] = {' I ', group = 'InsertModeIndicator'},
-      ['V'] = {' V ', group = 'VisualModeIndicator'},
+      ['N'] = { ' N ', group = 'NormalModeIndicator' },
+      ['I'] = { ' I ', group = 'InsertModeIndicator' },
+      ['V'] = { ' V ', group = 'VisualModeIndicator' },
     }
     local mode_element = mode_elements[mode]
     if mode_element ~= nil then
@@ -334,15 +350,15 @@ local function title_bar_left(winid, bufid, sidebar_info)
       table.insert(bar_config, mode_elements['N'])
     end
   else
-    table.insert(bar_config, {'   ', group = 'InactiveModeIndicator'})
+    table.insert(bar_config, { '   ', group = 'InactiveModeIndicator' })
   end
 
   if sidebar_info == nil then
     -- Initialize git status information.
     local statuses = {
-      {type = 'added',   symbol = '+', hl_group_substr = 'Add'},
-      {type = 'changed', symbol = '~', hl_group_substr = 'Change'},
-      {type = 'removed', symbol = '-', hl_group_substr = 'Delete'},
+      { type = 'added', symbol = '+', hl_group_substr = 'Add' },
+      { type = 'changed', symbol = '~', hl_group_substr = 'Change' },
+      { type = 'removed', symbol = '-', hl_group_substr = 'Delete' },
     }
     local status_dict = vim.b[bufid].gitsigns_status_dict
     local git_config = {}
@@ -352,37 +368,37 @@ local function title_bar_left(winid, bufid, sidebar_info)
         if count ~= nil and count > 0 then
           local text = status.symbol .. count
           local hl_group = 'GitSigns' .. status.hl_group_substr .. 'Nr'
-          table.insert(git_config, {text, group = hl_group})
+          table.insert(git_config, { text, group = hl_group })
         end
       end
     end
 
     -- Initialize diagnostic information.
     local diagnostics = {
-      {type = 'Error', symbol = ''},
-      {type = 'Warn',  symbol = ''},
-      {type = 'Info',  symbol = ''},
-      {type = 'Hint',  symbol = ''},
+      { type = 'Error', symbol = '' },
+      { type = 'Warn', symbol = '' },
+      { type = 'Info', symbol = '' },
+      { type = 'Hint', symbol = '' },
     }
     local diagnostic_config = {}
     for _, diagnostic in ipairs(diagnostics) do
       local type_number = vim.diagnostic.severity[string.upper(diagnostic.type)]
-      local count = #vim.diagnostic.get(bufid, {severity = type_number})
+      local count = #vim.diagnostic.get(bufid, { severity = type_number })
       if count > 0 then
         local text = diagnostic.symbol .. count
         local hl_group = 'Diagnostic' .. diagnostic.type
-        table.insert(diagnostic_config, {text, group = hl_group})
+        table.insert(diagnostic_config, { text, group = hl_group })
       end
     end
 
     -- Insert git and diagnostic information if present or a single separator if
     -- not present.
     if #git_config > 0 then
-      table.insert(bar_config, {' ', git_config, ' '})
+      table.insert(bar_config, { ' ', git_config, ' ' })
       table.insert(bar_config, '|')
     end
     if #diagnostic_config > 0 then
-      table.insert(bar_config, {' ', diagnostic_config, ' '})
+      table.insert(bar_config, { ' ', diagnostic_config, ' ' })
       table.insert(bar_config, '|')
     end
     if #git_config == 0 and #diagnostic_config == 0 then
@@ -407,24 +423,24 @@ local function title_bar_right(winid, bufid, sidebar_info)
     }
     local fileformat = vim.bo.fileformat
     table.insert(bar_config, '|')
-    table.insert(bar_config, {' ', {format_symbols[fileformat]}, ' '})
+    table.insert(bar_config, { ' ', { format_symbols[fileformat] }, ' ' })
     table.insert(bar_config, '|')
 
     -- Insert line and cursor position information.
     local cursor_pos = vim.api.nvim_win_get_cursor(winid)[1]
     local line_count = vim.api.nvim_buf_line_count(bufid)
-    local percentage = 100;
+    local percentage = 100
     if line_count > 0 then
-      percentage = math.floor(100 * (cursor_pos/line_count))
+      percentage = math.floor(100 * (cursor_pos / line_count))
     end
-    table.insert(bar_config, {' ', percentage .. '%' .. line_count, ' '})
+    table.insert(bar_config, { ' ', percentage .. '%' .. line_count, ' ' })
     table.insert(bar_config, '|')
 
     -- Get the icon and filename relative to the current working directory.
     local full_filename = vim.api.nvim_buf_get_name(bufid)
     local file_tail = vim.fn.fnamemodify(full_filename, ':t')
     local file_ext = vim.fn.fnamemodify(full_filename, ':e')
-    icon = devicons.get_icon(file_tail, file_ext, {default = true})
+    icon = devicons.get_icon(file_tail, file_ext, { default = true })
     filename = vim.fn.fnamemodify(full_filename, ':.')
   else
     icon = sidebar_info.icon
@@ -432,12 +448,12 @@ local function title_bar_right(winid, bufid, sidebar_info)
   end
 
   -- Insert the filename and file type icon.
-  table.insert(bar_config, {' ', {filename, gui = 'italic'}, ' '})
+  table.insert(bar_config, { ' ', { filename, gui = 'italic' }, ' ' })
   local icon_text = ' ' .. icon .. ' '
   if winid == vim.api.nvim_get_current_win() then
-    table.insert(bar_config, {icon_text, group = 'FiletypeIndicator'})
+    table.insert(bar_config, { icon_text, group = 'FiletypeIndicator' })
   else
-    table.insert(bar_config, {icon_text, group = 'InactiveFiletypeIndicator'})
+    table.insert(bar_config, { icon_text, group = 'InactiveFiletypeIndicator' })
   end
   return bar_config
 end
@@ -447,9 +463,9 @@ local function bar_string_length(bar_table)
   local length = 0
   for _, element in ipairs(bar_table) do
     local type = type(element)
-    if type == "table" then
+    if type == 'table' then
       length = length + bar_string_length(element)
-    elseif type == "string" then
+    elseif type == 'string' then
       length = length + vim.str_utfindex(element)
     end
   end
@@ -554,86 +570,94 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 -- File browser toggle
-local treeApi = require("nvim-tree.api")
-vim.keymap.set("n", "<leader>E", function() treeApi.tree.toggle() end)
-vim.keymap.set("n", "<leader>e", function() treeApi.tree.open() end)
+local treeApi = require('nvim-tree.api')
+vim.keymap.set('n', '<leader>E', function() treeApi.tree.toggle() end)
+vim.keymap.set('n', '<leader>e', function() treeApi.tree.open() end)
 
 -- File browser keybinds
 local function nvim_tree_on_attach(bufnr)
   local function opts(desc)
     return {
-      desc = "nvim-tree: " .. desc,
+      desc = 'nvim-tree: ' .. desc,
       buffer = bufnr,
       noremap = true,
       silent = true,
-      nowait = true
+      nowait = true,
     }
   end
-  vim.keymap.set("n", "?", treeApi.tree.toggle_help, opts("Help"))
-  vim.keymap.set("n", "s", treeApi.tree.reload, opts("Refresh"))
-  vim.keymap.set("n", "+", function()
+  vim.keymap.set('n', '?', treeApi.tree.toggle_help, opts('Help'))
+  vim.keymap.set('n', 's', treeApi.tree.reload, opts('Refresh'))
+  vim.keymap.set('n', '+', function()
     treeApi.tree.change_root_to_node()
     vim.cmd('cd ' .. vim.fn.getcwd())
-    vim.api.nvim_exec_autocmds("DirChanged", { pattern = "global" })
-  end, opts("Down"))
-  vim.keymap.set("n", "-", function()
+    vim.api.nvim_exec_autocmds('DirChanged', { pattern = 'global' })
+  end, opts('Down'))
+  vim.keymap.set('n', '-', function()
     treeApi.tree.change_root_to_parent()
     vim.cmd('cd ' .. vim.fn.getcwd())
-    vim.api.nvim_exec_autocmds("DirChanged", { pattern = "global" })
-  end, opts("Up"))
-  vim.keymap.set("n", "*", treeApi.tree.collapse_all, opts("Collapse"))
-  vim.keymap.set("n", "J", treeApi.node.navigate.sibling.next,
-    opts("Next Sibling"))
-  vim.keymap.set("n", "K", treeApi.node.navigate.sibling.prev,
-    opts("Prev Sibling"))
-  vim.keymap.set("n", "<2-LeftMouse>", treeApi.node.open.edit, opts("Open"))
-  vim.keymap.set("n", "<cr>", treeApi.node.open.edit, opts("Open"))
-  vim.keymap.set("n", "o", treeApi.node.open.edit, opts("Open"))
-  vim.keymap.set("n", "O", treeApi.node.open.no_window_picker, opts("Open"))
-  vim.keymap.set("n", "a", treeApi.fs.create, opts("Add"))
-  vim.keymap.set("n", "d", treeApi.fs.remove, opts("Delete"))
-  vim.keymap.set("n", "r", treeApi.fs.rename, opts("Rename"))
-  vim.keymap.set("n", "c", treeApi.fs.copy.node, opts("Copy"))
-  vim.keymap.set("n", "p", treeApi.fs.paste, opts("Paste"))
-  vim.keymap.set("n", "b", treeApi.marks.toggle, opts("Bookmark"))
-  vim.keymap.set("n", "M", treeApi.marks.bulk.move, opts("Move Bookmarked"))
-  vim.keymap.set("n", "D", treeApi.marks.bulk.delete, opts("Delete Bookmarked"))
+    vim.api.nvim_exec_autocmds('DirChanged', { pattern = 'global' })
+  end, opts('Up'))
+  vim.keymap.set('n', '*', treeApi.tree.collapse_all, opts('Collapse'))
+  vim.keymap.set(
+    'n',
+    'J',
+    treeApi.node.navigate.sibling.next,
+    opts('Next Sibling')
+  )
+  vim.keymap.set(
+    'n',
+    'K',
+    treeApi.node.navigate.sibling.prev,
+    opts('Prev Sibling')
+  )
+  vim.keymap.set('n', '<2-LeftMouse>', treeApi.node.open.edit, opts('Open'))
+  vim.keymap.set('n', '<cr>', treeApi.node.open.edit, opts('Open'))
+  vim.keymap.set('n', 'o', treeApi.node.open.edit, opts('Open'))
+  vim.keymap.set('n', 'O', treeApi.node.open.no_window_picker, opts('Open'))
+  vim.keymap.set('n', 'a', treeApi.fs.create, opts('Add'))
+  vim.keymap.set('n', 'd', treeApi.fs.remove, opts('Delete'))
+  vim.keymap.set('n', 'r', treeApi.fs.rename, opts('Rename'))
+  vim.keymap.set('n', 'c', treeApi.fs.copy.node, opts('Copy'))
+  vim.keymap.set('n', 'p', treeApi.fs.paste, opts('Paste'))
+  vim.keymap.set('n', 'b', treeApi.marks.toggle, opts('Bookmark'))
+  vim.keymap.set('n', 'M', treeApi.marks.bulk.move, opts('Move Bookmarked'))
+  vim.keymap.set('n', 'D', treeApi.marks.bulk.delete, opts('Delete Bookmarked'))
 end
 
 -- File browser settings
-require("nvim-tree").setup({
+require('nvim-tree').setup({
   on_attach = nvim_tree_on_attach,
   view = {
-    signcolumn = "no",
+    signcolumn = 'no',
     width = sidebar_width,
   },
   sort = {
-    sorter = "case_sensitive",
+    sorter = 'case_sensitive',
   },
   renderer = {
     symlink_destination = false,
-    root_folder_label = ":~:s?$?",
+    root_folder_label = ':~:s?$?',
     icons = {
-      git_placement = "after",
-      modified_placement = "after",
-      hidden_placement = "after",
-      diagnostics_placement = "after",
-      bookmarks_placement = "after",
+      git_placement = 'after',
+      modified_placement = 'after',
+      hidden_placement = 'after',
+      diagnostics_placement = 'after',
+      bookmarks_placement = 'after',
       glyphs = {
         folder = {
-          arrow_closed = "",
-          arrow_open = "",
-        }
+          arrow_closed = '',
+          arrow_open = '',
+        },
       },
     },
     indent_markers = {
       enable = true,
       icons = {
-        corner = "└",
-        edge = "│",
-        item = "├",
-        bottom = "─",
-        none = " ",
+        corner = '└',
+        edge = '│',
+        item = '├',
+        bottom = '─',
+        none = ' ',
       },
     },
   },
@@ -643,10 +667,10 @@ require("nvim-tree").setup({
 })
 
 -- Buffer list sidebar window
-local vuffers_config ={
+local vuffers_config = {
   wrap = true,
   exclude = {
-    filetypes = {'NvimTree', 'vuffers', 'undotree'},
+    filetypes = { 'NvimTree', 'vuffers', 'undotree' },
   },
   keymaps = {
     use_default = true,
@@ -655,7 +679,7 @@ local vuffers_config ={
       delete = '<c-x>',
       move_down = '<c-5>',
       move_up = '<c-6>',
-    }
+    },
   },
   view = {
     modified_icon = '',
@@ -665,7 +689,7 @@ local vuffers_config ={
       return vim.fn.fnamemodify(full_filename, ':.')
     end,
     trim_buffer_text = true,
-    trim_icon = "",
+    trim_icon = '',
     window = {
       width = sidebar_width,
     },
@@ -677,99 +701,101 @@ vuffers.setup(vuffers_config)
 
 -- Buffer navigation keybinds
 vim.keymap.set('n', '<leader>B', function() vuffers.toggle() end)
-vim.keymap.set({'n', 'i'}, '<c-j>', function()
-  vuffers.go_to_buffer_by_count({direction = 'next'})
-end)
-vim.keymap.set({'n', 'i'}, '<c-k>', function()
-  vuffers.go_to_buffer_by_count({direction = 'prev'})
-end)
-vim.keymap.set({'n', 'i'}, '<c-5>', function()
-  vuffers.move_current_buffer_by_count({direction = 'next'})
-end)
-vim.keymap.set({'n', 'i'}, '<c-6>', function()
-  vuffers.move_current_buffer_by_count({direction = 'prev'})
-end)
-vim.keymap.set('n', '<leader>b', function()
-  vuffers.go_to_buffer_by_line()
-end)
+vim.keymap.set(
+  { 'n', 'i' },
+  '<c-j>',
+  function() vuffers.go_to_buffer_by_count({ direction = 'next' }) end
+)
+vim.keymap.set(
+  { 'n', 'i' },
+  '<c-k>',
+  function() vuffers.go_to_buffer_by_count({ direction = 'prev' }) end
+)
+vim.keymap.set(
+  { 'n', 'i' },
+  '<c-5>',
+  function() vuffers.move_current_buffer_by_count({ direction = 'next' }) end
+)
+vim.keymap.set(
+  { 'n', 'i' },
+  '<c-6>',
+  function() vuffers.move_current_buffer_by_count({ direction = 'prev' }) end
+)
+vim.keymap.set('n', '<leader>b', function() vuffers.go_to_buffer_by_line() end)
 
 -- Display help files in the buffer window.
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'help',
-  callback = function()
-    vim.bo.buflisted = true
-  end,
+  callback = function() vim.bo.buflisted = true end,
 })
 
 -- Regenerate the buffer lines on a global cwd change.
 vim.api.nvim_create_autocmd('DirChanged', {
   pattern = 'global',
-  callback = function()
-    vuffers.reset_buffers()
-  end
+  callback = function() vuffers.reset_buffers() end,
 })
 
-vim.api.nvim_set_hl(0, 'VuffersWindowBackground', {link = 'Normal'})
-vim.api.nvim_set_hl(0, 'VuffersIndex', {fg = '#999999'})
-vim.api.nvim_set_hl(0, 'VuffersActiveBuffer', {link = 'CursorLine'})
-vim.api.nvim_set_hl(0, 'VuffersModifiedIcon', {fg = '#77cccc'})
-vim.api.nvim_set_hl(0, 'VuffersPinnedIcon', {fg = '#888888'})
-vim.api.nvim_set_hl(0, 'VuffersActivePinnedIcon', {fg = '#77cccc'})
+vim.api.nvim_set_hl(0, 'VuffersWindowBackground', { link = 'Normal' })
+vim.api.nvim_set_hl(0, 'VuffersIndex', { fg = '#999999' })
+vim.api.nvim_set_hl(0, 'VuffersActiveBuffer', { link = 'CursorLine' })
+vim.api.nvim_set_hl(0, 'VuffersModifiedIcon', { fg = '#77cccc' })
+vim.api.nvim_set_hl(0, 'VuffersPinnedIcon', { fg = '#888888' })
+vim.api.nvim_set_hl(0, 'VuffersActivePinnedIcon', { fg = '#77cccc' })
 
 -- For fuzzy finding files, strings, buffers, and help tags.
-require('telescope').setup{
+require('telescope').setup({
   defaults = {
     mappings = {
       i = {
-        ["<esc>"] = require('telescope.actions').close,
+        ['<esc>'] = require('telescope.actions').close,
       },
     },
     file_ignore_patterns = {
-      ".git/",
+      '.git/',
     },
-    borderchars = {"─", "│", "─", "│", "┌", "┐", "┘", "└"}
+    borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
   },
-}
-vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files hidden=true<cr>")
-vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>")
-vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>")
-vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>")
+})
+vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files hidden=true<cr>')
+vim.keymap.set('n', '<leader>fg', '<cmd>Telescope live_grep<cr>')
+vim.keymap.set('n', '<leader>fb', '<cmd>Telescope buffers<cr>')
+vim.keymap.set('n', '<leader>fh', '<cmd>Telescope help_tags<cr>')
 
 -- Configure options for lsps.
 vim.lsp.config['lua_ls'] = {
-  cmd = {'lua-language-server'},
-  filetypes = {'lua'},
-  root_markers = {'.luarc.json', '.git'},
+  cmd = { 'lua-language-server' },
+  filetypes = { 'lua' },
+  root_markers = { '.luarc.json', '.git' },
   settings = {
     Lua = {
       runtime = {
         version = 'LuaJIT',
-      }
-    }
-  }
+      },
+    },
+  },
 }
 vim.lsp.enable('lua_ls')
 
 vim.lsp.config['clangd'] = {
-  filetypes = {'cpp', 'c'},
-  root_markers = {"compile_commands.json", ".git"},
+  filetypes = { 'cpp', 'c' },
+  root_markers = { 'compile_commands.json', '.git' },
   capabilities = {
     textDocument = {
       completion = {
         completionItem = {
           snippetSupport = true,
-        }
+        },
       },
     },
   },
   cmd = {
-    "clangd",
-    "--enable-config",
-    "--background-index",
-    "--clang-tidy",
-    "--header-insertion=never",
-    "--header-insertion-decorators=false",
-    "--completion-style=detailed",
+    'clangd',
+    '--enable-config',
+    '--background-index',
+    '--clang-tidy',
+    '--header-insertion=never',
+    '--header-insertion-decorators=false',
+    '--completion-style=detailed',
   },
 }
 vim.lsp.enable('clangd')
@@ -778,11 +804,9 @@ vim.lsp.enable('clangd')
 vim.keymap.set('n', 'gd', '<c-]>')
 
 -- Prevent indentation changes after typing ':'
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "cpp", "c" },
-  callback = function()
-    vim.opt_local.cinkeys:remove(":")
-  end,
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'cpp', 'c' },
+  callback = function() vim.opt_local.cinkeys:remove(':') end,
 })
 
 -- Configure diagnostic options
@@ -794,41 +818,39 @@ vim.diagnostic.config({
 })
 
 -- Lines with associated diagnostics recieve double underlines
-vim.cmd [[
+vim.cmd([[
   highlight DiagnosticUnderlineError gui=underdouble
   highlight DiagnosticUnderlineWarn  gui=underdouble
   highlight DiagnosticUnderlineInfo  gui=underdouble
   highlight DiagnosticUnderlineHint  gui=underdouble
-]]
+]])
 
 -- Prevent diagnostic underlines from dissappearing when in an insert mode
 local original_underline_hide = vim.diagnostic.handlers.underline.hide
 vim.diagnostic.handlers.underline.hide = function(ns, bufnr)
   local current_mode = vim.api.nvim_get_mode().mode
   local ignored_mode = current_mode == 'i' or current_mode == 'R'
-  if ignored_mode or not original_underline_hide then
-    return
-  end
+  if ignored_mode or not original_underline_hide then return end
   original_underline_hide(ns, bufnr)
 end
 
 -- Keybinds for displaying diagnostics
 vim.keymap.set('n', '<leader>dv', function()
   local active = not vim.diagnostic.config().virtual_lines
-  vim.diagnostic.config({virtual_lines = active})
-end, {desc = 'Toggle diagnostic virtual_lines'})
+  vim.diagnostic.config({ virtual_lines = active })
+end, { desc = 'Toggle diagnostic virtual_lines' })
 vim.keymap.set('n', '<leader>dl', function()
   local active = not vim.diagnostic.config().underline
-  vim.diagnostic.config({underline = active})
-end, {desc = 'Toggle diagnostic underline'})
+  vim.diagnostic.config({ underline = active })
+end, { desc = 'Toggle diagnostic underline' })
 vim.keymap.set('n', '<leader>dd', function()
   local diagnostics = vim.diagnostic.get(0, {
-    lnum = vim.api.nvim_win_get_cursor(0)[1] - 1
+    lnum = vim.api.nvim_win_get_cursor(0)[1] - 1,
   })
   if #diagnostics > 0 then
     vim.cmd('echom "' .. diagnostics[1].message .. '"')
   end
-end, {desc = 'Display diagnostic message'})
+end, { desc = 'Display diagnostic message' })
 
 -- Configure Autocomplete.
 local cmp = require('cmp')
@@ -843,25 +865,27 @@ cmp.setup({
     },
     documentation = {
       winblend = 20,
-    }
+    },
   },
   mapping = cmp.mapping.preset.insert({
-    ['<down>'] = cmp.mapping.select_next_item(
-      {behavior = cmp.SelectBehavior.Select}),
-    ['<up>'] = cmp.mapping.select_prev_item(
-      {behavior = cmp.SelectBehavior.Select}),
-    ['<tab>'] = cmp.mapping.confirm({select = true}),
+    ['<down>'] = cmp.mapping.select_next_item({
+      behavior = cmp.SelectBehavior.Select,
+    }),
+    ['<up>'] = cmp.mapping.select_prev_item({
+      behavior = cmp.SelectBehavior.Select,
+    }),
+    ['<tab>'] = cmp.mapping.confirm({ select = true }),
   }),
   sources = cmp.config.sources({
-    {name = 'nvim_lsp'},
+    { name = 'nvim_lsp' },
   }),
 })
 
 -- Toggle autocomplete suggestions.
 local cmp_enabled = true
-vim.keymap.set({'n', 'i', 's', 'c'}, '<c-tab>', function()
+vim.keymap.set({ 'n', 'i', 's', 'c' }, '<c-tab>', function()
   cmp_enabled = not cmp_enabled
-  cmp.setup({enabled = cmp_enabled})
+  cmp.setup({ enabled = cmp_enabled })
   if not cmp_enabled and cmp.visible() then
     cmp.close()
   elseif cmp_enabled and not cmp.visible() then
@@ -875,7 +899,7 @@ local function format_sidebar()
   local active_windows = {}
   for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
     local bufid = vim.api.nvim_win_get_buf(winid)
-    local window_filetype = vim.api.nvim_buf_get_option(bufid, "filetype")
+    local window_filetype = vim.api.nvim_buf_get_option(bufid, 'filetype')
     for _, sidebar_info in pairs(sidebar_infos) do
       if window_filetype == sidebar_info.filetype then
         active_windows[#active_windows + 1] = winid
@@ -887,7 +911,7 @@ local function format_sidebar()
   local totalHeight = vim.opt.lines:get() - 1
   local height = math.floor(totalHeight / #active_windows)
   for _, winid in ipairs(active_windows) do
-    vim.api.nvim_win_set_config(winid, {height = height})
+    vim.api.nvim_win_set_config(winid, { height = height })
   end
   vim.cmd('wincmd =')
 end
@@ -897,14 +921,12 @@ end
 local function ensure_winbar(winid)
   local bufid = vim.api.nvim_win_get_buf(winid)
   local filetype = vim.bo[bufid].filetype
-  if filetype == 'incline' then
-    return
-  end
+  if filetype == 'incline' then return end
   local position = vim.api.nvim_win_get_position(winid)
   if position[1] == 0 then
-    vim.api.nvim_set_option_value("winbar", ' ', {win = winid})
+    vim.api.nvim_set_option_value('winbar', ' ', { win = winid })
   else
-    vim.api.nvim_set_option_value("winbar", '', {win = winid})
+    vim.api.nvim_set_option_value('winbar', '', { win = winid })
   end
 end
 
@@ -952,17 +974,13 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
     -- the new sidebar window.
     local above_sidebar_winid = -1
     local below_sidebar_winid = -1
-    for i=new_sidebar_window_pos - 1, 1, -1 do
+    for i = new_sidebar_window_pos - 1, 1, -1 do
       above_sidebar_winid = get_filetype_win(sidebar_infos[i].filetype)
-      if above_sidebar_winid ~= -1 then
-        break
-      end
+      if above_sidebar_winid ~= -1 then break end
     end
-    for i=new_sidebar_window_pos + 1, #sidebar_infos, 1 do
+    for i = new_sidebar_window_pos + 1, #sidebar_infos, 1 do
       below_sidebar_winid = get_filetype_win(sidebar_infos[i].filetype)
-      if below_sidebar_winid ~= -1 then
-        break
-      end
+      if below_sidebar_winid ~= -1 then break end
     end
 
     -- Place the new sidebar window in the correct position.
@@ -981,7 +999,7 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
     end
     format_sidebar()
     ensure_all_winbars()
-  end
+  end,
 })
 
 -- The undotree window does not trigger the BufWinEnter event, thus we are
@@ -1004,11 +1022,10 @@ vim.api.nvim_create_autocmd('FileType', {
     end
     -- Ensure the undotree uses the correct width.
     local current_win_id = vim.api.nvim_get_current_win()
-    vim.api.nvim_set_option_value('winfixwidth', true, {win = current_win_id})
+    vim.api.nvim_set_option_value('winfixwidth', true, { win = current_win_id })
     vim.api.nvim_win_set_width(current_win_id, sidebar_width)
     vim.cmd('setlocal winbar=')
     format_sidebar()
     ensure_all_winbars()
   end,
 })
-
