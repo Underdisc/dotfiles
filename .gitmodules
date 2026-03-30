@@ -1,3 +1,6 @@
 [submodule "sub/git-number"]
 	path = sub/git-number
 	url = git@github.com:holygeek/git-number.git
+[submodule "home/.config/nvim/ext/vuffers.nvim"]
+	path = home/.config/nvim/ext/vuffers.nvim
+	url = git@github.com:Underdisc/vuffers.nvim.git

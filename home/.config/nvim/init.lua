@@ -17,7 +17,6 @@ vim.keymap.set('n', '<esc>', '<cmd>nohlsearch<cr>')
 vim.keymap.set('n', '<leader>s', '<cmd>luafile $MYVIMRC<cr>')
 -- Use <Esc> to exit terminal mode
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
-vim.keymap.set('n', '<leader>b', ':buffers<cr>:buffer ')
 -- Use <c-bs> to delete the previous word in command line mode.
 vim.keymap.set('c', '<c-w>', '<nop>')
 vim.keymap.set('c', '<c-bs>', '<c-w>')
@@ -311,6 +310,7 @@ vim.api.nvim_set_hl(0, 'InactiveFiletypeIndicator',
 -- maintain the top to bottom order of this table.
 local sidebar_infos = {
   {filetype = 'undotree', icon = '', filename_replacement = 'Undo Tree'},
+  {filetype = 'vuffers',  icon = '', filename_replacement = 'Buffers'},
   {filetype = 'NvimTree', icon = '', filename_replacement = 'File Tree'},
 }
 
@@ -639,6 +639,72 @@ require("nvim-tree").setup({
     dotfiles = false,
   },
 })
+
+-- Buffer list sidebar window
+local vuffers_config ={
+  wrap = true,
+  exclude = {
+    filetypes = {'NvimTree', 'vuffers', 'undotree'},
+  },
+  keymaps = {
+    use_default = true,
+    view = {
+      open = '<enter>',
+      delete = '<c-x>',
+      move_down = '<c-5>',
+      move_up = '<c-6>',
+    }
+  },
+  view = {
+    modified_icon = '',
+    highlight_entire_active_line = true,
+    create_buffer_text = function(buffer)
+      local full_filename = vim.api.nvim_buf_get_name(buffer.buf)
+      return vim.fn.fnamemodify(full_filename, ':.')
+    end,
+    trim_buffer_text = true,
+    trim_icon = "",
+    window = {
+      width = sidebar_width,
+    },
+  },
+}
+vim.opt.rtp:append('~/.config/nvim/ext/vuffers.nvim')
+local vuffers = require('vuffers')
+vuffers.setup(vuffers_config)
+
+-- Buffer navigation keybinds
+vim.keymap.set('n', '<leader>B', function() vuffers.toggle() end)
+vim.keymap.set({'n', 'i'}, '<c-j>', function()
+  vuffers.go_to_buffer_by_count({direction = 'next'})
+end)
+vim.keymap.set({'n', 'i'}, '<c-k>', function()
+  vuffers.go_to_buffer_by_count({direction = 'prev'})
+end)
+vim.keymap.set({'n', 'i'}, '<c-5>', function()
+  vuffers.move_current_buffer_by_count({direction = 'next'})
+end)
+vim.keymap.set({'n', 'i'}, '<c-6>', function()
+  vuffers.move_current_buffer_by_count({direction = 'prev'})
+end)
+vim.keymap.set('n', '<leader>b', function()
+  vuffers.go_to_buffer_by_line()
+end)
+
+-- Display help files in the buffer window.
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'help',
+  callback = function()
+    vim.bo.buflisted = true
+  end,
+})
+
+vim.api.nvim_set_hl(0, 'VuffersWindowBackground', {link = 'Normal'})
+vim.api.nvim_set_hl(0, 'VuffersIndex', {fg = '#999999'})
+vim.api.nvim_set_hl(0, 'VuffersActiveBuffer', {link = 'CursorLine'})
+vim.api.nvim_set_hl(0, 'VuffersModifiedIcon', {fg = '#77cccc'})
+vim.api.nvim_set_hl(0, 'VuffersPinnedIcon', {fg = '#888888'})
+vim.api.nvim_set_hl(0, 'VuffersActivePinnedIcon', {fg = '#77cccc'})
 
 -- For fuzzy finding files, strings, buffers, and help tags.
 require('telescope').setup{
