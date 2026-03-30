@@ -144,7 +144,7 @@ require('lazy').setup({
     colorscheme = { 'arctic' },
   },
   checker = {
-    enabled = true,
+    enabled = false,
   },
   ui = {
     border = 'single',
