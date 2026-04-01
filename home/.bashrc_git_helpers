@@ -9,9 +9,11 @@ alias gu='git number restore --staged'
 alias gcm='git commit'
 alias gcma='git commit --amend'
 
-alias gd='git number diff --color=always'
+function gd(){
+  git number diff --color=always $1 | delta --paging never
+}
 function gdl(){
-  git number diff --color=always $1 | less -r
+  git number diff --color=always $1 | delta --paging always
 }
 
 alias gf='git number -c clang-format -style=file -i'
@@ -24,9 +26,11 @@ function gfdl(){
   gdl $1
 }
 
-alias gds='git number diff --staged --color=always'
+function gds(){
+  git number diff --staged --color=always $1 | delta --paging never
+}
 function gdsl(){
-  git number diff --staged --color=always $1 | less -r
+  git number diff --staged --color=always $1 | delta --paging always
 }
 
 alias gls='git lgs'
@@ -42,8 +46,11 @@ function cgll(){
   gll
 }
 
-function gshow(){
-  git show --color=always $1 | less -r
+function gsh(){
+  git show --color=always $1 | delta --paging never
+}
+function gshl(){
+  git show --color=always $1 | delta --paging always
 }
 function glame(){
   git blame -s --color-lines $1 | less -r
