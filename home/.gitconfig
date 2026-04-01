@@ -7,6 +7,27 @@
   editor = nvim
   pager = cat
 
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  navigate = true
+  dark = true
+  line-fill-method = spaces
+  file-style = omit
+  syntax-theme = Visual Studio Dark+
+  hunk-label = 
+  hunk-header-decoration-style = ''
+  hunk-header-style = line-number blue bold italic
+  hunk-header-line-number-style = blue
+  plus-style = syntax "#113311"
+  plus-emph-style = syntax "#115511"
+  minus-style = syntax "#441111"
+  minus-emph-style = syntax "#771111"
+
+[merge]
+  conflictStyle = zdiff3
+
 [alias]
   #SHORTENED COMMANDS
   b = branch
