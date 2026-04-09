@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Make the save file dialog appear on request within firefox.
+GTK_USE_PORTAL=1
+dbus-update-activation-environment \
+  --systemd DISPLAY I3SOCK XAUTHORITY GTK_USE_PORTAL
+
 # Enable drive automounting.
 udiskie --automount --no-notify &
 
