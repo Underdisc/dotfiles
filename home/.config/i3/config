@@ -9,7 +9,7 @@ bindsym $super+e exec thunar
 # Start a terminal.
 bindsym $super+t exec kitty
 # Start a browser.
-bindsym $super+b exec brave
+bindsym $super+b exec firefox
 # Start rofi (a program launcher).
 bindsym $super+r exec rofi -show run
 
