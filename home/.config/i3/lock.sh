@@ -1,3 +1,4 @@
+sudo -K
 i3lock \
   --image=$WALLPAPER_FULL \
   --bar-indicator \
