@@ -20,7 +20,7 @@ xrandr \
   --output DVI-D-0 --mode 1920x1080 --rate 60  --rotate left   --pos 1920x0
 
 xset r rate 370 30
-unclutter --timeout 3 -jitter 5 &
+unclutter --timeout 5 -jitter 5 &
 xrdb <<< "Xcursor.size: 16"
 
 xmodmap "$XMODMAP_CONFIG"
