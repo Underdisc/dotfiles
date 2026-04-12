@@ -700,9 +700,8 @@ local vuffers_config = {
   view = {
     modified_icon = '',
     highlight_entire_active_line = true,
-    create_buffer_text = function(buffer)
-      local full_filename = vim.api.nvim_buf_get_name(buffer.buf)
-      return vim.fn.fnamemodify(full_filename, ':.')
+    create_buffer_text = function(info)
+      return vim.fn.fnamemodify(info.path, ':.')
     end,
     trim_buffer_text = true,
     trim_icon = '',
