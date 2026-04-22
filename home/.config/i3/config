@@ -18,6 +18,10 @@ bindsym $super+r exec rofi -show run
 exec --no-startup-id flameshot
 bindsym $super+s exec flameshot gui
 
+# Apply keyboard settings.
+exec --no-startup-id keyboard-setup.sh
+bindsym $super+Control+b exec keyboard-setup.sh
+
 # Lock the screen upon sleep, hibernation, screen saver, or a hotkey.
 exec --no-startup-id xss-lock ~/.config/i3/lock.sh
 bindsym $super+Escape exec ~/.config/i3/lock.sh
