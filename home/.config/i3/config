@@ -20,6 +20,8 @@ bindsym $super+r exec rofi -show run
 # order to use copy/pasting features.
 exec --no-startup-id flameshot
 bindsym $super+s exec flameshot gui
+# Start vokoscreenNG (video capture).
+bindsym $super+Shift+s exec vokoscreenNG
 
 # Apply keyboard settings.
 exec --no-startup-id keyboard-setup.sh
