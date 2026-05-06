@@ -66,3 +66,7 @@ nnoremap <tab> >l
 vnoremap <tab> > gv
 nnoremap <s-tab> <h
 vnoremap <s-tab> < gv
+
+" Toggle line wrapping.
+execute "set <a-w>=\ew"
+nnoremap <a-w> :set wrap!<cr>
