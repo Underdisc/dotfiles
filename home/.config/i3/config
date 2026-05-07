@@ -5,7 +5,7 @@ set $alt Mod1
 set $super Mod4
 
 # Type the current date.
-bindsym $alt+d exec sleep 0.1 && xdotool type --clearmodifiers --delay 1ms $(date +%y-%m-%d)
+bindsym $alt+d exec xdotool type --clearmodifiers --delay 1ms abcd$(date +%y-%m-%d)
 
 # Open a file browser.
 bindsym $super+e exec thunar
