@@ -8,6 +8,8 @@ elif [[ $hostname =~ octane ]]; then
   source .bashrc_octane
 elif [[ $hostname =~ takumi ]]; then
   source .bashrc_takumi
+elif [[ $hostname =~ dominus ]]; then
+  source .bashrc_dominus
 fi
 popd >/dev/null
 
