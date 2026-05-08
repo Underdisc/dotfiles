@@ -1,11 +1,3 @@
-" Instead of k and j traversing over a single physical line, they will only
-" traverse over visible lines. This makes editing very large wrapped lines
-" easier.
-nnoremap <silent> k gk
-nnoremap <silent> j gj
-nnoremap <silent> 0 g0
-nnoremap <silent> $ g$
-
 " Window creation and closure
 execute "set <a-a>=\ea"
 execute "set <a-s>=\es"
@@ -70,3 +62,21 @@ vnoremap <s-tab> < gv
 " Toggle line wrapping.
 execute "set <a-w>=\ew"
 nnoremap <a-w> :set wrap!<cr>
+
+" When line wrapping is enabled, motions will apply to display lines.
+nnoremap <expr> j &wrap ? 'gj' : 'j'
+nnoremap <expr> k &wrap ? 'gk' : 'k'
+nnoremap <expr> 0 &wrap ? 'g0' : '0'
+nnoremap <expr> $ &wrap ? 'g$' : '$'
+nnoremap <expr> ^ &wrap ? 'g^' : '^'
+nnoremap <expr> I &wrap ? 'g^i' : 'I'
+nnoremap <expr> A &wrap ? 'g$a' : 'A'
+
+vnoremap <expr> j &wrap ? 'gj' : 'j'
+vnoremap <expr> k &wrap ? 'gk' : 'k'
+vnoremap <expr> 0 &wrap ? 'g0' : '0'
+vnoremap <expr> $ &wrap ? 'g$' : '$'
+vnoremap <expr> ^ &wrap ? 'g^' : '^'
+vnoremap <expr> I &wrap ? 'g^i' : 'I'
+vnoremap <expr> A &wrap ? 'g$a' : 'A'
+
