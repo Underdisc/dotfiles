@@ -77,6 +77,3 @@ vnoremap <expr> k &wrap ? 'gk' : 'k'
 vnoremap <expr> 0 &wrap ? 'g0' : '0'
 vnoremap <expr> $ &wrap ? 'g$' : '$'
 vnoremap <expr> ^ &wrap ? 'g^' : '^'
-vnoremap <expr> I &wrap ? 'g^i' : 'I'
-vnoremap <expr> A &wrap ? 'g$a' : 'A'
-
