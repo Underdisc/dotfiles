@@ -26,12 +26,22 @@ base_rsync_flags='--human-readable --recursive --times --modify-window=3 --devic
 alias archive='rsync $base_rsync_flags'
 alias reflect='rsync $base_rsync_flags --delete'
 alias nv='nvim'
-alias btop='btop --preset 0'
 
 alias ls='ls --color=auto'
 alias la='ls -a'
 alias ll='ls -l --time-style=long-iso'
 alias lla='ls -la'
+
+btop() {
+  hostname=$(hostname)
+  config_dir=~/.config/btop
+  system_config=$config_dir/system.conf
+  cat $config_dir/btop.conf > $system_config
+  if [ -f $config_dir/$hostname.conf ]; then
+    cat $config_dir/$hostname.conf >> $system_config
+  fi
+  command btop --config $system_config --preset 0
+}
 
 mkcd()
 {
