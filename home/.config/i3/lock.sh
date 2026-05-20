@@ -1,4 +1,6 @@
 sudo -K
+
+xset +dpms
 i3lock \
   --image=$WALLPAPER_FULL \
   --bar-indicator \
@@ -31,5 +33,6 @@ i3lock \
   --date-pos=350:1000 \
   --time-pos=350:1100 \
   --date-str="%y-%m-%d" \
-  --time-str="%H:%M:%S"
-
+  --time-str="%H:%M:%S" \
+  --nofork
+xset -dpms

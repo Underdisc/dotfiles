@@ -27,8 +27,7 @@ bindsym $super+Shift+s exec vokoscreenNG
 exec --no-startup-id keyboard-setup.sh
 bindsym $super+Control+b exec keyboard-setup.sh
 
-# Lock the screen upon sleep, hibernation, screen saver, or a hotkey.
-exec --no-startup-id xss-lock ~/.config/i3/lock.sh
+# Lock the machine.
 bindsym $super+Escape exec ~/.config/i3/lock.sh
 
 # Restart i3 while perserving the session.

@@ -19,6 +19,11 @@ xrandr \
   --output DP-0    --mode 1920x1080 --rate 100 --rotate normal --pos 0x683 --primary \
   --output DVI-D-0 --mode 1920x1080 --rate 60  --rotate left   --pos 1920x0
 
+# Set the screen saver settings.
+xset dpms 0 0 900
+xset -dpms
+xset s off
+
 unclutter --timeout 5 -jitter 5 &
 xrdb <<< "Xcursor.size: 16"
 
