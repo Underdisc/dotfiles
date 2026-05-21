@@ -5,10 +5,11 @@ bindkey -v
 KEYTIMEOUT=1
 
 # Prepare for building prompts that dynamically update based on input state.
+inactive_mode_label="%K{#444444}   %k"
 normal_mode_label="%K{#CCCCCC} %F{#222222}N%f %k"
 insert_mode_label="%K{#44CC44} %F{#222222}I%f %k"
 visual_mode_label="%K{#44CCCC} %F{#222222}V%f %k"
-mode_label=""
+mode_label="$inactive_mode_label"
 prompt_prefix="%B"
 prompt_content="%F{#00FF00}%n%f@%F{#FF00FF}%m%f %F{#00FFFF}%~%f"
 prompt_focus_suffix="%K{#444444} $prompt_content%k%F{#444444}%f%b "
@@ -43,4 +44,21 @@ function remove_prompt_mode() {
   mode_label=""
 }
 zle -N zle-line-finish remove_prompt_mode
+
+# Apply different prompt highlights when the shell window is or isn't focused.
+function focus_gained() {
+  mode_label=""
+  update_prompt_mode
+}
+function focus_lost() {
+  PROMPT="$prompt_prefix$inactive_mode_label$prompt_unfocus_suffix"
+  zle reset-prompt
+}
+zle -N focus_gained
+zle -N focus_lost
+printf "\e[?1004h"
+bindkey "\e[I" focus_gained
+bindkey "\e[O" focus_lost
+bindkey -M vicmd "\e[I" focus_gained
+bindkey -M vicmd "\e[O" focus_lost
 
