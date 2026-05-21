@@ -1,0 +1,46 @@
+# Use vi mode.
+bindkey -v
+
+# Ensure no noticable delay when switching from insert to normal mode.
+KEYTIMEOUT=1
+
+# Prepare for building prompts that dynamically update based on input state.
+normal_mode_label="%K{#CCCCCC} %F{#222222}N%f %k"
+insert_mode_label="%K{#44CC44} %F{#222222}I%f %k"
+visual_mode_label="%K{#44CCCC} %F{#222222}V%f %k"
+mode_label=""
+prompt_prefix="%B"
+prompt_content="%F{#00FF00}%n%f@%F{#FF00FF}%m%f %F{#00FFFF}%~%f"
+prompt_focus_suffix="%K{#444444} $prompt_content%k%F{#444444}%f%b "
+prompt_unfocus_suffix="%K{#222222} $prompt_content%k%F{#222222}%f%b "
+prompt_scrollback_suffix="%K{#222222}$prompt_content%k%F{#222222}%f%b "
+
+# Update prompt's mode label when the mode switches or a line is initialized.
+function update_prompt_mode() {
+  old_label="$mode_label"
+  if [[ "$KEYMAP" == "vicmd" ]]; then
+    if [[ "$REGION_ACTIVE" -ne 0 ]]; then
+      mode_label="$visual_mode_label"
+    else
+      mode_label="$normal_mode_label"
+    fi
+  else
+    mode_label="$insert_mode_label"
+  fi
+  if [[ "$mode_label" != "$old_label" ]]; then
+    PROMPT="$prompt_prefix$mode_label$prompt_focus_suffix"
+    zle reset-prompt
+  fi
+}
+zle -N zle-line-pre-redraw update_prompt_mode
+zle -N zle-line-init update_prompt_mode
+
+# Remove prompt's mode label before it's sent to the scrollback buffer.
+function remove_prompt_mode() {
+  PROMPT="$prompt_prefix$prompt_scrollback_suffix"
+  zle reset-prompt
+  # Guarantee that the mode label changes during the next prompt update.
+  mode_label=""
+}
+zle -N zle-line-finish remove_prompt_mode
+
