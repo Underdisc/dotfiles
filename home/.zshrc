@@ -62,11 +62,20 @@ bindkey "\e[O" focus_lost
 bindkey -M vicmd "\e[I" focus_gained
 bindkey -M vicmd "\e[O" focus_lost
 
-# Arrow keys only cycle through history and motion keys only perform motions.
+# Motion keys only perfrom motions and up motion doesn't jump to the start of
+# the first line.
+function up_line() {
+  if [[ "$LBUFFER" == *$'\n'* ]]; then
+    zle up-line
+  fi
+}
+zle -N up_line
+bindkey -M vicmd "k" up_line
+bindkey -M vicmd "j" down-line
+
+# Arrow keys only cycle through history.
 bindkey "\x1b[A" up-history
 bindkey "\x1b[B" down-history
 bindkey -M vicmd "\x1b[A" up-history
 bindkey -M vicmd "\x1b[B" down-history
-bindkey -M vicmd "k" up-line
-bindkey -M vicmd "j" down-line
 
