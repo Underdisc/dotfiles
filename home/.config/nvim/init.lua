@@ -463,6 +463,16 @@ local function title_bar_right(winid, bufid, sidebar_info)
   local icon = ''
   local filename = ''
   if sidebar_info == nil then
+    -- Insert line and cursor position information.
+    local cursor_pos = vim.api.nvim_win_get_cursor(winid)
+    local line_count = vim.api.nvim_buf_line_count(bufid)
+    table.insert(bar_config, '|')
+    table.insert(
+      bar_config,
+      { ' ', cursor_pos[2] .. ':' .. cursor_pos[1] .. ':' .. line_count, ' ' }
+    )
+    table.insert(bar_config, '|')
+
     -- Insert an icon for the file format.
     local format_symbols = {
       unix = '󰻀',
@@ -470,18 +480,7 @@ local function title_bar_right(winid, bufid, sidebar_info)
       mac = '',
     }
     local fileformat = vim.bo.fileformat
-    table.insert(bar_config, '|')
     table.insert(bar_config, { ' ', { format_symbols[fileformat] }, ' ' })
-    table.insert(bar_config, '|')
-
-    -- Insert line and cursor position information.
-    local cursor_pos = vim.api.nvim_win_get_cursor(winid)[1]
-    local line_count = vim.api.nvim_buf_line_count(bufid)
-    local percentage = 100
-    if line_count > 0 then
-      percentage = math.floor(100 * (cursor_pos / line_count))
-    end
-    table.insert(bar_config, { ' ', percentage .. '%' .. line_count, ' ' })
     table.insert(bar_config, '|')
 
     -- Get the icon and filename relative to the current working directory.
