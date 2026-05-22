@@ -46,6 +46,10 @@ function remove_prompt_mode() {
 zle -N zle-line-finish remove_prompt_mode
 
 # Apply different prompt highlights when the shell window is or isn't focused.
+function enable_focus_reporting() {
+  printf "\e[?1004h"
+}
+enable_focus_reporting
 function focus_gained() {
   mode_label=""
   update_prompt_mode
@@ -56,7 +60,6 @@ function focus_lost() {
 }
 zle -N focus_gained
 zle -N focus_lost
-printf "\e[?1004h"
 bindkey "\e[I" focus_gained
 bindkey "\e[O" focus_lost
 bindkey -M vicmd "\e[I" focus_gained
@@ -86,4 +89,9 @@ function new_line() {
 zle -N new_line
 bindkey '\x1b[13;2u' new_line
 bindkey -M vicmd '\x1b[13;2u' vi-open-line-below
+
+nv() {
+  command nvim "$@"
+  enable_focus_reporting
+}
 
