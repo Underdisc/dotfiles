@@ -288,33 +288,37 @@ vim.api.nvim_set_hl(0, 'ModeMsg', { bg = '#222222', fg = '#cccccc' })
 vim.opt.laststatus = 0
 
 -- Highlight groups used in window titlebars
-vim.api.nvim_set_hl(0, 'WinBar', { bg = '#444444', fg = '#eeeeee' })
-vim.api.nvim_set_hl(0, 'WinBarNC', { bg = '#222222', fg = '#cccccc' })
-vim.api.nvim_set_hl(
-  0,
-  'NormalModeIndicator',
-  { bg = '#cccccc', fg = '#222222', bold = true }
-)
-vim.api.nvim_set_hl(
-  0,
-  'InsertModeIndicator',
-  { bg = '#44cc44', fg = '#222222', bold = true }
-)
-vim.api.nvim_set_hl(
-  0,
-  'VisualModeIndicator',
-  { bg = '#4499cc', fg = '#222222', bold = true }
-)
-vim.api.nvim_set_hl(
-  0,
-  'CommandModeIndicator',
-  { bg = '#cc4444', fg = '#222222', bold = true }
-)
-vim.api.nvim_set_hl(
-  0,
-  'InactiveModeIndicator',
-  { bg = '#444444', fg = '#dddddd', bold = true }
-)
+local colors = {
+  winbar = { bg = '#444444', fg = '#eeeeee' },
+  winbarnc = { bg = '#222222', fg = '#cccccc' },
+  normal_mode = { bg = '#cccccc', fg = '#222222', bold = true },
+  insert_mode = { bg = '#44cc44', fg = '#222222', bold = true },
+  visual_mode = { bg = '#4499cc', fg = '#222222', bold = true },
+  command_mode = { bg = '#cc4444', fg = '#222222', bold = true },
+  inactive_mode = { bg = '#444444', fg = '#dddddd', bold = true },
+}
+vim.api.nvim_set_hl(0, 'WinBar', colors.winbar)
+vim.api.nvim_set_hl(0, 'WinBarNC', colors.winbarnc)
+vim.api.nvim_set_hl(0, 'NormalModeIndicator', colors.normal_mode)
+vim.api.nvim_set_hl(0, 'InsertModeIndicator', colors.insert_mode)
+vim.api.nvim_set_hl(0, 'VisualModeIndicator', colors.visual_mode)
+vim.api.nvim_set_hl(0, 'CommandModeIndicator', colors.command_mode)
+vim.api.nvim_set_hl(0, 'InactiveModeIndicator', colors.inactive_mode)
+
+-- Brighten or dim the bar of the active window if nvim is or isn't focused.
+local focused = true
+vim.api.nvim_create_autocmd('FocusGained', {
+  callback = function()
+    focused = true
+    vim.api.nvim_set_hl(0, 'WinBar', colors.winbar)
+  end,
+})
+vim.api.nvim_create_autocmd('FocusLost', {
+  callback = function()
+    focused = false
+    vim.api.nvim_set_hl(0, 'WinBar', colors.winbarnc)
+  end,
+})
 
 vim.api.nvim_set_hl(0, 'FiletypeIndicator', { link = 'NormalModeIndicator' })
 vim.api.nvim_set_hl(
@@ -350,7 +354,7 @@ local sidebar_infos = {
 local function title_bar_left(winid, bufid, sidebar_info)
   local bar_config = {}
   -- Insert the mode indicator.
-  if winid == vim.api.nvim_get_current_win() then
+  if focused and winid == vim.api.nvim_get_current_win() then
     local mode = vim.api.nvim_get_mode()['mode']
     if mode == '\22' then mode = 'V' end
     mode = string.sub(string.upper(mode), 1, 1)
@@ -466,7 +470,7 @@ local function title_bar_right(winid, bufid, sidebar_info)
   -- Insert the filename and file type icon.
   table.insert(bar_config, { ' ', { filename, gui = 'italic' }, ' ' })
   local icon_text = ' ' .. icon .. ' '
-  if winid == vim.api.nvim_get_current_win() then
+  if focused and winid == vim.api.nvim_get_current_win() then
     table.insert(bar_config, { icon_text, group = 'FiletypeIndicator' })
   else
     table.insert(bar_config, { icon_text, group = 'InactiveFiletypeIndicator' })
