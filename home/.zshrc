@@ -62,3 +62,11 @@ bindkey "\e[O" focus_lost
 bindkey -M vicmd "\e[I" focus_gained
 bindkey -M vicmd "\e[O" focus_lost
 
+# Arrow keys only cycle through history and motion keys only perform motions.
+bindkey "\x1b[A" up-history
+bindkey "\x1b[B" down-history
+bindkey -M vicmd "\x1b[A" up-history
+bindkey -M vicmd "\x1b[B" down-history
+bindkey -M vicmd "k" up-line
+bindkey -M vicmd "j" down-line
+
