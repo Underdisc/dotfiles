@@ -16,17 +16,21 @@ prompt_focus_suffix="%K{#444444} $prompt_content%k%F{#444444}%f%b "
 prompt_unfocus_suffix="%K{#222222} $prompt_content%k%F{#222222}%f%b "
 prompt_scrollback_suffix="%K{#222222}$prompt_content%k%F{#222222}%f%b "
 
-# Update prompt's mode label when the mode switches or a line is initialized.
+# Update prompt's mode label and the cursor color when the mode switches or a
+# line is initialized.
 function update_prompt_mode() {
   old_label="$mode_label"
   if [[ "$KEYMAP" == "vicmd" ]]; then
     if [[ "$REGION_ACTIVE" -ne 0 ]]; then
       mode_label="$visual_mode_label"
+      echo -ne "\e]12;#44CCCC\a"
     else
       mode_label="$normal_mode_label"
+      echo -ne "\e]12;#CCCCCC\a"
     fi
   else
     mode_label="$insert_mode_label"
+    echo -ne "\e]12;#44CC44\a"
   fi
   if [[ "$mode_label" != "$old_label" ]]; then
     PROMPT="$prompt_prefix$mode_label$prompt_focus_suffix"
@@ -35,6 +39,7 @@ function update_prompt_mode() {
 }
 zle -N zle-line-pre-redraw update_prompt_mode
 zle -N zle-line-init update_prompt_mode
+zle_highlight=(region:bg=#113366)
 
 # Remove prompt's mode label before it's sent to the scrollback buffer.
 function remove_prompt_mode() {

@@ -287,36 +287,64 @@ vim.api.nvim_set_hl(0, 'ModeMsg', { bg = '#222222', fg = '#cccccc' })
 -- The globals status line is removed in favor of per window status lines.
 vim.opt.laststatus = 0
 
--- Highlight groups used in window titlebars
-local colors = {
-  winbar = { bg = '#444444', fg = '#eeeeee' },
-  winbarnc = { bg = '#222222', fg = '#cccccc' },
-  normal_mode = { bg = '#cccccc', fg = '#222222', bold = true },
-  insert_mode = { bg = '#44cc44', fg = '#222222', bold = true },
-  visual_mode = { bg = '#4499cc', fg = '#222222', bold = true },
-  command_mode = { bg = '#cc4444', fg = '#222222', bold = true },
-  inactive_mode = { bg = '#444444', fg = '#dddddd', bold = true },
+-- Highlight groups used for the cursor.
+vim.api.nvim_set_hl(
+  0,
+  'NormalCursor',
+  { bg = '#cccccc', fg = '#222222', bold = true }
+)
+vim.api.nvim_set_hl(
+  0,
+  'InsertCursor',
+  { bg = '#44cc44', fg = '#222222', bold = true }
+)
+vim.api.nvim_set_hl(
+  0,
+  'VisualCursor',
+  { bg = '#44cccc', fg = '#222222', bold = true }
+)
+vim.api.nvim_set_hl(
+  0,
+  'CommandCursor',
+  { bg = '#cc4444', fg = '#222222', bold = true }
+)
+vim.api.nvim_set_hl(0, 'Visual', { bg = '#113366', bold = true })
+
+-- Change cursor color depending on the mode.
+vim.opt.guicursor = {
+  'n:block-NormalCursor',
+  'i:block-InsertCursor',
+  'v:block-VisualCursor',
+  'c:block-CommandCursor',
 }
-vim.api.nvim_set_hl(0, 'WinBar', colors.winbar)
-vim.api.nvim_set_hl(0, 'WinBarNC', colors.winbarnc)
-vim.api.nvim_set_hl(0, 'NormalModeIndicator', colors.normal_mode)
-vim.api.nvim_set_hl(0, 'InsertModeIndicator', colors.insert_mode)
-vim.api.nvim_set_hl(0, 'VisualModeIndicator', colors.visual_mode)
-vim.api.nvim_set_hl(0, 'CommandModeIndicator', colors.command_mode)
-vim.api.nvim_set_hl(0, 'InactiveModeIndicator', colors.inactive_mode)
+
+-- Highlight groups used in window titlebars.
+vim.api.nvim_set_hl(0, 'FocusWinBar', { bg = '#444444', fg = '#eeeeee' })
+vim.api.nvim_set_hl(0, 'UnfocusWinBar', { bg = '#222222', fg = '#cccccc' })
+vim.api.nvim_set_hl(0, 'WinBar', { link = 'FocusWinBar' })
+vim.api.nvim_set_hl(0, 'WinBarNC', { link = 'UnfocusWinBar' })
+vim.api.nvim_set_hl(0, 'NormalModeIndicator', { link = 'NormalCursor' })
+vim.api.nvim_set_hl(0, 'InsertModeIndicator', { link = 'InsertCursor' })
+vim.api.nvim_set_hl(0, 'VisualModeIndicator', { link = 'VisualCursor' })
+vim.api.nvim_set_hl(0, 'CommandModeIndicator', { link = 'CommandCursor' })
+vim.api.nvim_set_hl(
+  0,
+  'InactiveModeIndicator',
+  { bg = '#444444', fg = '#dddddd', bold = true }
+)
 
 -- Brighten or dim the bar of the active window if nvim is or isn't focused.
 local focused = true
 vim.api.nvim_create_autocmd('FocusGained', {
   callback = function()
     focused = true
-    vim.api.nvim_set_hl(0, 'WinBar', colors.winbar)
+    vim.api.nvim_set_hl(0, 'WinBar', { link = 'FocusWinBar' })
   end,
 })
 vim.api.nvim_create_autocmd('FocusLost', {
   callback = function()
     focused = false
-    vim.api.nvim_set_hl(0, 'WinBar', colors.winbarnc)
+    vim.api.nvim_set_hl(0, 'WinBar', { link = 'UnfocusWinBar' })
   end,
 })
 
