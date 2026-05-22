@@ -79,3 +79,11 @@ bindkey "\x1b[B" down-history
 bindkey -M vicmd "\x1b[A" up-history
 bindkey -M vicmd "\x1b[B" down-history
 
+# Use shift+enter to add new lines.
+function new_line() {
+  LBUFFER+=$'\n'
+}
+zle -N new_line
+bindkey '\x1b[13;2u' new_line
+bindkey -M vicmd '\x1b[13;2u' vi-open-line-below
+
