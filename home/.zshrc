@@ -95,6 +95,27 @@ zle -N new_line
 bindkey '\x1b[13;2u' new_line
 bindkey -M vicmd '\x1b[13;2u' vi-open-line-below
 
+# Copy to clipboard when there's a visual selection.
+function copy_to_clipboard() {
+  if [[ "$REGION_ACTIVE" -ne 0 ]]; then
+    zle copy-region-as-kill
+    echo -n "$CUTBUFFER" | xclip -selection clipboard -in
+    zle deactivate-region
+  fi
+}
+zle -N copy_to_clipboard
+bindkey -M visual "^C" copy_to_clipboard
+bindkey -M main "^C" undefined-key
+# Guaratee that ctrl+c sends an interrupt if a command is executing.
+function zle-pre-cmd {
+  stty intr "^@"
+}
+function zle-pre-exec {
+  stty intr "^C"
+}
+precmd_functions=(${precmd_functions[@]} "zle-pre-cmd")
+preexec_functions=(${preexec_functions[@]} "zle-pre-exec")
+
 nv() {
   command nvim "$@"
   enable_focus_reporting
