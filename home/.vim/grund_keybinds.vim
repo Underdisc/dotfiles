@@ -1,3 +1,11 @@
+" | enters command-line mode.
+" : performs reverse f/F search.
+" , repeats last used macro.
+nnoremap \| :
+vnoremap \| :
+nnoremap : ,
+nnoremap , @@
+
 " Window creation and closure
 execute "set <a-a>=\ea"
 execute "set <a-s>=\es"
