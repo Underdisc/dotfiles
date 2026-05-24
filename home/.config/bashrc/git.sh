@@ -7,6 +7,7 @@ alias grm='git number rm'
 alias gu='git number restore --staged'
 
 alias gcm='git commit'
+alias gcmm='git commit -m'
 alias gcma='git commit --amend'
 
 function gd(){
@@ -45,6 +46,9 @@ function cgll(){
   clear
   gll
 }
+
+alias gl='gls'
+alias cgl='cgls'
 
 function gsh(){
   git show --color=always $1 | delta --paging never
