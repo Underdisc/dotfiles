@@ -1,17 +1,17 @@
 # Source all of the bashrc files.
 pushd ~ >/dev/null
-source .bashrc_all
+source .config/bashrc/all.sh
+source .config/bashrc/git.sh
 hostname=$(hostname)
 if [[ $hostname =~ breakout ]]; then
-  source .bashrc_windows
+  source .config/bashrc/windows.sh
 elif [[ $hostname =~ octane ]]; then
-  source .bashrc_octane_locals
+  source .config/bashrc/octane_locals.sh
 elif [[ $hostname =~ takumi ]]; then
-  source .bashrc_takumi_locals
+  source .config/bashrc/takumi_locals.sh
 elif [[ $hostname =~ dominus ]]; then
-  source .bashrc_dominus_locals
+  source .config/bashrc/dominus_locals.sh
 fi
-source .bashrc_git_helpers
 popd >/dev/null
 
 # Save the current directory in a tmux variable so that we can start new panes
