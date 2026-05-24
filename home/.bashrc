@@ -3,14 +3,15 @@ pushd ~ >/dev/null
 source .bashrc_all
 hostname=$(hostname)
 if [[ $hostname =~ breakout ]]; then
-  source .bashrc_breakout
+  source .bashrc_windows
 elif [[ $hostname =~ octane ]]; then
-  source .bashrc_octane
+  source .bashrc_octane_locals
 elif [[ $hostname =~ takumi ]]; then
-  source .bashrc_takumi
+  source .bashrc_takumi_locals
 elif [[ $hostname =~ dominus ]]; then
-  source .bashrc_dominus
+  source .bashrc_dominus_locals
 fi
+source .bashrc_git_helpers
 popd >/dev/null
 
 # Save the current directory in a tmux variable so that we can start new panes

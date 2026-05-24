@@ -1,3 +1,0 @@
-  source .bashrc_git_helpers
-  PATH=$PATH:~/.local/bin
-
