@@ -49,17 +49,5 @@ mkcd()
   cd $1
 }
 
-clgl()
-{
-  clear
-  git lgl
-}
-
-clgs()
-{
-  clear
-  git lgs
-}
-
 eval "$(fzf --bash)"
 eval "$(zoxide init bash)"
