@@ -45,6 +45,14 @@ nnoremap <m-5>   :call SwapWindows('j')<cr>
 nnoremap <m-6>   :call SwapWindows('k')<cr>
 nnoremap <m-7>   :call SwapWindows('l')<cr>
 
+" ctrl-h|l moves through tabs, ctrl-)|7 swaps tabs, and ctrl-t closes the
+" current tab.
+nnoremap <c-l> :tabnext<cr>
+nnoremap <c-h> :tabprevious<cr>
+nnoremap <c-t> :tabclose<cr>
+nnoremap <c-s-0> :tabmove -1<cr>
+nnoremap <c-7> :tabmove +1<cr>
+
 " Ctrl-Backspace deletes the previous word in insert mode.
 inoremap <c-bs> <c-W>
 

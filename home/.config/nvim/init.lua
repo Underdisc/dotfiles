@@ -333,18 +333,53 @@ vim.api.nvim_set_hl(
   { bg = '#444444', fg = '#dddddd', bold = true }
 )
 
--- Brighten or dim the bar of the active window if nvim is or isn't focused.
+-- Highlight groups use for the tabline bar.
+vim.api.nvim_set_hl(0, 'FocusTabLineFill', { bg = '#444444' })
+vim.api.nvim_set_hl(0, 'FocusTabLineUnsel', { bg = '#666666' })
+vim.api.nvim_set_hl(0, 'FocusTabLineSel', { bg = '#cccccc', fg = '#000000' })
+vim.api.nvim_set_hl(0, 'UnfocusTabLineFill', { bg = '#222222' })
+vim.api.nvim_set_hl(0, 'UnfocusTabLineUnsel', { bg = '#333333' })
+vim.api.nvim_set_hl(0, 'UnfocusTabLineSel', { bg = '#444444' })
+vim.api.nvim_set_hl(0, 'TabLineFill', { link = 'FocusTabLineFill' })
+vim.api.nvim_set_hl(0, 'TabLineUnsel', { link = 'FocusTabLineUnsel' })
+vim.api.nvim_set_hl(0, 'TabLineSel', { link = 'FocusTabLineSel' })
+
+-- Create the tabline string.
+local function tabline()
+  local s = ''
+  for i = 1, vim.fn.tabpagenr('$') do
+    if i == vim.fn.tabpagenr() then
+      s = s .. '%#TabLineSel#'
+    else
+      s = s .. '%#TabLineUnsel#'
+    end
+    s = s .. '%' .. i .. 'T'
+    s = s .. '  '
+  end
+  s = s .. '%#TabLineFill#%T'
+  return s
+end
+_G.Tabline = tabline
+vim.o.tabline = '%!v:lua.Tabline()'
+
+-- Brighten or dim bars if nvim is or isn't focused.
 local focused = true
 vim.api.nvim_create_autocmd('FocusGained', {
   callback = function()
     focused = true
     vim.api.nvim_set_hl(0, 'WinBar', { link = 'FocusWinBar' })
+    vim.api.nvim_set_hl(0, 'TabLineFill', { link = 'FocusTabLineFill' })
+    vim.api.nvim_set_hl(0, 'TabLineUnsel', { link = 'FocusTabLineUnsel' })
+    vim.api.nvim_set_hl(0, 'TabLineSel', { link = 'FocusTabLineSel' })
   end,
 })
 vim.api.nvim_create_autocmd('FocusLost', {
   callback = function()
     focused = false
     vim.api.nvim_set_hl(0, 'WinBar', { link = 'UnfocusWinBar' })
+    vim.api.nvim_set_hl(0, 'TabLineFill', { link = 'UnfocusTabLineFill' })
+    vim.api.nvim_set_hl(0, 'TabLineUnsel', { link = 'UnfocusTabLineUnsel' })
+    vim.api.nvim_set_hl(0, 'TabLineSel', { link = 'UnfocusTabLineSel' })
   end,
 })
 
