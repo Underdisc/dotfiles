@@ -34,7 +34,7 @@ vim.o.showbreak = ' '
 vim.o.linebreak = true
 -- Display tabs and trailing spaces.
 vim.o.list = true
-vim.opt.listchars = { space = ' ', tab = '-->', trail = '⋅' }
+vim.opt.listchars = { space = ' ', tab = '▎->', trail = '⋅' }
 -- Disable spell checking by default.
 vim.opt.spell = false
 -- Show a column at line after line 80.
