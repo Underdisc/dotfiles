@@ -180,6 +180,13 @@ vim.api.nvim_set_hl(0, 'LineNr', { fg = '#555555' })
 vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#222222' })
 vim.api.nvim_set_hl(0, 'NonText', { fg = '#555555' })
 
+vim.api.nvim_set_hl(0, 'Search', { bg = '#443377' })
+vim.api.nvim_set_hl(
+  0,
+  'CurSearch',
+  { bg = '#9977ff', fg = '#000000', bold = true }
+)
+
 -- Configure the character used for color columns
 require('virt-column').setup({
   char = '▎',
