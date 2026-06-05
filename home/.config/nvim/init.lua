@@ -275,7 +275,7 @@ vim.keymap.set({ 'n', 'v' }, '<', '<cmd>Gitsigns nav_hunk prev<cr>')
 vim.keymap.set({ 'n', 'v' }, ']G', '<cmd>Gitsigns nav_hunk last<cr>')
 vim.keymap.set({ 'n', 'v' }, '[G', '<cmd>Gitsigns nav_hunk first<cr>')
 vim.keymap.set({ 'o', 'x' }, 'ag', function() gitsigns.select_hunk() end)
-vim.keymap.set('n', '<leader>gb', '<cmd>Git blame<cr>')
+vim.keymap.set('n', '<leader>gb', '<cmd>Git blame -s<cr>')
 
 -- Numberline colors representing staged and unstaged changes
 vim.api.nvim_set_hl(0, 'GitSignsAddNr', { fg = '#55d055' })
@@ -417,6 +417,14 @@ local sidebar_infos = {
     icon = '',
     filename_replacement = 'File Tree',
     winid = nil,
+  },
+}
+
+local window_infos = {
+  {
+    filetype = 'fugitiveblame',
+    icon = '',
+    filename_replacement = '',
   },
 }
 
@@ -589,6 +597,12 @@ incline.setup({
     local filetype = vim.bo[props.buf].filetype
     local sidebar_info = nil
     for _, info in ipairs(sidebar_infos) do
+      if filetype == info.filetype then
+        sidebar_info = info
+        break
+      end
+    end
+    for _, info in ipairs(window_infos) do
       if filetype == info.filetype then
         sidebar_info = info
         break
