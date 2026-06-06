@@ -34,10 +34,10 @@ function gdsl(){
   git number diff --staged --color=always $1 | delta --paging always
 }
 
-alias gls='git lgs'
-alias gll='git lgl'
-alias gla='git lga'
-alias glal='git lga | less -r'
+alias gla='git log --graph --all --abbrev-commit --color=always --decorate --date=format:%g-%m-%d --format=tformat:"%w(80, 0, 2)%C(bold)%C(white){%C(#00dddd)%h%C(white)/%C(#ee44ff)%ad%C(white)/%C(#44ee44)%an%C(#ffaa22)|%D%C(white)} %s"'
+alias gls='gla -10'
+alias gll='gla -40'
+alias glal='gla | less -r'
 function cgls(){
   clear
   gls
