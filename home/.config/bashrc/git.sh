@@ -10,6 +10,9 @@ alias gcm='git commit'
 alias gcmm='git commit -m'
 alias gcma='git commit --amend'
 
+alias gawc='git add . && git commit -m "wc"'
+alias grwc='git reset HEAD~1'
+
 function gd(){
   git number diff --color=always $1 | delta --paging never
 }
