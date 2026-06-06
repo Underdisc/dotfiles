@@ -167,7 +167,7 @@ conform.setup({
     },
   },
 })
-vim.keymap.set('n', '<leader>z', function() conform.format() end)
+vim.keymap.set('n', '<c-z>', function() conform.format() end)
 
 vim.cmd('colorscheme arctic')
 -- Use the terminal's background color (allows transparency)
