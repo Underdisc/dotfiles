@@ -93,6 +93,7 @@ require('lazy').setup({
     { 'lukas-reineke/virt-column.nvim' },
     -- Quickly comment and uncomment lines
     { 'tpope/vim-commentary' },
+    { 'folke/flash.nvim' },
     -- Close buffers while preserving windows
     { 'moll/vim-bbye' },
     -- Undotree
@@ -182,13 +183,6 @@ vim.api.nvim_set_hl(0, 'LineNr', { fg = '#555555' })
 vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#222222' })
 vim.api.nvim_set_hl(0, 'NonText', { fg = '#555555' })
 
-vim.api.nvim_set_hl(0, 'Search', { bg = '#443377' })
-vim.api.nvim_set_hl(
-  0,
-  'CurSearch',
-  { bg = '#9977ff', fg = '#000000', bold = true }
-)
-
 -- Configure the character used for color columns
 require('virt-column').setup({
   char = '▎',
@@ -210,6 +204,54 @@ require('ibl').setup({
   indent = { highlight = ibl_color_groups },
   scope = { enabled = false },
 })
+
+local flash = require('flash')
+flash.setup({
+  prompt = {
+    prefix = { { '\\', 'FlashPromptIcon' } },
+  },
+  highlight = {
+    backdrop = false,
+  },
+  modes = {
+    char = {
+      search = { wrap = true },
+      highlight = { backdrop = false },
+      keys = { 'f', 'F', 't', 'T', ';', [','] = ':' },
+    },
+  },
+})
+
+vim.keymap.set({ 'n', 'x', 'o' }, '\\', function() flash.jump() end)
+vim.keymap.set({ 'n', 'x', 'o' }, '<c-/>', function() flash.treesitter() end)
+vim.keymap.set(
+  { 'n', 'x', 'o' },
+  '<a-/>',
+  function() flash.treesitter_search() end
+)
+
+vim.api.nvim_set_hl(
+  0,
+  'FlashMatch',
+  { bg = '#0099cc', fg = '#000000', bold = true }
+)
+vim.api.nvim_set_hl(
+  0,
+  'FlashCurrent',
+  { bg = '#0099cc', fg = '#000000', bold = true }
+)
+vim.api.nvim_set_hl(
+  0,
+  'FlashLabel',
+  { bg = '#444444', fg = '#ffffff', bold = true }
+)
+vim.api.nvim_set_hl(0, 'FlashPromptIcon', { link = 'MsgArea' })
+vim.api.nvim_set_hl(0, 'Search', { bg = '#444444' })
+vim.api.nvim_set_hl(
+  0,
+  'CurSearch',
+  { bg = '#bbbbbb', fg = '#000000', bold = true }
+)
 
 -- Retrieve the id for a window displaying a buffer with the desired filetype.
 local function get_filetype_win(filetype)
