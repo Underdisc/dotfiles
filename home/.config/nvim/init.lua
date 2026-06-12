@@ -32,7 +32,7 @@ vim.g.have_nerd_font = true
 vim.o.mouse = 'a'
 -- Wrapped lines use the indent of the original line with one additional ident.
 vim.o.breakindent = true
-vim.o.showbreak = ' '
+vim.o.showbreak = '▏ '
 vim.o.linebreak = true
 -- Display tabs and trailing spaces.
 vim.o.list = true
