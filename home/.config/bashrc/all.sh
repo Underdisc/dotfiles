@@ -26,6 +26,7 @@ base_rsync_flags='--human-readable --recursive --times --modify-window=3 --devic
 alias archive='rsync $base_rsync_flags'
 alias reflect='rsync $base_rsync_flags --delete'
 alias nv='nvim'
+alias yz='yazi'
 
 alias ls='ls --color=auto'
 alias la='ls -a'
