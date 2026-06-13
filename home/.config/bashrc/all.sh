@@ -14,6 +14,7 @@ HISTFILESIZE=-1
 export EDITOR="nvim"
 export MANPAGER="nvim +Man!"
 export PAGER="less"
+export GTK_THEME=Adwaita:dark
 
 alias home='cd ~/home'
 alias dl='cd ~/home/download/new'
