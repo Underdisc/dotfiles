@@ -13,6 +13,8 @@ bindsym $super+e exec thunar
 bindsym $super+t exec kitty
 # Start a browser.
 bindsym $super+b exec firefox
+# Start a audio mixer.
+bindsym $super+a exec pavucontrol
 # Start rofi (a program launcher).
 bindsym $super+r exec rofi -show run
 
