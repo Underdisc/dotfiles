@@ -53,10 +53,10 @@ function cgll(){
 alias gl='gls'
 alias cgl='cgls'
 
-function gsh(){
+function gs(){
   git show --color=always $1 | delta --paging never
 }
-function gshl(){
+function gsl(){
   git show --color=always $1 | delta --paging always
 }
 function glame(){
