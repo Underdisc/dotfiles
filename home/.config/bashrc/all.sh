@@ -1,14 +1,14 @@
-# Create a prompt that looks like this with some different colors for each field.
-# user@hostname ~/dir$
-export PS1="\[\033[1;92m\]\u\[\033[1;97m\]@\[\033[1;95m\]\h \
-\[\033[1;94m\]\w\[\033[1;97m\]$ \[\033[0m\]"
-
-bind '"\C-\b": backward-kill-word'
-
-export HISTTIMEFORMAT="|%g-%m-%d|%H:%M| "
-shopt -s histappend
-HISTSIZE=-1
-HISTFILESIZE=-1
+source .config/bashrc/git.sh
+hostname=$(hostname)
+if [[ $hostname =~ breakout ]]; then
+  source .config/bashrc/windows.sh
+elif [[ $hostname =~ octane ]]; then
+  source .config/bashrc/octane_locals.sh
+elif [[ $hostname =~ takumi ]]; then
+  source .config/bashrc/takumi_locals.sh
+elif [[ $hostname =~ dominus ]]; then
+  source .config/bashrc/dominus_locals.sh
+fi
 
 # Set environment variables
 export EDITOR="nvim"
@@ -26,7 +26,6 @@ alias rsyncd='rsync --daemon --no-detach'
 base_rsync_flags='--human-readable --recursive --times --modify-window=3 --devices --links --specials --verbose --itemize-changes --progress'
 alias archive='rsync $base_rsync_flags'
 alias reflect='rsync $base_rsync_flags --delete'
-alias nv='nvim'
 alias yz='yazi'
 
 alias ls='ls --color=auto'
@@ -51,5 +50,22 @@ mkcd()
   cd $1
 }
 
-eval "$(fzf --bash)"
-eval "$(zoxide init bash)"
+# Save the current directory in a tmux variable so that we can start new panes
+# in the same directory.
+function set_tmux_pwd() {
+  if [ -n "$TMUX" ]; then
+    tmux setenv TMUXPWD_$(tmux display -p "#D") "$PWD"
+    tmux rename-window "$(echo $PWD | sed 's|^/home/[[:alnum:]]\+|~|')"
+  fi
+}
+function cd_internal() {
+  cd "$1"
+  set_tmux_pwd
+}
+set_tmux_pwd
+alias cd=cd_internal
+
+# Go to ~ when not in a tmux session.
+if [ ! -n "$TMUX" ]; then
+  cd ~
+fi
