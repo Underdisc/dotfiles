@@ -1,13 +1,13 @@
-source .config/bashrc/git.sh
+source .config/shrc/git.sh
 hostname=$(hostname)
 if [[ $hostname =~ breakout ]]; then
-  source .config/bashrc/windows.sh
+  source .config/shrc/windows.sh
 elif [[ $hostname =~ octane ]]; then
-  source .config/bashrc/octane_locals.sh
+  source .config/shrc/octane_locals.sh
 elif [[ $hostname =~ takumi ]]; then
-  source .config/bashrc/takumi_locals.sh
+  source .config/shrc/takumi_locals.sh
 elif [[ $hostname =~ dominus ]]; then
-  source .config/bashrc/dominus_locals.sh
+  source .config/shrc/dominus_locals.sh
 fi
 
 # Set environment variables

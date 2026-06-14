@@ -1,6 +1,6 @@
 # Source all of the bashrc files.
 pushd ~ >/dev/null
-source .config/bashrc/rc.bash
-source .config/bashrc/all.sh
+source .config/shrc/rc.bash
+source .config/shrc/all.sh
 popd >/dev/null
 

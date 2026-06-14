@@ -1,5 +1,5 @@
 pushd ~ >/dev/null
-source .config/bashrc/rc.zsh
-source .config/bashrc/all.sh
+source .config/shrc/rc.zsh
+source .config/shrc/all.sh
 popd >/dev/null
 
