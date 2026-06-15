@@ -95,6 +95,9 @@ zle -N new_line
 bindkey '\x1b[13;2u' new_line
 bindkey -M vicmd '\x1b[13;2u' vi-open-line-below
 
+# Press ctrl-backspace to delete a word.
+bindkey '^H' backward-delete-word
+
 # Copy to clipboard when there's a visual selection.
 function copy_to_clipboard() {
   if [[ "$REGION_ACTIVE" -ne 0 ]]; then
