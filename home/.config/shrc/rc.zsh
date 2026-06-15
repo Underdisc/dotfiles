@@ -116,6 +116,14 @@ function zle-pre-exec {
 precmd_functions=(${precmd_functions[@]} "zle-pre-cmd")
 preexec_functions=(${preexec_functions[@]} "zle-pre-exec")
 
+# Ensure a somewhat persistent shell history.
+HISTFILE=~/.history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt append_history
+setopt inc_append_history
+setopt hist_ignore_dups
+
 nv() {
   command nvim "$@"
   enable_focus_reporting
