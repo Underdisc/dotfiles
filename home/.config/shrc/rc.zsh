@@ -11,10 +11,28 @@ insert_mode_label="%K{#44CC44} %F{#222222}I%f %k"
 visual_mode_label="%K{#44CCCC} %F{#222222}V%f %k"
 mode_label="$inactive_mode_label"
 prompt_prefix="%B"
+prompt_suffix="%b "
 prompt_content="%F{#00FF00}%n%f@%F{#FF00FF}%m%f %F{#00FFFF}%~%f"
-prompt_focus_suffix="%K{#444444} $prompt_content%k%F{#444444}%f%b "
-prompt_unfocus_suffix="%K{#222222} $prompt_content%k%F{#222222}%f%b "
-prompt_scrollback_suffix="%K{#222222}$prompt_content%k%F{#222222}%f%b "
+prompt_focus="%K{#444444} $prompt_content%k%F{#444444}%f"
+prompt_unfocus="%K{#222222} $prompt_content%k%F{#222222}%f"
+prompt_scrollback="%K{#222222}$prompt_content%k%F{#222222}%f"
+
+# If there is no window id, the shell is probably running in a tty. This
+# environment doesn't have full rgb color or unicode support, hence requiring a
+# prompt without those properties.
+if [[ "$WINDOWID" == "" ]]; then
+  inactive_mode_label="%b%F{8}[ ]%f %B"
+  normal_mode_label="%F{15}[N]%f "
+  insert_mode_label="%F{10}[I]%f "
+  visual_mode_label="%F{14}[V]%f "
+  mode_label="$inactive_mode_label"
+  prompt_prefix="%B"
+  prompt_suffix="$%b "
+  prompt_content="%F{10}%n%f@%F{13}%m%f %F{14}%~%f"
+  prompt_focus="$prompt_content"
+  prompt_unfocus="$prompt_content"
+  prompt_scrollback="$prompt_content"
+fi
 
 # Update prompt's mode label and the cursor color when the mode switches or a
 # line is initialized.
@@ -33,7 +51,7 @@ function update_prompt_mode() {
     echo -ne "\e]12;#44CC44\a"
   fi
   if [[ "$mode_label" != "$old_label" ]]; then
-    PROMPT="$prompt_prefix$mode_label$prompt_focus_suffix"
+    PROMPT="$prompt_prefix$mode_label$prompt_focus$prompt_suffix"
     zle reset-prompt
   fi
 }
@@ -43,7 +61,7 @@ zle_highlight=(region:bg=#113366)
 
 # Remove prompt's mode label before it's sent to the scrollback buffer.
 function remove_prompt_mode() {
-  PROMPT="$prompt_prefix$prompt_scrollback_suffix"
+  PROMPT="$prompt_prefix$prompt_scrollback$prompt_suffix"
   zle reset-prompt
   # Guarantee that the mode label changes during the next prompt update.
   mode_label=""
@@ -60,7 +78,7 @@ function focus_gained() {
   update_prompt_mode
 }
 function focus_lost() {
-  PROMPT="$prompt_prefix$inactive_mode_label$prompt_unfocus_suffix"
+  PROMPT="$prompt_prefix$inactive_mode_label$prompt_unfocus$prompt_suffix"
   zle reset-prompt
 }
 zle -N focus_gained
