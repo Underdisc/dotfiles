@@ -24,8 +24,8 @@ alias diff='diff --color'
 alias lapdf='latex -c-style-errors -output-format=pdf'
 alias rsyncd='rsync --daemon --no-detach'
 base_rsync_flags='--human-readable --recursive --times --modify-window=3 --devices --links --specials --verbose --itemize-changes --progress'
-alias archive='rsync $base_rsync_flags'
-alias reflect='rsync $base_rsync_flags --delete'
+alias archive="rsync $base_rsync_flags"
+alias reflect="rsync $base_rsync_flags --delete"
 alias yz='yazi'
 
 alias ls='ls --color=auto'
