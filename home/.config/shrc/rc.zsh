@@ -1,6 +1,12 @@
 # Use vi mode.
 bindkey -v
 
+# Use Ctrl-n to edit current line in a text editor.
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^N' edit-command-line
+bindkey -M vicmd '^N' edit-command-line
+
 # Ensure no noticable delay when switching from insert to normal mode.
 KEYTIMEOUT=1
 
