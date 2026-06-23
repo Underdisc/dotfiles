@@ -13,7 +13,7 @@
 [delta]
   navigate = true
   dark = true
-  line-fill-method = spaces
+  width = variable
   file-style = omit
   syntax-theme = Visual Studio Dark+
   hunk-label = 
