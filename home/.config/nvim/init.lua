@@ -133,7 +133,7 @@ require('lazy').setup({
     -- Improved syntax highlighting and more
     {
       'nvim-treesitter/nvim-treesitter',
-      branch = 'master',
+      branch = 'main',
       lazy = false,
       build = ':TSUpdate',
     },
@@ -765,23 +765,14 @@ incline.setup({
   },
 })
 
-require('nvim-treesitter.configs').setup({
-  ensure_installed = {
-    'c',
-    'cpp',
-    'css',
-    'html',
-    'javascript',
-    'lua',
-  },
-  sync_install = false,
-  ignore_install = {},
-  auto_install = false,
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
-  },
-  modules = {},
+local nvim_treesitter = require('nvim-treesitter')
+nvim_treesitter.install({
+  'c',
+  'cpp',
+  'css',
+  'html',
+  'javascript',
+  'lua',
 })
 
 -- File browser configuration
