@@ -546,7 +546,7 @@ local window_infos = {
 }
 
 -- Constructs the left side of window title bars
-local function title_bar_left(winid, bufid, sidebar_info)
+local function title_bar_left(winid, bufid, window_info)
   local bar_config = {}
   -- Insert the mode indicator.
   if focused and winid == vim.api.nvim_get_current_win() then
@@ -568,7 +568,7 @@ local function title_bar_left(winid, bufid, sidebar_info)
     table.insert(bar_config, { '   ', group = 'InactiveModeIndicator' })
   end
 
-  if sidebar_info == nil then
+  if window_info == nil then
     -- Initialize git status information.
     local statuses = {
       { type = 'added', symbol = '+', hl_group_substr = 'Add' },
@@ -625,11 +625,11 @@ end
 
 -- Constructs the right side of window title bars
 local devicons = require('nvim-web-devicons')
-local function title_bar_right(winid, bufid, sidebar_info)
+local function title_bar_right(winid, bufid, window_info)
   local bar_config = {}
   local icon = ''
   local filename = ''
-  if sidebar_info == nil then
+  if window_info == nil then
     -- Insert line and cursor position information.
     local cursor_pos = vim.api.nvim_win_get_cursor(winid)
     local line_count = vim.api.nvim_buf_line_count(bufid)
@@ -657,8 +657,8 @@ local function title_bar_right(winid, bufid, sidebar_info)
     icon = devicons.get_icon(file_tail, file_ext, { default = true })
     filename = vim.fn.fnamemodify(full_filename, ':.')
   else
-    icon = sidebar_info.icon
-    filename = sidebar_info.filename_replacement
+    icon = window_info.icon
+    filename = window_info.filename_replacement
   end
 
   -- Insert the filename and file type icon.
@@ -712,23 +712,23 @@ local incline = require('incline')
 incline.setup({
   render = function(props)
     local filetype = vim.bo[props.buf].filetype
-    local sidebar_info = nil
+    local window_info = nil
     for _, info in ipairs(sidebar_infos) do
       if filetype == info.filetype then
-        sidebar_info = info
+        window_info = info
         break
       end
     end
     for _, info in ipairs(window_infos) do
       if filetype == info.filetype then
-        sidebar_info = info
+        window_info = info
         break
       end
     end
 
     local bar = {}
-    table.insert(bar, title_bar_left(props.win, props.buf, sidebar_info))
-    table.insert(bar, title_bar_right(props.win, props.buf, sidebar_info))
+    table.insert(bar, title_bar_left(props.win, props.buf, window_info))
+    table.insert(bar, title_bar_right(props.win, props.buf, window_info))
     return bar_fit_to_window(bar, props.win)
   end,
 
