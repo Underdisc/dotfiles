@@ -128,6 +128,5 @@ exec --no-startup-id i3-msg workspace 3:k
 workspace_layout tabbed
 
 exec --no-startup-id picom -b
-exec --no-startup-id polybar primary
-exec --no-startup-id polybar secondary
+exec --no-startup-id polybar-setup.sh
 
