@@ -1,4 +1,4 @@
 home/.config/awesome/local_paths.lua
-home/.config/bashrc/*_locals.sh
+home/.config/shrc/*_locals.sh
 .netrwhist
 .luarc.json
