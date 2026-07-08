@@ -10,7 +10,7 @@ bindsym $alt+d exec xdotool type --clearmodifiers --delay 1ms abcd$(date +%y-%m-
 # Open a file browser.
 bindsym $super+e exec thunar
 # Start a terminal.
-bindsym $super+t exec kitty
+bindsym $super+t exec kitty --config ~/.config/kitty/kitty.conf --config ~/.config/kitty/$(hostname).conf
 # Start a browser.
 bindsym $super+b exec firefox
 # Start a audio mixer.
@@ -107,9 +107,8 @@ tiling_drag modifier
 # Switching focus never leaves the current container.
 focus_wrapping workspace
 
-# Set font and background images.
-font pango:JetBrainsMono Nerd Font Italic Bold 10
-exec_always --no-startup-id feh --bg-fill $WALLPAPER_HORIZONTAL --bg-fill $WALLPAPER_VERTICAL
+# Apply system specific directives.
+include ~/.config/i3/`hostname`.conf
 
 # Color themeing for clients
 title_align center
