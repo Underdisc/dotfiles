@@ -11,7 +11,8 @@ bindsym $alt+d exec xdotool type --clearmodifiers --delay 1ms abcd$(date +%y-%m-
 # Open a file browser.
 bindsym $super+e exec thunar
 # Start a terminal.
-bindsym $super+t exec kitty --config ~/.config/kitty/kitty.conf --config ~/.config/kitty/$(hostname).conf
+bindsym $super+t exec kitty \
+  --config ~/.config/kitty/kitty.conf --config ~/.config/kitty/$(hostname).conf
 # Start a browser.
 bindsym $super+b exec firefox
 # Start a audio mixer.
