@@ -40,10 +40,10 @@ function! SwapWindows(direction)
   exe l:otherWinNum . 'wincmd w'
   exe 'buffer ' . currentBufNum
 endfunction
-nnoremap <m-s-0> :call SwapWindows('h')<cr>
-nnoremap <m-5>   :call SwapWindows('j')<cr>
-nnoremap <m-6>   :call SwapWindows('k')<cr>
-nnoremap <m-7>   :call SwapWindows('l')<cr>
+nnoremap <m-Left>  :call SwapWindows('h')<cr>
+nnoremap <m-Down>  :call SwapWindows('j')<cr>
+nnoremap <m-Up>    :call SwapWindows('k')<cr>
+nnoremap <m-Right> :call SwapWindows('l')<cr>
 
 " ctrl-h|l moves through tabs, ctrl-)|7 swaps tabs, and ctrl-t closes the
 " current tab.
