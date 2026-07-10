@@ -9,6 +9,7 @@ if [ ! -z $1 ]; then
 fi
 script_path=$(realpath "$0")
 script_dir=$(dirname "$script_path")
+repo_root=$(dirname "$script_dir")
 
 ensure_dirs() {
   local dirs=$1
@@ -20,8 +21,8 @@ ensure_dirs() {
 }
 
 symlink_home_files() {
-  for entry_path in $(find $script_dir/home -printf '%P\n' | sort); do
-    local repo_entry_path=$script_dir/home/$entry_path
+  for entry_path in $(find $repo_root/home -printf '%P\n' | sort); do
+    local repo_entry_path=$repo_root/home/$entry_path
     local home_entry_path=$home_path/$entry_path
 
     # Create a directory at home if it doesn't exist.
@@ -41,7 +42,7 @@ symlink_home_files() {
 symlink_git_number_files() {
   local git_number_files="git-id git-list git-number"
   for git_number_entry in $git_number_files; do
-    local repo_entry_path="$script_dir/sub/git-number/$git_number_entry"
+    local repo_entry_path="$repo_root/sub/git-number/$git_number_entry"
     local bin_entry_path="$home_path/.local/bin/$git_number_entry"
     if [ -f "$bin_entry_path" ] || [ -L "$bin_entry_path" ]; then
       rm "$bin_entry_path"
