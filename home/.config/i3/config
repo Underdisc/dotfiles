@@ -2,6 +2,7 @@
 
 # Variables to make all keybindings more readable
 set $alt Mod1
+set $altr Mode_switch
 set $super Mod4
 
 # Type the current date.
