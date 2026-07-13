@@ -43,6 +43,9 @@ set_backlight_value() {
 # Apply day or night settings.
 echo "$state" > ~/.config/polybar/nightshift.txt
 redshift -P -O "$temperature"
-set_backlight_value 1 "$backlight"
-set_backlight_value 2 "$backlight"
+hostname=$(hostname)
+if [[ $hostname =~ octane ]]; then
+  set_backlight_value 1 "$backlight"
+  set_backlight_value 2 "$backlight"
+fi
 echo "$icon"
