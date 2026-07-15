@@ -989,7 +989,11 @@ vim.lsp.config['lua_ls'] = {
     },
   },
 }
-vim.lsp.enable('lua_ls')
+vim.keymap.set(
+  'n',
+  '<leader>lat',
+  function() vim.lsp.enable('lua_ls', not vim.lsp.is_enabled('lua_ls')) end
+)
 
 vim.lsp.config['clangd'] = {
   filetypes = { 'cpp', 'c' },
@@ -1013,7 +1017,11 @@ vim.lsp.config['clangd'] = {
     '--completion-style=detailed',
   },
 }
-vim.lsp.enable('clangd')
+vim.keymap.set(
+  'n',
+  '<leader>lct',
+  function() vim.lsp.enable('clangd', not vim.lsp.is_enabled('clangd')) end
+)
 
 -- Language server for natural languages. ltex-ls-plus must be within path.
 vim.lsp.config['ltex-ls-plus'] = {
