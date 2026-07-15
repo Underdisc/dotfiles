@@ -41,9 +41,9 @@ vim.opt.listchars = { space = ' ', tab = '▎->', trail = '⋅' }
 vim.opt.spell = false
 -- Show a column at line after line 80.
 vim.o.colorcolumn = '81'
--- Print the line number in front of each line
-vim.o.number = true
+-- Relative line numbers with 0 marking the current line.
 vim.o.relativenumber = true
+vim.o.number = false
 -- Highlight the line where the cursor is
 vim.o.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
