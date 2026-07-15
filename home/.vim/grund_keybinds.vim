@@ -85,8 +85,6 @@ nnoremap <expr> k &wrap ? 'gk' : 'k'
 nnoremap <expr> 0 &wrap ? 'g0' : '0'
 nnoremap <expr> $ &wrap ? 'g$' : '$'
 nnoremap <expr> ^ &wrap ? 'g^' : '^'
-nnoremap <expr> I &wrap ? 'g^i' : 'I'
-nnoremap <expr> A &wrap ? 'g$a' : 'A'
 
 vnoremap <expr> j &wrap ? 'gj' : 'j'
 vnoremap <expr> k &wrap ? 'gk' : 'k'
