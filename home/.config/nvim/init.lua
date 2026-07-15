@@ -1015,6 +1015,59 @@ vim.lsp.config['clangd'] = {
 }
 vim.lsp.enable('clangd')
 
+-- Language server for natural languages. ltex-ls-plus must be within path.
+vim.lsp.config['ltex-ls-plus'] = {
+  cmd = { 'ltex-ls-plus' },
+  filetypes = { 'markdown', 'text' },
+  settings = {
+    ltex = {
+      language = 'en-US',
+    },
+  },
+}
+
+local function get_ltex_ls_plus_notif_prefix()
+  return 'ltex-ls-plus('
+    .. vim.lsp.config['ltex-ls-plus'].settings.ltex.language
+    .. ') '
+end
+
+-- Toggle the natural language server.
+vim.keymap.set('n', '<leader>lnt', function()
+  vim.lsp.enable('ltex-ls-plus', not vim.lsp.is_enabled('ltex-ls-plus'))
+  local notificaton = get_ltex_ls_plus_notif_prefix()
+  if vim.lsp.is_enabled('ltex-ls-plus') then
+    notificaton = notificaton .. 'enabled'
+  else
+    notificaton = notificaton .. 'disabled'
+  end
+  vim.notify(notificaton)
+end)
+
+local function try_natural_language_lsp_restart()
+  if vim.lsp.is_enabled('ltex-ls-plus') then
+    vim.lsp.enable('ltex-ls-plus', false)
+    vim.lsp.enable('ltex-ls-plus', true)
+  end
+end
+
+-- Switch between English, Deutsch, and Español.
+vim.keymap.set('n', '<leader>lnu', function()
+  vim.lsp.config['ltex-ls-plus'].settings.ltex.language = 'en-US'
+  try_natural_language_lsp_restart()
+  vim.notify(get_ltex_ls_plus_notif_prefix())
+end)
+vim.keymap.set('n', '<leader>lnd', function()
+  vim.lsp.config['ltex-ls-plus'].settings.ltex.language = 'de-DE'
+  try_natural_language_lsp_restart()
+  vim.notify(get_ltex_ls_plus_notif_prefix())
+end)
+vim.keymap.set('n', '<leader>lne', function()
+  vim.lsp.config['ltex-ls-plus'].settings.ltex.language = 'es-ES'
+  try_natural_language_lsp_restart()
+  vim.notify(get_ltex_ls_plus_notif_prefix())
+end)
+
 -- Go to definition
 vim.keymap.set('n', 'gd', '<c-]>')
 
