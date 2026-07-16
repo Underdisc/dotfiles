@@ -768,6 +768,7 @@ incline.setup({
 
 local nvim_treesitter = require('nvim-treesitter')
 nvim_treesitter.install({
+  'bash',
   'c',
   'cpp',
   'css',
