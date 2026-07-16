@@ -139,6 +139,7 @@ require('lazy').setup({
     },
     -- Language features
     { 'neovim/nvim-lspconfig' },
+    { 'j-hui/fidget.nvim' },
     -- Autocompletion
     { 'hrsh7th/cmp-nvim-lsp' },
     { 'hrsh7th/nvim-cmp' },
@@ -774,6 +775,8 @@ nvim_treesitter.install({
   'javascript',
   'lua',
 })
+
+require('fidget').setup()
 
 -- File browser configuration
 -- Disable netrw.
