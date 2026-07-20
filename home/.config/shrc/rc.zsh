@@ -78,7 +78,11 @@ zle -N zle-line-finish remove_prompt_mode
 function enable_focus_reporting() {
   printf "\e[?1004h"
 }
-enable_focus_reporting
+function disable_focus_reporting() {
+  printf "\e[?1004l"
+}
+precmd_functions=(${precmd_functions[@]} "enable_focus_reporting")
+preexec_functions=(${preexec_functions[@]} "disable_focus_reporting")
 function focus_gained() {
   mode_label=""
   update_prompt_mode
