@@ -1,0 +1,34 @@
+[mgr]
+ratio = [1, 3, 3]
+sort_by = "alphabetical"
+sort_sensitive = true
+sort_dir_first = false
+linemode = "none"
+show_hidden = false
+show_symlink = true
+scrolloff = 10
+
+[preview]
+wrap = "yes"
+tab_size = 2
+image_filter = "nearest"
+
+[input]
+cursor_blink = false
+
+[opener]
+nvim = [ { run = "nvim %s", block = true, for = "unix" } ]
+vlc = [ { run = "vlc %s", orphan = true, for = "unix" } ]
+eom = [ { run = "eom %s", orphan = true, for = "unix" } ]
+okular = [ { run = "okular %s", orphan = true, for = "unix" } ]
+libreoffice = [ { run = "libreoffice %s", orphan = true, for = "unix" } ]
+
+[open]
+rules = [
+  { mime = "audio/*", use = "vlc" },
+  { mime = "audio/*", use = "vlc" },
+  { mime = "image/*", use = "eom" },
+  { mime = "text/*", use = "nvim" },
+  { mime = "application/pdf", use = "okular" },
+  { mime = "application/*word*", use = "libreoffice" },
+]
