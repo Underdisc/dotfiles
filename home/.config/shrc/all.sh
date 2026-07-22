@@ -1,4 +1,6 @@
 source .config/shrc/git.sh
+source .config/shrc/server.sh
+
 hostname=$(hostname)
 if [[ $hostname =~ breakout ]]; then
   source .config/shrc/breakout_locals.sh
