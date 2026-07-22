@@ -10,6 +10,10 @@ elif [[ $hostname =~ dominus ]]; then
   source .config/shrc/dominus_locals.sh
 fi
 
+if [[ $hostname =~ breakout ]]; then
+  export MOZ_USE_XINPUT2=1
+fi
+
 # Set environment variables
 export EDITOR="nvim"
 export MANPAGER="nvim +Man!"
