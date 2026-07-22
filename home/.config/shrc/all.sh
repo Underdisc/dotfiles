@@ -1,17 +1,8 @@
-source .config/shrc/git.sh
-source .config/shrc/server.sh
+source ".config/shrc/git.sh"
+source ".config/shrc/server.sh"
+source ".config/shrc/local.sh"
 
 hostname=$(hostname)
-if [[ $hostname =~ breakout ]]; then
-  source .config/shrc/breakout_locals.sh
-elif [[ $hostname =~ octane ]]; then
-  source .config/shrc/octane_locals.sh
-elif [[ $hostname =~ takumi ]]; then
-  source .config/shrc/takumi_locals.sh
-elif [[ $hostname =~ dominus ]]; then
-  source .config/shrc/dominus_locals.sh
-fi
-
 if [[ $hostname =~ breakout ]]; then
   export MOZ_USE_XINPUT2=1
 fi
