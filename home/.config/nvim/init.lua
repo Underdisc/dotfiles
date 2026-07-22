@@ -60,6 +60,8 @@ vim.opt.autoread = true
 vim.opt.shada = '!,\'100,f1,<50,:50,@50,/50,h'
 -- Don't show mode on command line.
 vim.opt.showmode = false
+-- Indicate full 24bit color support.
+vim.opt.termguicolors = true
 
 -- Bootstrap lazy
 vim.cmd('filetype plugin indent on')
