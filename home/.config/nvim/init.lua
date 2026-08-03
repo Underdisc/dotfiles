@@ -123,7 +123,7 @@ require('lazy').setup({
       tag = 'v0.1.9',
       dependencies = { 'nvim-lua/plenary.nvim' },
     },
-    -- File browser
+    -- File Browsing and Modification
     {
       'nvim-tree/nvim-tree.lua',
       version = '*',
@@ -132,6 +132,14 @@ require('lazy').setup({
         'nvim-tree/nvim-web-devicons',
       },
     },
+    {
+      'mikavilpas/yazi.nvim',
+      dependencies = {
+        { 'nvim-lua/plenary.nvim' },
+        { 'folke/snacks.nvim' },
+      },
+    },
+    { 'stevearc/oil.nvim' },
     -- Improved syntax highlighting and more
     {
       'nvim-treesitter/nvim-treesitter',
@@ -786,6 +794,34 @@ require('fidget').setup()
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+-- Yazi
+local yazi = require('yazi')
+yazi.setup({
+  floating_window_scaling_factor = 1.0,
+  yazi_floating_window_border = 'single',
+  hooks = {
+    yazi_opened = function(preselected_path, bufid, config)
+      vim.api.nvim_set_option_value('winbar', '', { win = winid })
+    end,
+  },
+})
+vim.keymap.set('n', '<leader>y', function() yazi.toggle() end)
+
+-- Oil
+local oil = require('oil')
+oil.setup({
+  default_file_explorer = true,
+  columns = {},
+  buf_options = {
+    buflisted = true,
+  },
+  view_options = {
+    show_hidden = true,
+    natural_order = false,
+  },
+})
+vim.keymap.set('n', '<leader>o', '<cmd>Oil<cr>')
+
 -- File browser toggle
 local treeApi = require('nvim-tree.api')
 vim.keymap.set('n', '<leader>E', function() treeApi.tree.toggle() end)
@@ -962,6 +998,11 @@ vim.api.nvim_set_hl(0, 'VuffersActivePinnedIcon', { fg = '#77cccc' })
 -- For fuzzy finding files, strings, buffers, and help tags.
 require('telescope').setup({
   defaults = {
+    layout_strategy = 'horizontal',
+    layout_config = {
+      width = 0.9,
+      height = 0.9,
+    },
     mappings = {
       i = {
         ['<esc>'] = require('telescope.actions').close,
