@@ -125,21 +125,18 @@ require('lazy').setup({
     },
     -- File Browsing and Modification
     {
-      'nvim-tree/nvim-tree.lua',
-      version = '*',
-      lazy = false,
-      dependencies = {
-        'nvim-tree/nvim-web-devicons',
-      },
-    },
-    {
       'mikavilpas/yazi.nvim',
       dependencies = {
         { 'nvim-lua/plenary.nvim' },
         { 'folke/snacks.nvim' },
       },
     },
-    { 'stevearc/oil.nvim' },
+    {
+      'stevearc/oil.nvim',
+      dependencies = {
+        'nvim-tree/nvim-web-devicons',
+      },
+    },
     -- Improved syntax highlighting and more
     {
       'nvim-treesitter/nvim-treesitter',
@@ -540,12 +537,6 @@ local sidebar_infos = {
     filename_replacement = 'Buffers',
     winid = nil,
   },
-  {
-    filetype = 'NvimTree',
-    icon = '',
-    filename_replacement = 'File Tree',
-    winid = nil,
-  },
 }
 
 local window_infos = {
@@ -822,109 +813,11 @@ oil.setup({
 })
 vim.keymap.set('n', '<leader>o', '<cmd>Oil<cr>')
 
--- File browser toggle
-local treeApi = require('nvim-tree.api')
-vim.keymap.set('n', '<leader>E', function() treeApi.tree.toggle() end)
-vim.keymap.set('n', '<leader>e', function() treeApi.tree.open() end)
-
--- File browser keybinds
-local function nvim_tree_on_attach(bufnr)
-  local function opts(desc)
-    return {
-      desc = 'nvim-tree: ' .. desc,
-      buffer = bufnr,
-      noremap = true,
-      silent = true,
-      nowait = true,
-    }
-  end
-  vim.keymap.set('n', '?', treeApi.tree.toggle_help, opts('Help'))
-  vim.keymap.set('n', 's', treeApi.tree.reload, opts('Refresh'))
-  vim.keymap.set('n', '+', function()
-    treeApi.tree.change_root_to_node()
-    vim.cmd('cd ' .. vim.fn.getcwd())
-    vim.api.nvim_exec_autocmds('DirChanged', { pattern = 'global' })
-  end, opts('Down'))
-  vim.keymap.set('n', '-', function()
-    treeApi.tree.change_root_to_parent()
-    vim.cmd('cd ' .. vim.fn.getcwd())
-    vim.api.nvim_exec_autocmds('DirChanged', { pattern = 'global' })
-  end, opts('Up'))
-  vim.keymap.set('n', '*', treeApi.tree.collapse_all, opts('Collapse'))
-  vim.keymap.set(
-    'n',
-    'J',
-    treeApi.node.navigate.sibling.next,
-    opts('Next Sibling')
-  )
-  vim.keymap.set(
-    'n',
-    'K',
-    treeApi.node.navigate.sibling.prev,
-    opts('Prev Sibling')
-  )
-  vim.keymap.set('n', '<2-LeftMouse>', treeApi.node.open.edit, opts('Open'))
-  vim.keymap.set('n', '<cr>', treeApi.node.open.edit, opts('Open'))
-  vim.keymap.set('n', 'o', treeApi.node.open.edit, opts('Open'))
-  vim.keymap.set('n', 'O', treeApi.node.open.no_window_picker, opts('Open'))
-  vim.keymap.set('n', 'a', treeApi.fs.create, opts('Add'))
-  vim.keymap.set('n', 'd', treeApi.fs.remove, opts('Delete'))
-  vim.keymap.set('n', 'r', treeApi.fs.rename, opts('Rename'))
-  vim.keymap.set('n', 'c', treeApi.fs.copy.node, opts('Copy'))
-  vim.keymap.set('n', 'p', treeApi.fs.paste, opts('Paste'))
-  vim.keymap.set('n', 'b', treeApi.marks.toggle, opts('Bookmark'))
-  vim.keymap.set('n', 'M', treeApi.marks.bulk.move, opts('Move Bookmarked'))
-  vim.keymap.set('n', 'D', treeApi.marks.bulk.delete, opts('Delete Bookmarked'))
-end
-
--- File browser settings
-require('nvim-tree').setup({
-  on_attach = nvim_tree_on_attach,
-  view = {
-    signcolumn = 'no',
-    width = sidebar_width,
-  },
-  sort = {
-    sorter = 'case_sensitive',
-  },
-  renderer = {
-    symlink_destination = false,
-    root_folder_label = ':~:s?$?',
-    icons = {
-      git_placement = 'after',
-      modified_placement = 'after',
-      hidden_placement = 'after',
-      diagnostics_placement = 'after',
-      bookmarks_placement = 'after',
-      glyphs = {
-        folder = {
-          arrow_closed = '',
-          arrow_open = '',
-        },
-      },
-    },
-    indent_markers = {
-      enable = true,
-      icons = {
-        corner = '└',
-        edge = '│',
-        item = '├',
-        bottom = '─',
-        none = ' ',
-      },
-    },
-  },
-  filters = {
-    dotfiles = false,
-    git_ignored = false,
-  },
-})
-
 -- Buffer list sidebar window
 local vuffers_config = {
   wrap = true,
   exclude = {
-    filetypes = { 'NvimTree', 'vuffers', 'undotree' },
+    filetypes = { 'vuffers', 'undotree' },
   },
   keymaps = {
     use_default = true,
