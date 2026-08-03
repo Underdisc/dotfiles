@@ -797,6 +797,9 @@ yazi.setup({
       vim.api.nvim_set_option_value('winbar', '', { win = winid })
     end,
   },
+  keymaps = {
+    change_working_directory = '\\',
+  },
 })
 vim.keymap.set('n', '<leader>y', function() yazi.toggle() end)
 
