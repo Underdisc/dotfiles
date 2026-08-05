@@ -123,14 +123,11 @@ vim.pack.add({
   },
 })
 local ibl_color_groups = { 'ibl1', 'ibl2', 'ibl3', 'ibl4', 'ibl5' }
-local ibl_hooks = require('ibl.hooks')
-ibl_hooks.register(ibl_hooks.type.HIGHLIGHT_SETUP, function()
-  vim.api.nvim_set_hl(0, ibl_color_groups[1], { fg = '#888A8A' })
-  vim.api.nvim_set_hl(0, ibl_color_groups[2], { fg = '#318A2D' })
-  vim.api.nvim_set_hl(0, ibl_color_groups[3], { fg = '#2F8A5F' })
-  vim.api.nvim_set_hl(0, ibl_color_groups[4], { fg = '#32818A' })
-  vim.api.nvim_set_hl(0, ibl_color_groups[5], { fg = '#32498A' })
-end)
+vim.api.nvim_set_hl(0, ibl_color_groups[1], { fg = '#888A8A' })
+vim.api.nvim_set_hl(0, ibl_color_groups[2], { fg = '#318A2D' })
+vim.api.nvim_set_hl(0, ibl_color_groups[3], { fg = '#2F8A5F' })
+vim.api.nvim_set_hl(0, ibl_color_groups[4], { fg = '#32818A' })
+vim.api.nvim_set_hl(0, ibl_color_groups[5], { fg = '#32498A' })
 require('ibl').setup({
   indent = { highlight = ibl_color_groups },
   scope = { enabled = false },
