@@ -547,6 +547,7 @@ local function title_bar_left(winid, bufid, window_info)
 end
 
 -- Constructs the right side of window title bars
+vim.pack.add({ 'https://github.com/nvim-tree/nvim-web-devicons' })
 local devicons = require('nvim-web-devicons')
 local function title_bar_right(winid, bufid, window_info)
   local bar_config = {}
