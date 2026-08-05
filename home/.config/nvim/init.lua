@@ -65,104 +65,52 @@ vim.opt.showmode = false
 -- Indicate full 24bit color support.
 vim.opt.termguicolors = true
 
--- Bootstrap lazy
-vim.cmd('filetype plugin indent on')
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-  local out = vim.fn.system({
-    'git',
-    'clone',
-    '--filter=blob:none',
-    '--branch=stable',
-    lazyrepo,
-    lazypath,
-  })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { 'Failed to clone lazy.nvim:\n', 'ErrorMsg' },
-      { out, 'WarningMsg' },
-      { '\nPress any key to exit...' },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
-end
-vim.opt.rtp:prepend(lazypath)
-
--- Setup lazy
-require('lazy').setup({
-  spec = {
-    -- Show color column as a thin line using characters.
-    { 'lukas-reineke/virt-column.nvim' },
-    -- Quickly comment and uncomment lines
-    { 'tpope/vim-commentary' },
-    { 'folke/flash.nvim' },
-    -- Close buffers while preserving windows
-    { 'moll/vim-bbye' },
-    -- Undotree
-    { 'mbbill/undotree' },
-    -- Improved git integration
-    { 'lewis6991/gitsigns.nvim' },
-    { 'tpope/vim-fugitive' },
-    -- Autoformatting
-    { 'stevearc/conform.nvim' },
-    -- Colorscheme
-    {
-      'rockyzhang24/arctic.nvim',
-      dependencies = { 'rktjmp/lush.nvim' },
-    },
-    -- Highlight indentation levels
-    {
-      'lukas-reineke/indent-blankline.nvim',
-      main = 'ibl',
-    },
-    -- Improved window status bar
-    { 'b0o/incline.nvim' },
-    -- Fuzzy find many different things
-    {
-      'nvim-telescope/telescope.nvim',
-      tag = 'v0.1.9',
-      dependencies = { 'nvim-lua/plenary.nvim' },
-    },
-    -- File Browsing and Modification
-    {
-      'mikavilpas/yazi.nvim',
-      dependencies = {
-        { 'nvim-lua/plenary.nvim' },
-        { 'folke/snacks.nvim' },
-      },
-    },
-    {
-      'stevearc/oil.nvim',
-      dependencies = {
-        'nvim-tree/nvim-web-devicons',
-      },
-    },
-    -- Improved syntax highlighting and more
-    {
-      'nvim-treesitter/nvim-treesitter',
-      branch = 'main',
-      lazy = false,
-      build = ':TSUpdate',
-    },
-    -- Language features
-    { 'neovim/nvim-lspconfig' },
-    { 'j-hui/fidget.nvim' },
-    -- Autocompletion
-    { 'hrsh7th/cmp-nvim-lsp' },
-    { 'hrsh7th/nvim-cmp' },
-  },
-  install = {
-    colorscheme = { 'arctic' },
-  },
-  checker = {
-    enabled = false,
-  },
-  ui = {
-    border = 'single',
+vim.opt.packpath = { '~/.local/share/nvim/site' }
+vim.pack.add({ 'https://github.com/lukas-reineke/virt-column.nvim' })
+vim.pack.add({ 'https://github.com/tpope/vim-commentary' })
+vim.pack.add({ 'https://github.com/folke/flash.nvim' })
+vim.pack.add({ 'https://github.com/moll/vim-bbye' })
+vim.pack.add({ 'https://github.com/mbbill/undotree' })
+vim.pack.add({ 'https://github.com/lewis6991/gitsigns.nvim' })
+vim.pack.add({ 'https://github.com/tpope/vim-fugitive' })
+vim.pack.add({ 'https://github.com/stevearc/conform.nvim' })
+vim.pack.add({
+  'https://github.com/rockyzhang24/arctic.nvim',
+  'https://github.com/rktjmp/lush.nvim',
+})
+vim.pack.add({
+  {
+    src = 'https://github.com/lukas-reineke/indent-blankline.nvim',
+    name = 'ibl',
   },
 })
+vim.pack.add({ 'https://github.com/b0o/incline.nvim' })
+vim.pack.add({
+  {
+    src = 'https://github.com/nvim-telescope/telescope.nvim',
+    version = '*',
+  },
+  'https://github.com/nvim-lua/plenary.nvim',
+})
+vim.pack.add({
+  'https://github.com/mikavilpas/yazi.nvim',
+  'https://github.com/nvim-lua/plenary.nvim',
+  'https://github.com/folke/snacks.nvim',
+})
+vim.pack.add({
+  'https://github.com/stevearc/oil.nvim',
+  'https://github.com/nvim-tree/nvim-web-devicons',
+})
+vim.pack.add({
+  {
+    src = 'https://github.com/nvim-treesitter/nvim-treesitter',
+    version = 'main',
+  },
+})
+vim.pack.add({ 'https://github.com/neovim/nvim-lspconfig' })
+vim.pack.add({ 'https://github.com/j-hui/fidget.nvim' })
+vim.pack.add({ 'https://github.com/hrsh7th/cmp-nvim-lsp' })
+vim.pack.add({ 'https://github.com/hrsh7th/nvim-cmp' })
 
 -- Autoformatting
 local conform = require('conform')
