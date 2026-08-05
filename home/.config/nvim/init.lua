@@ -86,10 +86,7 @@ vim.pack.add({
 })
 vim.pack.add({ 'https://github.com/b0o/incline.nvim' })
 vim.pack.add({
-  {
-    src = 'https://github.com/nvim-telescope/telescope.nvim',
-    version = '*',
-  },
+  'https://github.com/nvim-telescope/telescope.nvim',
   'https://github.com/nvim-lua/plenary.nvim',
 })
 vim.pack.add({

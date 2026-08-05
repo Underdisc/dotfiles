@@ -67,8 +67,7 @@
     },
     "telescope.nvim": {
       "rev": "84b9ba066d1860f7a586ce9cd732fd6c4f77d1d9",
-      "src": "https://github.com/nvim-telescope/telescope.nvim",
-      "version": "'*'"
+      "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "undotree": {
       "rev": "6fa6b57cda8459e1e4b2ca34df702f55242f4e4d",
