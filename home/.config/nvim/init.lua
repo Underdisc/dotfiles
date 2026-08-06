@@ -116,12 +116,7 @@ require('virt-column').setup({
 vim.api.nvim_set_hl(0, 'ColorColumn', { fg = '#888888' })
 
 -- Create indent lines and give them custom colors
-vim.pack.add({
-  {
-    src = 'https://github.com/lukas-reineke/indent-blankline.nvim',
-    name = 'ibl',
-  },
-})
+vim.pack.add({ 'https://github.com/lukas-reineke/indent-blankline.nvim' })
 local ibl_color_groups = { 'ibl1', 'ibl2', 'ibl3', 'ibl4', 'ibl5' }
 vim.api.nvim_set_hl(0, ibl_color_groups[1], { fg = '#888A8A' })
 vim.api.nvim_set_hl(0, ibl_color_groups[2], { fg = '#318A2D' })

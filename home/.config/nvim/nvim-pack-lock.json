@@ -24,13 +24,13 @@
       "rev": "31d6fb2d618bca1482b9f274751ead5f03461408",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
-    "ibl": {
-      "rev": "d28a3f70721c79e3c5f6693057ae929f3d9c0a03",
-      "src": "https://github.com/lukas-reineke/indent-blankline.nvim"
-    },
     "incline.nvim": {
       "rev": "debd628e9395f7a9da57bdc31ce75ca6b40a880b",
       "src": "https://github.com/b0o/incline.nvim"
+    },
+    "indent-blankline.nvim": {
+      "rev": "d28a3f70721c79e3c5f6693057ae929f3d9c0a03",
+      "src": "https://github.com/lukas-reineke/indent-blankline.nvim"
     },
     "lush.nvim": {
       "rev": "9c60ec2279d62487d942ce095e49006af28eed6e",
