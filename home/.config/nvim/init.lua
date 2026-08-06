@@ -445,15 +445,18 @@ local sidebar_infos = {
     filetype = 'undotree',
     icon = '',
     filename_replacement = 'Undo Tree',
-    winid = nil,
   },
   {
     filetype = 'vuffers',
     icon = '',
     filename_replacement = 'Buffers',
-    winid = nil,
   },
 }
+
+local sidebar_winids = {}
+for _, info in ipairs(sidebar_infos) do
+  sidebar_winids[info.filetype] = -1
+end
 
 local window_infos = {
   {
@@ -1058,10 +1061,8 @@ end)
 local function ensure_sidebar_heights()
   -- Find all active sidebar windows.
   local active_windows = {}
-  for _, sidebar_info in ipairs(sidebar_infos) do
-    if sidebar_info.winid ~= nil then
-      active_windows[#active_windows + 1] = sidebar_info.winid
-    end
+  for _, winid in pairs(sidebar_winids) do
+    if winid ~= -1 then active_windows[#active_windows + 1] = winid end
   end
   -- Give each sidebar window the same height.
   -- -1 accounts for the command line.
@@ -1102,25 +1103,27 @@ vim.api.nvim_create_autocmd('WinResized', {
 local function ensure_sidebar_window_position(winid, sidebar_idx)
   -- Find the sidebar windows that should be directly above and directly below
   -- the new sidebar window.
-  local above_sidebar_winid = nil
-  local below_sidebar_winid = nil
+  local above_sidebar_winid = -1
   for i = sidebar_idx - 1, 1, -1 do
-    above_sidebar_winid = sidebar_infos[i].winid
-    if above_sidebar_winid ~= nil then break end
+    local ft = sidebar_infos[i].filetype
+    above_sidebar_winid = sidebar_winids[ft]
+    if above_sidebar_winid ~= -1 then break end
   end
+  local below_sidebar_winid = -1
   for i = sidebar_idx + 1, #sidebar_infos, 1 do
-    below_sidebar_winid = sidebar_infos[i].winid
-    if below_sidebar_winid ~= nil then break end
+    local ft = sidebar_infos[i].filetype
+    below_sidebar_winid = sidebar_winids[ft]
+    if below_sidebar_winid ~= -1 then break end
   end
 
   -- Place the new sidebar window in the correct position.
-  if above_sidebar_winid ~= nil then
+  if above_sidebar_winid ~= -1 then
     vim.api.nvim_win_set_config(winid, {
       split = 'below',
       win = above_sidebar_winid,
       width = sidebar_width,
     })
-  elseif below_sidebar_winid ~= nil then
+  elseif below_sidebar_winid ~= -1 then
     vim.api.nvim_win_set_config(winid, {
       split = 'above',
       win = below_sidebar_winid,
@@ -1144,7 +1147,7 @@ local function handle_new_window()
 
   -- Apply window properties.
   if sidebar_idx ~= nil then
-    sidebar_infos[sidebar_idx].winid = winid
+    sidebar_winids[ft] = winid
     vim.api.nvim_set_option_value('winfixwidth', true, { win = winid })
     vim.api.nvim_win_set_width(winid, sidebar_width)
     ensure_sidebar_window_position(winid, sidebar_idx)
@@ -1170,10 +1173,9 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('WinClosed', {
   pattern = '*',
   callback = function()
-    for _, sidebar_info in ipairs(sidebar_infos) do
-      local winid = sidebar_info.winid
-      if winid ~= nil and not vim.api.nvim_win_is_valid(winid) then
-        sidebar_info.winid = nil
+    for ft, winid in pairs(sidebar_winids) do
+      if winid ~= -1 and not vim.api.nvim_win_is_valid(winid) then
+        sidebar_winids[ft] = -1
         ensure_sidebar_heights()
         break
       end
