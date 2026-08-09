@@ -11,7 +11,7 @@ flash.setup({
     char = {
       search = { wrap = true },
       highlight = { backdrop = false },
-      keys = { 'f', 'F', 't', 'T', ';', [','] = ':' },
+      keys = {},
     },
   },
 })
