@@ -83,12 +83,12 @@ vim.keymap.set(
 )
 vim.keymap.set(
   { 'n', 'i' },
-  '<c-5>',
+  '<c-down>',
   function() vuffers.move_current_buffer_by_count({ direction = 'next' }) end
 )
 vim.keymap.set(
   { 'n', 'i' },
-  '<c-6>',
+  '<c-up>',
   function() vuffers.move_current_buffer_by_count({ direction = 'prev' }) end
 )
 vim.keymap.set('n', '<leader>b', vuffers.go_to_buffer_by_line)
