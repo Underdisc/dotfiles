@@ -1,4 +1,4 @@
-so ~/.vim/grund_keybinds.vim
+so ~/.vim/keymaps.vim
 so ~/.vim/defaults.vim
 
 set noswapfile
