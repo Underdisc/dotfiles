@@ -1,3 +1,9 @@
+local function apply_highlights(his)
+  for _, hi in ipairs(his) do
+    vim.api.nvim_set_hl(0, hi[1], hi[2])
+  end
+end
+
 -- Colorscheme
 vim.pack.add({
   'https://github.com/rockyzhang24/arctic.nvim',
@@ -5,93 +11,36 @@ vim.pack.add({
 })
 vim.cmd('colorscheme arctic')
 
--- Configure the character used for color columns
+-- Color Column
 vim.pack.add({ 'https://github.com/lukas-reineke/virt-column.nvim' })
 require('virt-column').setup({
   char = '▎',
   highlight = 'ColorColumn',
 })
-vim.api.nvim_set_hl(0, 'ColorColumn', { fg = '#888888' })
 
--- Create indent lines and give them custom colors
+-- Colored Indentation Lines
 vim.pack.add({ 'https://github.com/lukas-reineke/indent-blankline.nvim' })
-local ibl_color_groups = { 'ibl1', 'ibl2', 'ibl3', 'ibl4', 'ibl5' }
-vim.api.nvim_set_hl(0, ibl_color_groups[1], { fg = '#888A8A' })
-vim.api.nvim_set_hl(0, ibl_color_groups[2], { fg = '#318A2D' })
-vim.api.nvim_set_hl(0, ibl_color_groups[3], { fg = '#2F8A5F' })
-vim.api.nvim_set_hl(0, ibl_color_groups[4], { fg = '#32818A' })
-vim.api.nvim_set_hl(0, ibl_color_groups[5], { fg = '#32498A' })
-require('ibl').setup({
-  indent = { highlight = ibl_color_groups },
+local ibl = require('ibl')
+local ibl_hooks = require('ibl.hooks')
+local ibl_hi_groups = { 'ibl1', 'ibl2', 'ibl3', 'ibl4', 'ibl5' }
+ibl_hooks.register(
+  ibl_hooks.type.HIGHLIGHT_SETUP,
+  function()
+    apply_highlights({
+      { ibl_hi_groups[1], { fg = '#888A8A' } },
+      { ibl_hi_groups[2], { fg = '#318A2D' } },
+      { ibl_hi_groups[3], { fg = '#2F8A5F' } },
+      { ibl_hi_groups[4], { fg = '#32818A' } },
+      { ibl_hi_groups[5], { fg = '#32498A' } },
+    })
+  end
+)
+ibl.setup({
+  indent = { highlight = ibl_hi_groups },
   scope = { enabled = false },
 })
 
--- Use the terminal's background color (allows transparency)
-vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
-vim.api.nvim_set_hl(0, 'Pmenu', { bg = '#1e1e1e', italic = true })
-vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-
--- Colors of other UI like elements
-vim.api.nvim_set_hl(0, 'WinSeparator', { fg = '#bbbbbb' })
-vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#cccccc' })
-vim.api.nvim_set_hl(0, 'LineNr', { fg = '#555555' })
-vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#222222' })
-vim.api.nvim_set_hl(0, 'NonText', { fg = '#555555' })
-
--- Highlight markdown code blocks.
-vim.api.nvim_set_hl(0, '@markup.raw.block', { link = '@markup.link' })
-
-vim.api.nvim_set_hl(
-  0,
-  'FlashMatch',
-  { bg = '#0099cc', fg = '#000000', bold = true }
-)
-vim.api.nvim_set_hl(
-  0,
-  'FlashCurrent',
-  { bg = '#0099cc', fg = '#000000', bold = true }
-)
-vim.api.nvim_set_hl(
-  0,
-  'FlashLabel',
-  { bg = '#444444', fg = '#ffffff', bold = true }
-)
-vim.api.nvim_set_hl(0, 'FlashPromptIcon', { link = 'MsgArea' })
-vim.api.nvim_set_hl(0, 'Search', { bg = '#444444' })
-vim.api.nvim_set_hl(
-  0,
-  'CurSearch',
-  { bg = '#bbbbbb', fg = '#000000', bold = true }
-)
-
-vim.api.nvim_set_hl(0, 'MsgArea', { bg = '#222222', fg = '#cccccc' })
-vim.api.nvim_set_hl(0, 'ModeMsg', { bg = '#222222', fg = '#cccccc' })
-
--- Highlight groups used for the cursor.
-vim.api.nvim_set_hl(
-  0,
-  'NormalCursor',
-  { bg = '#cccccc', fg = '#222222', bold = true }
-)
-vim.api.nvim_set_hl(
-  0,
-  'InsertCursor',
-  { bg = '#44cc44', fg = '#222222', bold = true }
-)
-vim.api.nvim_set_hl(
-  0,
-  'VisualCursor',
-  { bg = '#44cccc', fg = '#222222', bold = true }
-)
-vim.api.nvim_set_hl(
-  0,
-  'CommandCursor',
-  { bg = '#cc4444', fg = '#222222', bold = true }
-)
-vim.api.nvim_set_hl(0, 'Visual', { bg = '#113366', bold = true })
-
--- Change cursor color depending on the mode.
+-- Mode Cursor Color Changes
 vim.opt.guicursor = {
   'n:block-NormalCursor',
   'i:block-InsertCursor',
@@ -99,74 +48,102 @@ vim.opt.guicursor = {
   'c:block-CommandCursor',
 }
 
--- Highlight groups used in window titlebars.
-vim.api.nvim_set_hl(0, 'FocusWinBar', { bg = '#444444', fg = '#eeeeee' })
-vim.api.nvim_set_hl(0, 'UnfocusWinBar', { bg = '#222222', fg = '#cccccc' })
-vim.api.nvim_set_hl(0, 'WinBar', { link = 'FocusWinBar' })
-vim.api.nvim_set_hl(0, 'WinBarNC', { link = 'UnfocusWinBar' })
-vim.api.nvim_set_hl(0, 'NormalModeIndicator', { link = 'NormalCursor' })
-vim.api.nvim_set_hl(0, 'InsertModeIndicator', { link = 'InsertCursor' })
-vim.api.nvim_set_hl(0, 'VisualModeIndicator', { link = 'VisualCursor' })
-vim.api.nvim_set_hl(0, 'CommandModeIndicator', { link = 'CommandCursor' })
-vim.api.nvim_set_hl(
-  0,
-  'InactiveModeIndicator',
-  { bg = '#444444', fg = '#dddddd', bold = true }
-)
-
--- Highlight groups use for the tabline bar.
-vim.api.nvim_set_hl(0, 'FocusTabLineFill', { bg = '#444444' })
-vim.api.nvim_set_hl(0, 'FocusTabLineUnsel', { bg = '#666666' })
-vim.api.nvim_set_hl(0, 'FocusTabLineSel', { bg = '#cccccc', fg = '#000000' })
-vim.api.nvim_set_hl(0, 'UnfocusTabLineFill', { bg = '#222222' })
-vim.api.nvim_set_hl(0, 'UnfocusTabLineUnsel', { bg = '#333333' })
-vim.api.nvim_set_hl(0, 'UnfocusTabLineSel', { bg = '#444444' })
-vim.api.nvim_set_hl(0, 'TabLineFill', { link = 'FocusTabLineFill' })
-vim.api.nvim_set_hl(0, 'TabLineUnsel', { link = 'FocusTabLineUnsel' })
-vim.api.nvim_set_hl(0, 'TabLineSel', { link = 'FocusTabLineSel' })
-
--- Brighten or dim bars if nvim is or isn't focused.
+-- Winbar Focus Highlighting
 vim.api.nvim_create_autocmd('FocusGained', {
   callback = function()
-    vim.api.nvim_set_hl(0, 'WinBar', { link = 'FocusWinBar' })
-    vim.api.nvim_set_hl(0, 'TabLineFill', { link = 'FocusTabLineFill' })
-    vim.api.nvim_set_hl(0, 'TabLineUnsel', { link = 'FocusTabLineUnsel' })
-    vim.api.nvim_set_hl(0, 'TabLineSel', { link = 'FocusTabLineSel' })
+    apply_highlights({
+      { 'WinBar', { link = 'FocusWinBar' } },
+      { 'TabLineFill', { link = 'FocusTabLineFill' } },
+      { 'TabLineUnsel', { link = 'FocusTabLineUnsel' } },
+      { 'TabLineSel', { link = 'FocusTabLineSel' } },
+    })
   end,
 })
 vim.api.nvim_create_autocmd('FocusLost', {
   callback = function()
-    vim.api.nvim_set_hl(0, 'WinBar', { link = 'UnfocusWinBar' })
-    vim.api.nvim_set_hl(0, 'TabLineFill', { link = 'UnfocusTabLineFill' })
-    vim.api.nvim_set_hl(0, 'TabLineUnsel', { link = 'UnfocusTabLineUnsel' })
-    vim.api.nvim_set_hl(0, 'TabLineSel', { link = 'UnfocusTabLineSel' })
+    apply_highlights({
+      { 'WinBar', { link = 'UnfocusWinBar' } },
+      { 'TabLineFill', { link = 'UnfocusTabLineFill' } },
+      { 'TabLineUnsel', { link = 'UnfocusTabLineUnsel' } },
+      { 'TabLineSel', { link = 'UnfocusTabLineSel' } },
+    })
   end,
 })
 
-vim.api.nvim_set_hl(0, 'FiletypeIndicator', { link = 'NormalModeIndicator' })
-vim.api.nvim_set_hl(
-  0,
-  'InactiveFiletypeIndicator',
-  { link = 'InactiveModeIndicator' }
-)
+apply_highlights({
+  -- Window Backgrounds
+  { 'Normal', { bg = 'none' } },
+  { 'NormalNC', { bg = 'none' } },
+  { 'Pmenu', { bg = '#1e1e1e', italic = true } },
+  { 'NormalFloat', { bg = 'none' } },
 
-vim.api.nvim_set_hl(0, 'VuffersWindowBackground', { link = 'Normal' })
-vim.api.nvim_set_hl(0, 'VuffersIndex', { fg = '#999999' })
-vim.api.nvim_set_hl(0, 'VuffersActiveBuffer', { link = 'CursorLine' })
-vim.api.nvim_set_hl(0, 'VuffersModifiedIcon', { fg = '#77cccc' })
-vim.api.nvim_set_hl(0, 'VuffersPinnedIcon', { fg = '#888888' })
-vim.api.nvim_set_hl(0, 'VuffersActivePinnedIcon', { fg = '#77cccc' })
+  -- Misc
+  { 'WinSeparator', { fg = '#bbbbbb' } },
+  { 'CursorLineNr', { fg = '#cccccc' } },
+  { 'LineNr', { fg = '#555555' } },
+  { 'CursorLine', { bg = '#222222' } },
+  { 'NonText', { fg = '#555555' } },
+  { 'Search', { bg = '#444444' } },
+  { 'CurSearch', { bg = '#bbbbbb', fg = '#000000', bold = true } },
+  { 'MsgArea', { bg = '#222222', fg = '#cccccc' } },
+  { 'ModeMsg', { bg = '#222222', fg = '#cccccc' } },
+  { 'ColorColumn', { fg = '#888888' } },
+  { '@markup.raw.block', { link = '@markup.link' } },
 
--- Git Colors
-vim.api.nvim_set_hl(0, 'GitSignsAddNr', { fg = '#55d055' })
-vim.api.nvim_set_hl(0, 'GitSignsStagedAddNr', { fg = '#558855' })
-vim.api.nvim_set_hl(0, 'GitSignsDeleteNr', { fg = '#ff4d4d' })
-vim.api.nvim_set_hl(0, 'GitSignsStagedDeleteNr', { fg = '#905555' })
-vim.api.nvim_set_hl(0, 'GitSignsChangeNr', { fg = '#55ccee' })
-vim.api.nvim_set_hl(0, 'GitSignsStagedChangeNr', { fg = '#558899' })
-vim.api.nvim_set_hl(0, 'GitSha', { fg = '#00dddd' })
-vim.api.nvim_set_hl(0, 'GitDate', { fg = '#ee44ff' })
-vim.api.nvim_set_hl(0, 'GitAuthor', { fg = '#44ee44' })
-vim.api.nvim_set_hl(0, 'GitSummary', { link = 'Title' })
+  -- Cursor
+  { 'NormalCursor', { bg = '#cccccc', fg = '#222222', bold = true } },
+  { 'InsertCursor', { bg = '#44cc44', fg = '#222222', bold = true } },
+  { 'VisualCursor', { bg = '#44cccc', fg = '#222222', bold = true } },
+  { 'CommandCursor', { bg = '#cc4444', fg = '#222222', bold = true } },
+  { 'Visual', { bg = '#113366', bold = true } },
 
+  -- Winbars
+  { 'FocusWinBar', { bg = '#444444', fg = '#eeeeee' } },
+  { 'UnfocusWinBar', { bg = '#222222', fg = '#cccccc' } },
+  { 'WinBar', { link = 'FocusWinBar' } },
+  { 'WinBarNC', { link = 'UnfocusWinBar' } },
+  { 'NormalModeIndicator', { link = 'NormalCursor' } },
+  { 'InsertModeIndicator', { link = 'InsertCursor' } },
+  { 'VisualModeIndicator', { link = 'VisualCursor' } },
+  { 'CommandModeIndicator', { link = 'CommandCursor' } },
+  { 'InactiveModeIndicator', { bg = '#444444', fg = '#dddddd', bold = true } },
+  { 'FiletypeIndicator', { link = 'NormalModeIndicator' } },
+  { 'InactiveFiletypeIndicator', { link = 'InactiveModeIndicator' } },
 
+  -- Flash
+  { 'FlashMatch', { bg = '#0099cc', fg = '#000000', bold = true } },
+  { 'FlashCurrent', { bg = '#0099cc', fg = '#000000', bold = true } },
+  { 'FlashLabel', { bg = '#444444', fg = '#ffffff', bold = true } },
+  { 'FlashPromptIcon', { link = 'MsgArea' } },
+
+  -- Tabbar
+  { 'FocusTabLineFill', { bg = '#444444' } },
+  { 'FocusTabLineUnsel', { bg = '#666666' } },
+  { 'FocusTabLineSel', { bg = '#cccccc', fg = '#000000' } },
+  { 'UnfocusTabLineFill', { bg = '#222222' } },
+  { 'UnfocusTabLineUnsel', { bg = '#333333' } },
+  { 'UnfocusTabLineSel', { bg = '#444444' } },
+  { 'TabLineFill', { link = 'FocusTabLineFill' } },
+  { 'TabLineUnsel', { link = 'FocusTabLineUnsel' } },
+  { 'TabLineSel', { link = 'FocusTabLineSel' } },
+
+  -- Vuffers
+  { 'VuffersWindowBackground', { link = 'Normal' } },
+  { 'VuffersIndex', { fg = '#999999' } },
+  { 'VuffersActiveBuffer', { link = 'CursorLine' } },
+  { 'VuffersModifiedIcon', { fg = '#77cccc' } },
+  { 'VuffersPinnedIcon', { fg = '#888888' } },
+  { 'VuffersActivePinnedIcon', { fg = '#77cccc' } },
+
+  -- Git
+  { 'GitSignsAddNr', { fg = '#55d055' } },
+  { 'GitSignsStagedAddNr', { fg = '#558855' } },
+  { 'GitSignsDeleteNr', { fg = '#ff4d4d' } },
+  { 'GitSignsStagedDeleteNr', { fg = '#905555' } },
+  { 'GitSignsChangeNr', { fg = '#55ccee' } },
+  { 'GitSignsStagedChangeNr', { fg = '#558899' } },
+  { 'GitSha', { fg = '#00dddd' } },
+  { 'GitDate', { fg = '#ee44ff' } },
+  { 'GitAuthor', { fg = '#44ee44' } },
+  { 'GitSummary', { link = 'Title' } },
+})
