@@ -1,87 +1,86 @@
--- Set the leader first such that the rest of the keymaps uses the proper
--- leader, prevent space (the leader key) from performing an 'l' motion.
-vim.g.mapleader = ' '
-vim.g.maplocalleader = '\\'
-vim.keymap.set('n', '<space>', '<nop>')
-vim.keymap.set('v', '<space>', '<nop>')
-
--- Disable match highlighting by pressing escape.
-vim.keymap.set('n', '<esc>', '<cmd>nohlsearch<cr>')
--- Source the init.lua file.
-vim.keymap.set('n', '<leader>s', '<cmd>luafile $MYVIMRC<cr>')
--- Use <Esc> to exit terminal mode
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
--- Use <c-bs> to delete the previous word in command line mode.
-vim.keymap.set('c', '<c-w>', '<nop>')
-vim.keymap.set('c', '<c-bs>', '<c-w>')
--- Writing and deleting buffers
-vim.keymap.set('n', '<c-s>', '<cmd>write<cr>')
-vim.keymap.set('n', '<c-x>', '<cmd>Bdelete<cr>')
--- Decrement interger
-vim.keymap.set('n', '<c-`>', '<c-x>')
--- Sensible Undo
-vim.keymap.set('n', 'u', 'u')
-vim.keymap.set('n', 'U', '<c-r>')
--- Go to definition
-vim.keymap.set('n', 'gd', '<c-]>')
-
-vim.keymap.set('n', '<leader>o', '<cmd>Oil<cr>')
-
-local fs = require('fs')
-vim.keymap.set('n', '<leader>ff', fs.telescope_file)
-vim.keymap.set('n', '<leader>fg', fs.telescope_grep)
-vim.keymap.set('n', '<leader>fb', fs.telescope_buffer)
-vim.keymap.set('n', '<leader>fh', fs.telescope_help)
-
-local conform = require('conform')
-vim.keymap.set('n', '<c-z>', conform.format)
-
-local yazi = require('yazi')
-vim.keymap.set('n', '<leader>y', yazi.toggle)
-
-local flash = require('flash')
-vim.keymap.set({ 'n', 'x', 'o' }, '\\', flash.jump)
-vim.keymap.set({ 'n', 'x', 'o' }, '<c-/>', flash.treesitter)
-vim.keymap.set({ 'n', 'x', 'o' }, '<a-/>', flash.treesitter_search)
-
-local util = require('util')
-vim.keymap.set('n', '<leader>U', vim.cmd.UndotreeToggle)
-vim.keymap.set('n', '<leader>u', util.focus_undotree)
-
--- Buffer navigation keybinds
-local vuffers = require('vuffers')
-local buffer = require('buffer')
-vim.keymap.set('n', '<leader>B', vuffers.toggle)
-vim.keymap.set({ 'n', 'i' }, '<c-j>', buffer.switch_buffer_down)
-vim.keymap.set({ 'n', 'i' }, '<c-k>', buffer.switch_buffer_up)
-vim.keymap.set({ 'n', 'i' }, '<c-down>', buffer.move_buffer_down)
-vim.keymap.set({ 'n', 'i' }, '<c-up>', buffer.move_buffer_down)
-vim.keymap.set('n', '<leader>b', vuffers.go_to_buffer_by_line)
-
-local git = require('git')
-local gitsigns = require('gitsigns')
-vim.keymap.set('n', '<leader>gs', git.toggle_inline_diff)
-vim.keymap.set({ 'n', 'v' }, '<leader>ga', git.toggle_hunk)
-vim.keymap.set({ 'n', 'v' }, '<leader>gu', git.toggle_hunk)
-vim.keymap.set('n', '<leader>gch', gitsigns.reset_hunk)
-vim.keymap.set({ 'n', 'v' }, '>', '<cmd>Gitsigns nav_hunk next<cr>')
-vim.keymap.set({ 'n', 'v' }, '<', '<cmd>Gitsigns nav_hunk prev<cr>')
-vim.keymap.set({ 'n', 'v' }, ']G', '<cmd>Gitsigns nav_hunk last<cr>')
-vim.keymap.set({ 'n', 'v' }, '[G', '<cmd>Gitsigns nav_hunk first<cr>')
-vim.keymap.set({ 'o', 'x' }, 'ag', gitsigns.select_hunk)
-vim.keymap.set('n', '<leader>gb', '<cmd>Git blame -s<cr>')
-vim.keymap.set('n', '<leader>gl', git.show_commit_message)
+function apply_keymaps(keymaps)
+  for _, km in ipairs(keymaps) do
+    vim.keymap.set(km[1], km[2], km[3])
+  end
+end
 
 local lang = require('lang')
-vim.keymap.set({ 'n', 'i', 's', 'c' }, '<c-tab>', lang.toggle_cmp)
-vim.keymap.set('n', '<leader>lat', lang.toggle_lua_ls)
-vim.keymap.set('n', '<leader>lct', lang.toggle_clangd)
-vim.keymap.set('n', '<leader>lnt', lang.toggle_ltex_ls_plus)
-vim.keymap.set('n', '<leader>lnu', lang.enable_ltex_ls_plus_en)
-vim.keymap.set('n', '<leader>lnd', lang.enable_ltex_ls_plus_de)
-vim.keymap.set('n', '<leader>lne', lang.enable_ltex_ls_plus_es)
+local fs = require('fs')
+local conform = require('conform')
+local yazi = require('yazi')
+local flash = require('flash')
+local util = require('util')
+local vuffers = require('vuffers')
+local buffer = require('buffer')
+local git = require('git')
+local gitsigns = require('gitsigns')
 
--- Display Diagnostics
-vim.keymap.set('n', '<leader>dv', lang.toggle_diagnostic_virtual_lines)
-vim.keymap.set('n', '<leader>dl', lang.toggle_diagnostic_underlines)
-vim.keymap.set('n', '<leader>dd', lang.show_diagnostic_under_cursor)
+-- Set the leader so that the rest of the keymaps use the proper leader.
+vim.g.mapleader = ' '
+vim.g.maplocalleader = '\\'
+apply_keymaps({
+  -- Prevent space from performing an 'l' motion.
+  { { 'n', 'v' }, '<space>', '<nop>' },
+  -- Disable match highlighting by pressing escape.
+  { { 'n' }, '<esc>', '<cmd>nohlsearch<cr>' },
+  -- Source the init.lua file.
+  { { 'n' }, '<leader>s', '<cmd>luafile $MYVIMRC<cr>' },
+  -- Use <Esc> to exit terminal mode
+  { { 't' }, '<Esc>', '<C-\\><C-n>' },
+  -- Use <c-bs> to delete the previous word in command line mode.
+  { { 'c' }, '<c-w>', '<nop>' },
+  { { 'c' }, '<c-bs>', '<c-w>' },
+  -- Writing and deleting buffers
+  { { 'n' }, '<c-s>', '<cmd>write<cr>' },
+  { { 'n' }, '<c-x>', '<cmd>Bdelete<cr>' },
+  -- Decrement interger
+  { { 'n' }, '<c-`>', '<c-x>' },
+  -- Sensible Undo
+  { { 'n' }, 'u', 'u' },
+  { { 'n' }, 'U', '<c-r>' },
+  -- Go to definition
+  { { 'n' }, 'gd', '<c-]>' },
+  { { 'n' }, '<leader>o', '<cmd>Oil<cr>' },
+  { { 'n' }, '<leader>ff', fs.telescope_file },
+  { { 'n' }, '<leader>fg', fs.telescope_grep },
+  { { 'n' }, '<leader>fb', fs.telescope_buffer },
+  { { 'n' }, '<leader>fh', fs.telescope_help },
+  { { 'n' }, '<c-z>', conform.format },
+  { { 'n' }, '<leader>y', yazi.toggle },
+  { { 'n', 'x', 'o' }, '\\', flash.jump },
+  { { 'n', 'x', 'o' }, '<c-/>', flash.treesitter },
+  { { 'n', 'x', 'o' }, '<a-/>', flash.treesitter_search },
+  { { 'n' }, '<leader>U', vim.cmd.UndotreeToggle },
+  { { 'n' }, '<leader>u', util.focus_undotree },
+  -- Buffers
+  { { 'n' }, '<leader>B', vuffers.toggle },
+  { { 'n', 'i' }, '<c-j>', buffer.switch_buffer_down },
+  { { 'n', 'i' }, '<c-k>', buffer.switch_buffer_up },
+  { { 'n', 'i' }, '<c-down>', buffer.move_buffer_down },
+  { { 'n', 'i' }, '<c-up>', buffer.move_buffer_down },
+  { { 'n' }, '<leader>b', vuffers.go_to_buffer_by_line },
+  -- Git
+  { { 'n' }, '<leader>gs', git.toggle_inline_diff },
+  { { 'n', 'v' }, '<leader>ga', git.toggle_hunk },
+  { { 'n', 'v' }, '<leader>gu', git.toggle_hunk },
+  { { 'n' }, '<leader>gch', gitsigns.reset_hunk },
+  { { 'n', 'v' }, '>', '<cmd>Gitsigns nav_hunk next<cr>' },
+  { { 'n', 'v' }, '<', '<cmd>Gitsigns nav_hunk prev<cr>' },
+  { { 'n', 'v' }, ']G', '<cmd>Gitsigns nav_hunk last<cr>' },
+  { { 'n', 'v' }, '[G', '<cmd>Gitsigns nav_hunk first<cr>' },
+  { { 'o', 'x' }, 'ag', gitsigns.select_hunk },
+  { { 'n' }, '<leader>gb', '<cmd>Git blame -s<cr>' },
+  { { 'n' }, '<leader>gl', git.show_commit_message },
+  -- Lsp
+  { { 'n', 'i', 's', 'c' }, '<c-tab>', lang.toggle_cmp },
+  { { 'n' }, '<leader>lat', lang.toggle_lua_ls },
+  { { 'n' }, '<leader>lct', lang.toggle_clangd },
+  { { 'n' }, '<leader>lnt', lang.toggle_ltex_ls_plus },
+  { { 'n' }, '<leader>lnu', lang.enable_ltex_ls_plus_en },
+  { { 'n' }, '<leader>lnd', lang.enable_ltex_ls_plus_de },
+  { { 'n' }, '<leader>lne', lang.enable_ltex_ls_plus_es },
+  -- Diagnostics
+  { { 'n' }, '<leader>dv', lang.toggle_diagnostic_virtual_lines },
+  { { 'n' }, '<leader>dl', lang.toggle_diagnostic_underlines },
+  { { 'n' }, '<leader>dd', lang.show_diagnostic_under_cursor },
+})
