@@ -56,6 +56,10 @@ nnoremap <c-7> :tabmove +1<cr>
 " Ctrl-Backspace deletes the previous word in insert mode.
 inoremap <c-bs> <c-W>
 
+" Move to the end of a word backwards.
+nnoremap - ge
+nnoremap _ gE
+
 " Copy to clipboard with Ctrl-c. Ctrl-v pasting is handled by the terminal
 " emulator (kitty).
 nnoremap <c-c> "+y
