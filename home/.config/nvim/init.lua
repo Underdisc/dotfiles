@@ -1,5 +1,3 @@
-vim.opt.packpath = { '~/.local/share/nvim/site' }
-
 -- Source shared vimrc files
 vim.cmd('source ~/.vim/grund_keybinds.vim')
 vim.cmd('source ~/.vim/defaults.vim')
@@ -43,25 +41,15 @@ vim.opt.showmode = false
 vim.opt.termguicolors = true
 -- Prevent leader from timing out.
 vim.o.timeout = false
-
-require('style')
-require('util')
-
--- Prevent unnecessary indentation lines from appearing in the undotree.
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'undotree',
-  callback = function() require('ibl').setup_buffer(0, { enabled = false }) end,
-})
-
-require('git')
-
--- Configure the command line.
-vim.opt.cmdheight = 1
+-- Don't display the cursor position on the command line.
 vim.opt.ruler = false
-
 -- The globals status line is removed in favor of per window status lines.
 vim.opt.laststatus = 0
 
+vim.opt.packpath = { '~/.local/share/nvim/site' }
+require('style')
+require('util')
+require('git')
 require('winbar')
 require('fs')
 require('buffer')

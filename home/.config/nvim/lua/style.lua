@@ -40,6 +40,12 @@ ibl.setup({
   scope = { enabled = false },
 })
 
+-- Prevent unnecessary indentation lines from appearing in the undotree.
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'undotree',
+  callback = function() ibl.setup_buffer(0, { enabled = false }) end,
+})
+
 -- Mode Cursor Color Changes
 vim.opt.guicursor = {
   'n:block-NormalCursor',
