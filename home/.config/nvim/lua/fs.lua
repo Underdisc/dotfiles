@@ -63,3 +63,15 @@ require('telescope').setup({
     borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
   },
 })
+
+local fs = {}
+
+local telescope_builtin = require('telescope.builtin')
+function fs.telescope_file()
+  telescope_builtin.find_files({ hidden = true, no_ignore = true })
+end
+function fs.telescope_grep() telescope_builtin.live_grep() end
+function fs.telescope_buffer() telescope_builtin.buffers() end
+function fs.telescope_help() telescope_builtin.help_tags() end
+
+return fs

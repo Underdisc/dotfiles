@@ -27,14 +27,11 @@ vim.keymap.set('n', 'gd', '<c-]>')
 
 vim.keymap.set('n', '<leader>o', '<cmd>Oil<cr>')
 
-vim.keymap.set(
-  'n',
-  '<leader>ff',
-  '<cmd>Telescope find_files hidden=true no_ignore=true<cr>'
-)
-vim.keymap.set('n', '<leader>fg', '<cmd>Telescope live_grep<cr>')
-vim.keymap.set('n', '<leader>fb', '<cmd>Telescope buffers<cr>')
-vim.keymap.set('n', '<leader>fh', '<cmd>Telescope help_tags<cr>')
+local fs = require('fs')
+vim.keymap.set('n', '<leader>ff', fs.telescope_file)
+vim.keymap.set('n', '<leader>fg', fs.telescope_grep)
+vim.keymap.set('n', '<leader>fb', fs.telescope_buffer)
+vim.keymap.set('n', '<leader>fh', fs.telescope_help)
 
 local conform = require('conform')
 vim.keymap.set('n', '<c-z>', conform.format)
@@ -47,50 +44,18 @@ vim.keymap.set({ 'n', 'x', 'o' }, '\\', flash.jump)
 vim.keymap.set({ 'n', 'x', 'o' }, '<c-/>', flash.treesitter)
 vim.keymap.set({ 'n', 'x', 'o' }, '<a-/>', flash.treesitter_search)
 
--- Retrieve the id for a window displaying a buffer with the desired filetype.
-local function get_filetype_win(filetype)
-  for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-    local bufid = vim.api.nvim_win_get_buf(winid)
-    local ft = vim.api.nvim_buf_get_option(bufid, 'filetype')
-    if ft == filetype then return winid end
-  end
-  return -1
-end
-
+local util = require('util')
 vim.keymap.set('n', '<leader>U', vim.cmd.UndotreeToggle)
-vim.keymap.set('n', '<leader>u', function()
-  -- Open the undotree window or focus it if it already exists.
-  local undotree_winid = get_filetype_win('undotree')
-  if undotree_winid == -1 then
-    vim.cmd('UndotreeToggle')
-  else
-    vim.api.nvim_set_current_win(undotree_winid)
-  end
-end)
+vim.keymap.set('n', '<leader>u', util.focus_undotree)
 
 -- Buffer navigation keybinds
 local vuffers = require('vuffers')
+local buffer = require('buffer')
 vim.keymap.set('n', '<leader>B', vuffers.toggle)
-vim.keymap.set(
-  { 'n', 'i' },
-  '<c-j>',
-  function() vuffers.go_to_buffer_by_count({ direction = 'next' }) end
-)
-vim.keymap.set(
-  { 'n', 'i' },
-  '<c-k>',
-  function() vuffers.go_to_buffer_by_count({ direction = 'prev' }) end
-)
-vim.keymap.set(
-  { 'n', 'i' },
-  '<c-down>',
-  function() vuffers.move_current_buffer_by_count({ direction = 'next' }) end
-)
-vim.keymap.set(
-  { 'n', 'i' },
-  '<c-up>',
-  function() vuffers.move_current_buffer_by_count({ direction = 'prev' }) end
-)
+vim.keymap.set({ 'n', 'i' }, '<c-j>', buffer.switch_buffer_down)
+vim.keymap.set({ 'n', 'i' }, '<c-k>', buffer.switch_buffer_up)
+vim.keymap.set({ 'n', 'i' }, '<c-down>', buffer.move_buffer_down)
+vim.keymap.set({ 'n', 'i' }, '<c-up>', buffer.move_buffer_down)
 vim.keymap.set('n', '<leader>b', vuffers.go_to_buffer_by_line)
 
 local git = require('git')

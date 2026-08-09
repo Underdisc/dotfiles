@@ -44,3 +44,23 @@ vim.api.nvim_create_autocmd('DirChanged', {
   pattern = 'global',
   callback = function() vuffers.reset_buffers() end,
 })
+
+local buffer = {}
+
+function buffer.switch_buffer_down()
+  vuffers.go_to_buffer_by_count({ direction = 'next' })
+end
+
+function buffer.switch_buffer_up()
+  vuffers.go_to_buffer_by_count({ direction = 'prev' })
+end
+
+function buffer.move_buffer_down()
+  vuffers.move_current_buffer_by_count({ direction = 'next' })
+end
+
+function buffer.move_buffer_up()
+  vuffers.move_current_buffer_by_count({ direction = 'prev' })
+end
+
+return buffer
