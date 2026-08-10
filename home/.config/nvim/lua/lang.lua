@@ -39,7 +39,7 @@ nvim_treesitter.install({
 vim.pack.add({ 'https://github.com/j-hui/fidget.nvim' })
 require('fidget').setup()
 
--- Configure options for lsps.
+-- Lua
 vim.pack.add({ 'https://github.com/neovim/nvim-lspconfig' })
 vim.lsp.config['lua_ls'] = {
   cmd = { 'lua-language-server' },
@@ -54,12 +54,7 @@ vim.lsp.config['lua_ls'] = {
   },
 }
 
-local lang = {}
-
-function lang.toggle_lua_ls()
-  vim.lsp.enable('lua_ls', not vim.lsp.is_enabled('lua_ls'))
-end
-
+-- C and Cpp
 vim.lsp.config['clangd'] = {
   filetypes = { 'cpp', 'c' },
   root_markers = { 'compile_commands.json', '.git' },
@@ -83,11 +78,7 @@ vim.lsp.config['clangd'] = {
   },
 }
 
-function lang.toggle_clangd()
-  vim.lsp.enable('clangd', not vim.lsp.is_enabled('clangd'))
-end
-
--- Language server for natural languages. ltex-ls-plus must be within path.
+-- Natural Languages
 vim.lsp.config['ltex-ls-plus'] = {
   cmd = { 'ltex-ls-plus' },
   filetypes = { 'markdown', 'text' },
@@ -104,17 +95,6 @@ local function get_ltex_ls_plus_notif_prefix()
     .. ') '
 end
 
-function lang.toggle_ltex_ls_plus()
-  vim.lsp.enable('ltex-ls-plus', not vim.lsp.is_enabled('ltex-ls-plus'))
-  local notificaton = get_ltex_ls_plus_notif_prefix()
-  if vim.lsp.is_enabled('ltex-ls-plus') then
-    notificaton = notificaton .. 'enabled'
-  else
-    notificaton = notificaton .. 'disabled'
-  end
-  vim.notify(notificaton)
-end
-
 local function try_natural_language_lsp_restart()
   if vim.lsp.is_enabled('ltex-ls-plus') then
     vim.lsp.enable('ltex-ls-plus', false)
@@ -122,17 +102,7 @@ local function try_natural_language_lsp_restart()
   end
 end
 
-function lang.enable_ltex_ls_plus_lang(language)
-  vim.lsp.config['ltex-ls-plus'].settings.ltex.language = language
-  try_natural_language_lsp_restart()
-  vim.notify(get_ltex_ls_plus_notif_prefix())
-end
-
-function lang.enable_ltex_ls_plus_en() lang.enable_ltex_ls_plus_lang('en-US') end
-function lang.enable_ltex_ls_plus_de() lang.enable_ltex_ls_plus_lang('de-DE') end
-function lang.enable_ltex_ls_plus_es() lang.enable_ltex_ls_plus_lang('es-ES') end
-
--- Configure diagnostic options
+-- Diagnostics
 vim.diagnostic.config({
   signs = false,
   underline = true,
@@ -148,7 +118,7 @@ vim.cmd([[
   highlight DiagnosticUnderlineHint  gui=underdouble
 ]])
 
--- Prevent diagnostic underlines from dissappearing when in an insert mode
+-- Prevent diagnostic underlines from dissappearing when in insert mode.
 local original_underline_hide = vim.diagnostic.handlers.underline.hide
 vim.diagnostic.handlers.underline.hide = function(ns, bufnr)
   local current_mode = vim.api.nvim_get_mode().mode
@@ -157,26 +127,7 @@ vim.diagnostic.handlers.underline.hide = function(ns, bufnr)
   original_underline_hide(ns, bufnr)
 end
 
-function lang.toggle_diagnostic_virtual_lines()
-  local active = not vim.diagnostic.config().virtual_lines
-  vim.diagnostic.config({ virtual_lines = active })
-end
-
-function lang.toggle_diagnostic_underlines()
-  local active = not vim.diagnostic.config().underline
-  vim.diagnostic.config({ underline = active })
-end
-
-function lang.show_diagnostic_under_cursor()
-  local diagnostics = vim.diagnostic.get(0, {
-    lnum = vim.api.nvim_win_get_cursor(0)[1] - 1,
-  })
-  if #diagnostics > 0 then
-    vim.cmd('echom "' .. diagnostics[1].message .. '"')
-  end
-end
-
--- Configure Autocomplete.
+-- Autocomplete
 vim.pack.add({ 'https://github.com/hrsh7th/cmp-nvim-lsp' })
 vim.pack.add({ 'https://github.com/hrsh7th/nvim-cmp' })
 local cmp = require('cmp')
@@ -206,6 +157,56 @@ cmp.setup({
     { name = 'nvim_lsp' },
   }),
 })
+
+local lang = {}
+
+function lang.toggle_lua_ls()
+  vim.lsp.enable('lua_ls', not vim.lsp.is_enabled('lua_ls'))
+end
+
+function lang.toggle_clangd()
+  vim.lsp.enable('clangd', not vim.lsp.is_enabled('clangd'))
+end
+
+function lang.toggle_ltex_ls_plus()
+  vim.lsp.enable('ltex-ls-plus', not vim.lsp.is_enabled('ltex-ls-plus'))
+  local notificaton = get_ltex_ls_plus_notif_prefix()
+  if vim.lsp.is_enabled('ltex-ls-plus') then
+    notificaton = notificaton .. 'enabled'
+  else
+    notificaton = notificaton .. 'disabled'
+  end
+  vim.notify(notificaton)
+end
+
+function lang.enable_ltex_ls_plus_lang(language)
+  vim.lsp.config['ltex-ls-plus'].settings.ltex.language = language
+  try_natural_language_lsp_restart()
+  vim.notify(get_ltex_ls_plus_notif_prefix())
+end
+
+function lang.enable_ltex_ls_plus_en() lang.enable_ltex_ls_plus_lang('en-US') end
+function lang.enable_ltex_ls_plus_de() lang.enable_ltex_ls_plus_lang('de-DE') end
+function lang.enable_ltex_ls_plus_es() lang.enable_ltex_ls_plus_lang('es-ES') end
+
+function lang.toggle_diagnostic_virtual_lines()
+  local active = not vim.diagnostic.config().virtual_lines
+  vim.diagnostic.config({ virtual_lines = active })
+end
+
+function lang.toggle_diagnostic_underlines()
+  local active = not vim.diagnostic.config().underline
+  vim.diagnostic.config({ underline = active })
+end
+
+function lang.show_diagnostic_under_cursor()
+  local diagnostics = vim.diagnostic.get(0, {
+    lnum = vim.api.nvim_win_get_cursor(0)[1] - 1,
+  })
+  if #diagnostics > 0 then
+    vim.cmd('echom "' .. diagnostics[1].message .. '"')
+  end
+end
 
 local cmp_enabled = true
 function lang.toggle_cmp()
