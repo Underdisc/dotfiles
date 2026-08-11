@@ -2,7 +2,7 @@
 -- maintain the top to bottom order of this table.
 local sidebar = {}
 
-sidebar.width = 39
+sidebar.width = 30
 sidebar.infos = {
   {
     filetype = 'undotree',
