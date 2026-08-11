@@ -72,7 +72,7 @@ apply_keymaps({
   { { 'n' }, '<leader>gb', '<cmd>Git blame -s<cr>' },
   { { 'n' }, '<leader>gl', git.show_commit_message },
   -- Lsp
-  { { 'n', 'i', 's', 'c' }, '<c-tab>', lang.toggle_cmp },
+  { { 'n', 'i', 's', 'c' }, '<m-tab>', lang.toggle_cmp },
   { { 'n' }, '<leader>lat', lang.toggle_lua_ls },
   { { 'n' }, '<leader>lct', lang.toggle_clangd },
   { { 'n' }, '<leader>lnt', lang.toggle_ltex_ls_plus },
