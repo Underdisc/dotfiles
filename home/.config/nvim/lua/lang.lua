@@ -198,11 +198,19 @@ function lang.toggle_diagnostic_underlines()
 end
 
 function lang.show_diagnostic_under_cursor()
-  local diagnostics = vim.diagnostic.get(0, {
-    lnum = vim.api.nvim_win_get_cursor(0)[1] - 1,
-  })
-  if #diagnostics > 0 then
-    vim.cmd('echom "' .. diagnostics[1].message .. '"')
+  local pos = vim.api.nvim_win_get_cursor(0)
+  pos[1] = pos[1] - 1
+  found_diagnostic = false
+  local diagnostics = vim.diagnostic.get(0, { lnum = pos[1] })
+  for _, diagnostic in ipairs(diagnostics) do
+    if diagnostic.col <= pos[2] and pos[2] < diagnostic.end_col then
+      vim.notify(diagnostic.message)
+      found_diagnostic = true
+      break;
+    end
+  end
+  if not found_diagnostic then
+    vim.notify('No diagnostic under cursor.')
   end
 end
 
