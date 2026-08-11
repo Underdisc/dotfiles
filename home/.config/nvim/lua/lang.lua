@@ -89,19 +89,6 @@ vim.lsp.config['ltex-ls-plus'] = {
   },
 }
 
-local function get_ltex_ls_plus_notif_prefix()
-  return 'ltex-ls-plus('
-    .. vim.lsp.config['ltex-ls-plus'].settings.ltex.language
-    .. ') '
-end
-
-local function try_natural_language_lsp_restart()
-  if vim.lsp.is_enabled('ltex-ls-plus') then
-    vim.lsp.enable('ltex-ls-plus', false)
-    vim.lsp.enable('ltex-ls-plus', true)
-  end
-end
-
 -- Diagnostics
 vim.diagnostic.config({
   signs = false,
@@ -160,29 +147,40 @@ cmp.setup({
 
 local lang = {}
 
-function lang.toggle_lua_ls()
-  vim.lsp.enable('lua_ls', not vim.lsp.is_enabled('lua_ls'))
+function lang.format()
+  conform.format()
+  local filename = vim.fn.expand('%:p:.')
+  vim.notify('"' .. filename .. '" formatted')
 end
 
-function lang.toggle_clangd()
-  vim.lsp.enable('clangd', not vim.lsp.is_enabled('clangd'))
-end
-
-function lang.toggle_ltex_ls_plus()
-  vim.lsp.enable('ltex-ls-plus', not vim.lsp.is_enabled('ltex-ls-plus'))
-  local notificaton = get_ltex_ls_plus_notif_prefix()
-  if vim.lsp.is_enabled('ltex-ls-plus') then
-    notificaton = notificaton .. 'enabled'
-  else
-    notificaton = notificaton .. 'disabled'
+function lang.enable_lsp(lsp, info)
+  vim.lsp.enable(lsp, not vim.lsp.is_enabled(lsp))
+  local notification = lsp
+  if info ~= nil then
+    notification = notification .. '(' .. info .. ')'
   end
-  vim.notify(notificaton)
+  if vim.lsp.is_enabled(lsp) then
+    notification = notification .. ' enabled'
+  else
+    notification = notification .. ' disabled'
+  end
+  vim.notify(notification)
+end
+
+function lang.toggle_lua_ls() lang.enable_lsp('lua_ls') end
+function lang.toggle_clangd() lang.enable_lsp('clangd') end
+function lang.toggle_ltex_ls_plus()
+  local info = vim.lsp.config['ltex-ls-plus'].settings.ltex.language
+  lang.enable_lsp('ltex-ls-plus', info)
 end
 
 function lang.enable_ltex_ls_plus_lang(language)
   vim.lsp.config['ltex-ls-plus'].settings.ltex.language = language
-  try_natural_language_lsp_restart()
-  vim.notify(get_ltex_ls_plus_notif_prefix())
+  if vim.lsp.is_enabled('ltex-ls-plus') then
+    vim.lsp.enable('ltex-ls-plus', false)
+    vim.lsp.enable('ltex-ls-plus', true)
+  end
+  vim.notify('ltex-ls-plus using ' .. language)
 end
 
 function lang.enable_ltex_ls_plus_en() lang.enable_ltex_ls_plus_lang('en-US') end
@@ -216,6 +214,11 @@ function lang.toggle_cmp()
     cmp.close()
   elseif cmp_enabled and not cmp.visible() then
     cmp.complete()
+  end
+  if cmp_enabled then
+    vim.notify('completion enabled')
+  else
+    vim.notify('completion disabled')
   end
 end
 

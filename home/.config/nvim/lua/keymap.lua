@@ -45,7 +45,7 @@ apply_keymaps({
   { { 'n' }, '<leader>fg', fs.telescope_grep },
   { { 'n' }, '<leader>fb', fs.telescope_buffer },
   { { 'n' }, '<leader>fh', fs.telescope_help },
-  { { 'n' }, '<c-z>', conform.format },
+  { { 'n' }, '<c-z>', lang.format },
   { { 'n' }, '<leader>y', yazi.toggle },
   { { 'n', 'x', 'o' }, '\\', flash.jump },
   { { 'n', 'x', 'o' }, '<c-/>', flash.treesitter },
