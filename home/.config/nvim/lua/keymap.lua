@@ -50,15 +50,14 @@ apply_keymaps({
   { { 'n', 'x', 'o' }, '\\', flash.jump },
   { { 'n', 'x', 'o' }, '<c-/>', flash.treesitter },
   { { 'n', 'x', 'o' }, '<a-/>', flash.treesitter_search },
-  { { 'n' }, '<leader>U', vim.cmd.UndotreeToggle },
-  { { 'n' }, '<leader>u', util.focus_undotree },
+  { { 'n' }, '<leader>u', vim.cmd.UndotreeToggle },
   -- Buffers
-  { { 'n' }, '<leader>B', vuffers.toggle },
+  { { 'n' }, '<leader>b', vuffers.toggle },
   { { 'n', 'i' }, '<c-j>', buffer.switch_buffer_down },
   { { 'n', 'i' }, '<c-k>', buffer.switch_buffer_up },
   { { 'n', 'i' }, '<c-down>', buffer.move_buffer_down },
   { { 'n', 'i' }, '<c-up>', buffer.move_buffer_down },
-  { { 'n' }, '<leader>b', vuffers.go_to_buffer_by_line },
+  { { 'n' }, '<leader>B', vuffers.go_to_buffer_by_line },
   -- Git
   { { 'n' }, '<leader>gs', git.toggle_inline_diff },
   { { 'n', 'v' }, '<leader>ga', git.toggle_hunk },
