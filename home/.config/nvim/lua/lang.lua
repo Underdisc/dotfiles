@@ -97,14 +97,6 @@ vim.diagnostic.config({
   virtual_lines = false,
 })
 
--- Lines with associated diagnostics recieve double underlines
-vim.cmd([[
-  highlight DiagnosticUnderlineError gui=underdouble
-  highlight DiagnosticUnderlineWarn  gui=underdouble
-  highlight DiagnosticUnderlineInfo  gui=underdouble
-  highlight DiagnosticUnderlineHint  gui=underdouble
-]])
-
 -- Prevent diagnostic underlines from dissappearing when in insert mode.
 local original_underline_hide = vim.diagnostic.handlers.underline.hide
 vim.diagnostic.handlers.underline.hide = function(ns, bufnr)

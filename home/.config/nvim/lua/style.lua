@@ -152,4 +152,10 @@ apply_highlights({
   { 'GitDate', { fg = '#ee44ff' } },
   { 'GitAuthor', { fg = '#44ee44' } },
   { 'GitSummary', { link = 'Title' } },
+
+  -- Diagnostics
+  { 'DiagnosticUnderlineError', { underdouble = true, update = true } },
+  { 'DiagnosticUnderlineWarn', { underdouble = true, update = true } },
+  { 'DiagnosticUnderlineInfo', { underdouble = true, update = true } },
+  { 'DiagnosticUnderlineHint', { underdouble = true, update = true } },
 })
