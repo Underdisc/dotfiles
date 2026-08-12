@@ -1,5 +1,3 @@
--- Source shared vimrc files
-vim.cmd('source ~/.vim/keymaps.vim')
 vim.cmd('source ~/.vim/defaults.vim')
 
 vim.g.have_nerd_font = true

@@ -1,3 +1,5 @@
+vim.cmd('source ~/.vim/keymap.vim')
+
 function apply_keymaps(keymaps)
   for _, km in ipairs(keymaps) do
     vim.keymap.set(km[1], km[2], km[3])
