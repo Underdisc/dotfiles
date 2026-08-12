@@ -1,0 +1,9 @@
+[mgr]
+prepend_keymap = [
+  { on = [ "<Space>" ], run = "cd --interactive" },
+  { on = [ "z" ], run = "plugin zoxide" },
+  { on = [ "Z" ], run = "plugin fzf" },
+  { on = [ "s" ], run = "toggle" },
+  { on = [ "S" ], run = "search --via=fd" },
+  { on = [ "<A-s>" ], run = "search --via=rg" },
+]
