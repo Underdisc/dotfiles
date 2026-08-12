@@ -20,4 +20,3 @@ function dbg.log(object, opts)
 end
 
 return dbg
-

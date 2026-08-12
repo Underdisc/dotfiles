@@ -156,9 +156,7 @@ end
 function lang.enable_lsp(lsp, info)
   vim.lsp.enable(lsp, not vim.lsp.is_enabled(lsp))
   local notification = lsp
-  if info ~= nil then
-    notification = notification .. '(' .. info .. ')'
-  end
+  if info ~= nil then notification = notification .. '(' .. info .. ')' end
   if vim.lsp.is_enabled(lsp) then
     notification = notification .. ' enabled'
   else
@@ -206,12 +204,10 @@ function lang.show_diagnostic_under_cursor()
     if diagnostic.col <= pos[2] and pos[2] < diagnostic.end_col then
       vim.notify(diagnostic.message)
       found_diagnostic = true
-      break;
+      break
     end
   end
-  if not found_diagnostic then
-    vim.notify('No diagnostic under cursor.')
-  end
+  if not found_diagnostic then vim.notify('No diagnostic under cursor.') end
 end
 
 local severities = {

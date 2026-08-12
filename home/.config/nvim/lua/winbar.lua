@@ -18,17 +18,12 @@ vim.o.tabline = '%!v:lua.Tabline()'
 
 local focused = true
 vim.api.nvim_create_autocmd('FocusGained', {
-  callback = function()
-    focused = true
-  end,
+  callback = function() focused = true end,
 })
 
 vim.api.nvim_create_autocmd('FocusLost', {
-  callback = function()
-    focused = false
-  end,
+  callback = function() focused = false end,
 })
-
 
 -- Constructs the left side of window title bars
 local function title_bar_left(winid, bufid, window_info)
@@ -295,4 +290,3 @@ vim.api.nvim_create_autocmd('WinResized', {
     end
   end,
 })
-
