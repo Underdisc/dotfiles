@@ -82,4 +82,8 @@ apply_keymaps({
   { { 'n' }, '<leader>dv', lang.toggle_diagnostic_virtual_lines },
   { { 'n' }, '<leader>dl', lang.toggle_diagnostic_underlines },
   { { 'n' }, '<leader>dd', lang.show_diagnostic_under_cursor },
+  { { 'n' }, '»', lang.diagnostic_jump_forward },
+  { { 'n' }, '«', lang.diagnostic_jump_backward },
+  { { 'n' }, '<leader>dj', lang.diagnostic_severity_filter_down },
+  { { 'n' }, '<leader>dk', lang.diagnostic_severity_filter_up },
 })

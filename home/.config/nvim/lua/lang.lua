@@ -214,6 +214,45 @@ function lang.show_diagnostic_under_cursor()
   end
 end
 
+local severities = {
+  { enum = vim.diagnostic.severity.HINT, string = 'Hint' },
+  { enum = vim.diagnostic.severity.INFO, string = 'Info' },
+  { enum = vim.diagnostic.severity.WARN, string = 'Warn' },
+  { enum = vim.diagnostic.severity.ERROR, string = 'Error' },
+}
+local severity_range = { 4, 4 }
+function lang.modify_min_diagnostic_severity_filter(amount)
+  local min = severity_range[1]
+  min = min + amount
+  if min < 1 then
+    min = 1
+  elseif min > #severities then
+    min = #severities
+  end
+  severity_range[1] = min
+  vim.notify(
+    '"' .. severities[min].string .. '"' .. ' diagnostic jump minimum severity'
+  )
+end
+function lang.diagnostic_severity_filter_down()
+  lang.modify_min_diagnostic_severity_filter(-vim.v.count1)
+end
+function lang.diagnostic_severity_filter_up()
+  lang.modify_min_diagnostic_severity_filter(vim.v.count1)
+end
+
+function lang.diagnostic_jump(amount)
+  vim.diagnostic.jump({
+    count = amount,
+    severity = {
+      min = severities[severity_range[1]].enum,
+      max = severities[severity_range[2]].enum,
+    },
+  })
+end
+function lang.diagnostic_jump_forward() lang.diagnostic_jump(vim.v.count1) end
+function lang.diagnostic_jump_backward() lang.diagnostic_jump(-vim.v.count1) end
+
 local cmp_enabled = true
 function lang.toggle_cmp()
   cmp_enabled = not cmp_enabled
