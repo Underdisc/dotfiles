@@ -47,6 +47,14 @@ vim.api.nvim_create_autocmd('DirChanged', {
 
 local buffer = {}
 
+function buffer.toggle_or_open_specified_buffer()
+  if vim.v.count == 0 then
+    vuffers.toggle()
+  else
+    vuffers.go_to_buffer_by_line()
+  end
+end
+
 function buffer.switch_buffer_down()
   vuffers.go_to_buffer_by_count({ direction = 'next' })
 end
