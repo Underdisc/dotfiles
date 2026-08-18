@@ -30,6 +30,7 @@ nvim_treesitter.install({
   'c',
   'cpp',
   'css',
+  'go',
   'html',
   'javascript',
   'lua',
@@ -76,6 +77,15 @@ vim.lsp.config['clangd'] = {
     '--header-insertion-decorators=false',
     '--completion-style=detailed',
   },
+}
+
+-- Go
+vim.lsp.config['gopls'] = {
+  settings = {
+    gopls = {
+      semanticTokens = false,
+    }
+  }
 }
 
 -- Natural Languages
@@ -159,6 +169,7 @@ end
 
 function lang.toggle_lua_ls() lang.enable_lsp('lua_ls') end
 function lang.toggle_clangd() lang.enable_lsp('clangd') end
+function lang.toggle_gopls() lang.enable_lsp('gopls') end
 function lang.toggle_ltex_ls_plus()
   local info = vim.lsp.config['ltex-ls-plus'].settings.ltex.language
   lang.enable_lsp('ltex-ls-plus', info)
