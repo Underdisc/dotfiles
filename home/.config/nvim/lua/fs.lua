@@ -10,7 +10,7 @@ vim.pack.add({
 })
 local yazi = require('yazi')
 yazi.setup({
-  floating_window_scaling_factor = 1.0,
+  floating_window_scaling_factor = 0.9,
   yazi_floating_window_border = 'single',
   hooks = {
     yazi_opened = function(preselected_path, bufid, config)
