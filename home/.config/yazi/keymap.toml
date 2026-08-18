@@ -6,4 +6,8 @@ prepend_keymap = [
   { on = [ "s" ], run = "toggle" },
   { on = [ "S" ], run = "search --via=fd" },
   { on = [ "<A-s>" ], run = "search --via=rg" },
+  { on = "<C-h>", run = "tab_switch -1 --relative"},
+  { on = "<C-l>", run = "tab_switch 1 --relative"},
+  { on = "<C-Left>", run = "tab_swap -1" },
+  { on = "<C-Right>", run = "tab_swap 1" },
 ]
