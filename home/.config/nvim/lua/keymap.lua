@@ -58,7 +58,7 @@ apply_keymaps({
   { { 'n', 'i' }, '<c-j>', buffer.switch_buffer_down },
   { { 'n', 'i' }, '<c-k>', buffer.switch_buffer_up },
   { { 'n', 'i' }, '<c-down>', buffer.move_buffer_down },
-  { { 'n', 'i' }, '<c-up>', buffer.move_buffer_down },
+  { { 'n', 'i' }, '<c-up>', buffer.move_buffer_up },
   { { 'n' }, '<leader>B', vuffers.go_to_buffer_by_line },
   -- Git
   { { 'n' }, '<leader>gs', git.toggle_inline_diff },
