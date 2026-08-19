@@ -29,7 +29,7 @@ alias la='ls -a'
 alias ll='ls -l --time-style=long-iso'
 alias lla='ls -la'
 
-yz() {
+y() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   command yazi "$@" --cwd-file="$tmp"
   IFS= read -r -d '' cwd < "$tmp"
@@ -37,7 +37,7 @@ yz() {
   command rm -f -- "$tmp"
 }
 
-btop() {
+t() {
   hostname=$(hostname)
   config_dir=~/.config/btop
   system_config=$config_dir/system.conf

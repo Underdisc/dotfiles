@@ -158,7 +158,7 @@ setopt append_history
 setopt inc_append_history
 setopt hist_ignore_dups
 
-nv() {
+n() {
   command nvim "$@"
   enable_focus_reporting
 }
