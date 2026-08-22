@@ -31,12 +31,16 @@ local function title_bar_left(winid, bufid, window_info)
   -- Insert the mode indicator.
   if focused and winid == vim.api.nvim_get_current_win() then
     local mode = vim.api.nvim_get_mode()['mode']
-    if mode == '\22' then mode = 'V' end
+    if mode == 'V' then mode = 'L' end
+    if mode == string.char(22) then mode = 'B' end
+    if mode == 'v' then mode = 'V' end
     mode = string.sub(string.upper(mode), 1, 1)
     local mode_elements = {
       ['N'] = { ' N ', group = 'NormalModeIndicator' },
       ['I'] = { ' I ', group = 'InsertModeIndicator' },
       ['V'] = { ' V ', group = 'VisualModeIndicator' },
+      ['L'] = { ' L ', group = 'VisualModeIndicator' },
+      ['B'] = { ' B ', group = 'VisualModeIndicator' },
     }
     local mode_element = mode_elements[mode]
     if mode_element ~= nil then

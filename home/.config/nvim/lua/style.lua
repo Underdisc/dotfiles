@@ -101,7 +101,7 @@ apply_highlights({
   { 'InsertCursor', { bg = '#44cc44', fg = '#222222', bold = true } },
   { 'VisualCursor', { bg = '#44cccc', fg = '#222222', bold = true } },
   { 'CommandCursor', { bg = '#cc4444', fg = '#222222', bold = true } },
-  { 'Visual', { bg = '#113366', bold = true } },
+  { 'Visual', { bg = '#225050', bold = true } },
 
   -- Winbars
   { 'FocusWinBar', { bg = '#444444', fg = '#eeeeee' } },
