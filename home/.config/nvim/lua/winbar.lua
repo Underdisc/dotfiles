@@ -52,7 +52,58 @@ local function title_bar_left(winid, bufid, window_info)
     table.insert(bar_config, { '   ', group = 'InactiveModeIndicator' })
   end
 
+  -- Insert filename or a replacement thereof.
+  local filename_bar_part = {}
   if window_info == nil then
+    local full_path = vim.api.nvim_buf_get_name(bufid)
+    if full_path ~= '' then
+      local relative_path = vim.fn.fnamemodify(full_path, ':.')
+      filename_bar_part = { ' ', { relative_path, gui = 'italic' }, ' ', '|'}
+    end
+  else
+    local label = window_info.filename_replacement
+    filename_bar_part = { ' ', { label, gui = 'italic' }, ' '}
+  end
+  table.insert(bar_config, filename_bar_part)
+
+  -- Insert line and cursor position information.
+  if window_info == nil then
+    local cursor_pos = vim.api.nvim_win_get_cursor(winid)
+    local line_count = vim.api.nvim_buf_line_count(bufid)
+    table.insert(
+      bar_config,
+      { ' ', cursor_pos[2] .. ':' .. cursor_pos[1] .. ':' .. line_count, ' ' }
+    )
+    table.insert(bar_config, '|')
+  end
+
+  return bar_config
+end
+
+-- Constructs the right side of window title bars
+vim.pack.add({ 'https://github.com/nvim-tree/nvim-web-devicons' })
+local devicons = require('nvim-web-devicons')
+local function title_bar_right(winid, bufid, window_info)
+  local bar_config = {}
+  if window_info == nil then
+    -- Initialize diagnostic information.
+    local diagnostics = {
+      { type = 'Error', symbol = '' },
+      { type = 'Warn', symbol = '' },
+      { type = 'Info', symbol = '' },
+      { type = 'Hint', symbol = '' },
+    }
+    local diagnostic_config = {}
+    for _, diagnostic in ipairs(diagnostics) do
+      local type_number = vim.diagnostic.severity[string.upper(diagnostic.type)]
+      local count = #vim.diagnostic.get(bufid, { severity = type_number })
+      if count > 0 then
+        local text = diagnostic.symbol .. count
+        local hl_group = 'Diagnostic' .. diagnostic.type
+        table.insert(diagnostic_config, { text, group = hl_group })
+      end
+    end
+
     -- Initialize git status information.
     local statuses = {
       { type = 'added', symbol = '+', hl_group_substr = 'Add' },
@@ -72,59 +123,20 @@ local function title_bar_left(winid, bufid, window_info)
       end
     end
 
-    -- Initialize diagnostic information.
-    local diagnostics = {
-      { type = 'Error', symbol = '' },
-      { type = 'Warn', symbol = '' },
-      { type = 'Info', symbol = '' },
-      { type = 'Hint', symbol = '' },
-    }
-    local diagnostic_config = {}
-    for _, diagnostic in ipairs(diagnostics) do
-      local type_number = vim.diagnostic.severity[string.upper(diagnostic.type)]
-      local count = #vim.diagnostic.get(bufid, { severity = type_number })
-      if count > 0 then
-        local text = diagnostic.symbol .. count
-        local hl_group = 'Diagnostic' .. diagnostic.type
-        table.insert(diagnostic_config, { text, group = hl_group })
-      end
-    end
-
     -- Insert git and diagnostic information if present or a single separator if
     -- not present.
-    if #git_config > 0 then
-      table.insert(bar_config, { ' ', git_config, ' ' })
-      table.insert(bar_config, '|')
-    end
     if #diagnostic_config > 0 then
+      table.insert(bar_config, '|')
       table.insert(bar_config, { ' ', diagnostic_config, ' ' })
-      table.insert(bar_config, '|')
     end
-    if #git_config == 0 and #diagnostic_config == 0 then
+    if #git_config > 0 then
       table.insert(bar_config, '|')
+      table.insert(bar_config, { ' ', git_config, ' ' })
     end
   end
-  return bar_config
-end
 
--- Constructs the right side of window title bars
-vim.pack.add({ 'https://github.com/nvim-tree/nvim-web-devicons' })
-local devicons = require('nvim-web-devicons')
-local function title_bar_right(winid, bufid, window_info)
-  local bar_config = {}
   local icon = ''
-  local filename = ''
   if window_info == nil then
-    -- Insert line and cursor position information.
-    local cursor_pos = vim.api.nvim_win_get_cursor(winid)
-    local line_count = vim.api.nvim_buf_line_count(bufid)
-    table.insert(bar_config, '|')
-    table.insert(
-      bar_config,
-      { ' ', cursor_pos[2] .. ':' .. cursor_pos[1] .. ':' .. line_count, ' ' }
-    )
-    table.insert(bar_config, '|')
-
     -- Insert an icon for the file format.
     local format_symbols = {
       unix = '󰻀',
@@ -132,22 +144,19 @@ local function title_bar_right(winid, bufid, window_info)
       mac = '',
     }
     local fileformat = vim.bo.fileformat
-    table.insert(bar_config, { ' ', { format_symbols[fileformat] }, ' ' })
     table.insert(bar_config, '|')
+    table.insert(bar_config, { ' ', { format_symbols[fileformat] }, ' ' })
 
-    -- Get the icon and filename relative to the current working directory.
+    -- Get the file type icon.
     local full_filename = vim.api.nvim_buf_get_name(bufid)
     local file_tail = vim.fn.fnamemodify(full_filename, ':t')
     local file_ext = vim.fn.fnamemodify(full_filename, ':e')
     icon = devicons.get_icon(file_tail, file_ext, { default = true })
-    filename = vim.fn.fnamemodify(full_filename, ':.')
   else
     icon = window_info.icon
-    filename = window_info.filename_replacement
   end
 
-  -- Insert the filename and file type icon.
-  table.insert(bar_config, { ' ', { filename, gui = 'italic' }, ' ' })
+  -- Insert the file type icon.
   local icon_text = ' ' .. icon .. ' '
   if focused and winid == vim.api.nvim_get_current_win() then
     table.insert(bar_config, { icon_text, group = 'FiletypeIndicator' })
@@ -184,8 +193,7 @@ local function bar_fit_to_window(bar, winid)
   else
     local prefix_replacement = ''
     local remove_count = (bar_length - window_width) + 1
-    local right_config = bar[#bar]
-    local filename_element = right_config[#right_config - 1][2]
+    local filename_element = bar[1][2][2]
     local trimmed = string.sub(filename_element[1], remove_count + 1)
     filename_element[1] = prefix_replacement .. trimmed
   end
