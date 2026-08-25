@@ -136,7 +136,7 @@ apply_highlights({
   -- Vuffers
   { 'VuffersWindowBackground', { link = 'Normal' } },
   { 'VuffersIndex', { fg = '#999999' } },
-  { 'VuffersActiveBuffer', { link = 'CursorLine' } },
+  { 'VuffersActiveBuffer', { link = 'FocusWinBar' } },
   { 'VuffersModifiedIcon', { fg = '#77cccc' } },
   { 'VuffersPinnedIcon', { fg = '#888888' } },
   { 'VuffersActivePinnedIcon', { fg = '#77cccc' } },
