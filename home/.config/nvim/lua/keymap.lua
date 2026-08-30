@@ -76,6 +76,7 @@ apply_keymaps({
   { { 'n' }, '<leader>lat', lang.toggle_lua_ls },
   { { 'n' }, '<leader>lct', lang.toggle_clangd },
   { { 'n' }, '<leader>lgt', lang.toggle_gopls },
+  { { 'n' }, '<leader>ltt', lang.toggle_ts_ls },
   { { 'n' }, '<leader>lnt', lang.toggle_ltex_ls_plus },
   { { 'n' }, '<leader>lnu', lang.enable_ltex_ls_plus_en },
   { { 'n' }, '<leader>lnd', lang.enable_ltex_ls_plus_de },
