@@ -26,7 +26,7 @@ alias reflect="rsync $base_rsync_flags --delete"
 
 alias ls='ls --color=auto'
 alias la='ls -a'
-alias ll='ls -l --time-style=long-iso'
+alias ll='ls -l --time-style=long-iso --human-readable'
 alias lla='ls -la'
 
 y() {
