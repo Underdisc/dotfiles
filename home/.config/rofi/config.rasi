@@ -1,6 +1,11 @@
 // Rofi Theme
 // A heavily edited version of `rofi -dump-theme` from rofi version 2.0.0.
 
+configuration {
+  sort: true;
+  sorting-method: "fzf";
+}
+
 * {
   bg-normal:   #222222;
   fg-normal:   #cccccc;
