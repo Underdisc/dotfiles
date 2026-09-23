@@ -164,5 +164,8 @@ n() {
 }
 
 source <(fzf --zsh)
+bindkey '\e ' fzf-cd-widget
+bindkey -M vicmd '\e ' fzf-cd-widget
+
 eval "$(zoxide init zsh)"
 
