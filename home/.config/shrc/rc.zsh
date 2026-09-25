@@ -163,11 +163,27 @@ n() {
   enable_focus_reporting
 }
 
-FZF_ALT_C_COMMAND='fd --type d --max-depth 1 --hidden'
 source <(fzf --zsh)
-bindkey '\e ' fzf-cd-widget
-bindkey -M vicmd '\e ' fzf-cd-widget
+# Quickly switch to a relative or the parent directory.
+cd-widget() {
+  setopt localoptions pipefail no_aliases 2> /dev/null
+  local dir="$(
+    FZF_DEFAULT_COMMAND='fd --type d --max-depth 1 --hidden' \
+    FZF_DEFAULT_OPTS=$(__fzf_defaults --reverse +m) \
+    FZF_DEFAULT_OPTS_FILE='' \
+    $(__fzfcmd) < /dev/tty
+  )"
 
+  if [[ -z "$dir" ]]; then
+    zle redisplay
+    return 0
+  fi
+  builtin cd -- "$dir"
+  zle reset-prompt
+}
+zle -N cd-widget
+bindkey '\e ' cd-widget
+bindkey -M vicmd '\e ' cd-widget
 function cd-parent-directory() {
   cd ../
   zle reset-prompt
