@@ -163,6 +163,7 @@ n() {
   enable_focus_reporting
 }
 
+FZF_ALT_C_COMMAND='fd --type d --max-depth 1 --hidden'
 source <(fzf --zsh)
 bindkey '\e ' fzf-cd-widget
 bindkey -M vicmd '\e ' fzf-cd-widget
