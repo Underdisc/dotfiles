@@ -168,5 +168,13 @@ source <(fzf --zsh)
 bindkey '\e ' fzf-cd-widget
 bindkey -M vicmd '\e ' fzf-cd-widget
 
+function cd-parent-directory() {
+  cd ../
+  zle reset-prompt
+}
+zle -N cd-parent-directory
+bindkey '\eh' cd-parent-directory
+bindkey -M vicmd '\eh' cd-parent-directory
+
 eval "$(zoxide init zsh)"
 
