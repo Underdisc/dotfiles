@@ -29,6 +29,7 @@ rules = [
   { mime = "audio/*", use = "vlc" },
   { mime = "image/*", use = "eom" },
   { mime = "text/*", use = "nvim" },
+  { mime = "application/json", use = "nvim" },
   { mime = "application/pdf", use = "okular" },
   { mime = "application/*word*", use = "libreoffice" },
 ]
