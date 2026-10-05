@@ -1,17 +1,5 @@
 source ".config/shrc/git.sh"
 source ".config/shrc/server.sh"
-source ".config/shrc/local.sh"
-
-hostname=$(hostname)
-if [[ $hostname =~ breakout ]]; then
-  export MOZ_USE_XINPUT2=1
-fi
-
-# Set environment variables
-export EDITOR="nvim"
-export MANPAGER="nvim +Man!"
-export PAGER="less"
-export GTK_THEME=Adwaita:dark
 
 alias home='cd ~/home'
 alias dl='cd ~/home/download/new'

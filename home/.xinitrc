@@ -22,4 +22,5 @@ xset s off
 unclutter --timeout 5 -jitter 5 &
 xrdb <<< "Xcursor.size: 16"
 
+source ~/.profile
 exec i3
