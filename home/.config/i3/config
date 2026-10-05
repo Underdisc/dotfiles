@@ -45,7 +45,7 @@ bindsym $super+x kill
 
 # Split verticaly and horizontaly.
 bindsym $super+v split v
-bindsym $super+Shift+v split h
+bindsym $super+c split h
 
 # Change container layouts.
 bindsym $super+d layout toggle split
