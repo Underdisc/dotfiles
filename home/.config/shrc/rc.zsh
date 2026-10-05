@@ -152,8 +152,8 @@ preexec_functions=(${preexec_functions[@]} "zle-pre-exec")
 
 # Ensure a somewhat persistent shell history.
 HISTFILE=~/.history
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+SAVEHIST=100000
 setopt append_history
 setopt inc_append_history
 setopt hist_ignore_dups
