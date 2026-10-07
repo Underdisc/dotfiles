@@ -10,6 +10,10 @@ conform.setup({
     cpp = { 'clang_format' },
     c = { 'clang_format' },
     javascript = { 'prettier' },
+    typescript = { 'prettier' },
+    json = { 'prettier' },
+    html = { 'prettier' },
+    css = { 'prettier' },
   },
   formatters = {
     clang_format = {
