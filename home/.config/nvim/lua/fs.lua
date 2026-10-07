@@ -22,6 +22,19 @@ yazi.setup({
   },
 })
 
+-- Display the current working direction in the window manager's window title.
+vim.opt.title = true
+local function set_title_string()
+  vim.opt.titlestring = 'n ' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':~');
+end
+set_title_string()
+vim.api.nvim_create_autocmd('DirChanged', {
+  pattern = 'global',
+  callback = function()
+    set_title_string()
+  end,
+})
+
 -- Filename Editing
 vim.pack.add({
   'https://github.com/stevearc/oil.nvim',
