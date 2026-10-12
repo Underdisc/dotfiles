@@ -15,6 +15,9 @@ local util = require('util')
 local buffer = require('buffer')
 local git = require('git')
 local gitsigns = require('gitsigns')
+local dbg = require('dbg')
+local dap = require('dap')
+local dapview = require('dap-view')
 
 -- Set the leader so that the rest of the keymaps use the proper leader.
 vim.g.mapleader = ' '
@@ -88,4 +91,16 @@ apply_keymaps({
   { { 'n' }, '«', lang.diagnostic_jump_backward },
   { { 'n' }, '<leader>dj', lang.diagnostic_severity_filter_down },
   { { 'n' }, '<leader>dk', lang.diagnostic_severity_filter_up },
+  -- Debugging
+  { { 'n' }, '<down>', dap.step_over },
+  { { 'n' }, '<right>', dap.step_into },
+  { { 'n' }, '<left>', dap.step_out },
+  { { 'n' }, '<up>', dap.continue },
+  { { 'n' }, '<leader>dt', dap.terminate },
+  { { 'n' }, '<leader>db', dap.toggle_breakpoint },
+  { { 'n' }, '<leader>dc', dbg.set_conditional_breakpoint },
+  { { 'n' }, '<leader>do', dbg.set_log_breakpoint },
+  { { 'n' }, '<leader>dh', dbg.hover },
+  { { 'n' }, '<leader>dw', dapview.toggle },
+  { { 'n' }, '<leader>da', '<cmd>DapViewWatch<cr>' },
 })

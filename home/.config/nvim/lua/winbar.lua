@@ -276,7 +276,7 @@ incline.setup({
   },
   ignore = {
     unlisted_buffers = false,
-    filetypes = {},
+    filetypes = { 'dap-view', 'dap-repl' },
     wintypes = {},
     buftypes = {},
   },

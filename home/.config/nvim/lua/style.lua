@@ -76,12 +76,15 @@ vim.api.nvim_create_autocmd('FocusLost', {
   end,
 })
 
+vim.o.winblend = 20
+vim.o.pumblend = 20
+
 apply_highlights({
   -- Window Backgrounds
   { 'Normal', { bg = 'none' } },
   { 'NormalNC', { bg = 'none' } },
-  { 'Pmenu', { bg = '#1e1e1e', italic = true } },
-  { 'NormalFloat', { bg = 'none' } },
+  { 'Pmenu', { bg = '#333333', italic = true } },
+  { 'NormalFloat', { bg = '#333333' } },
 
   -- Misc
   { 'WinSeparator', { fg = '#bbbbbb' } },
@@ -158,4 +161,11 @@ apply_highlights({
   { 'DiagnosticUnderlineWarn', { underdouble = true, update = true } },
   { 'DiagnosticUnderlineInfo', { underdouble = true, update = true } },
   { 'DiagnosticUnderlineHint', { underdouble = true, update = true } },
+
+  -- Debug
+  { 'DapBreakpoint', { fg = '#ffffff', bg = '#dd6600', bold = true } },
+  { 'DapBreakpointCondition', { fg = '#ffffff', bg = '#bb11ff', bold = true } },
+  { 'DapLogPoint', { fg = '#ffffff', bg = '#11aadd', bold = true } },
+  { 'DapStopped', { fg = '#ffffff', bg = '#00aa44', bold = true } },
+  { 'DapBreakpointRejected', { fg = '#222222', bg = '#aaaaaa', bold = true } },
 })
