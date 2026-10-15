@@ -54,3 +54,11 @@ require('buffer')
 require('lang')
 require('dbg')
 require('keymap')
+
+-- Remove dead packages.
+local deadPackages = vim
+  .iter(vim.pack.get())
+  :filter(function(pack) return not pack.active end)
+  :map(function(pack) return pack.spec.name end)
+  :totable()
+vim.pack.del(deadPackages)

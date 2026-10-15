@@ -6,10 +6,9 @@ end
 
 -- Colorscheme
 vim.pack.add({
-  'https://github.com/rockyzhang24/arctic.nvim',
-  'https://github.com/rktjmp/lush.nvim',
+  'https://github.com/Mofiqul/vscode.nvim',
 })
-vim.cmd('colorscheme arctic')
+vim.cmd.colorscheme 'vscode'
 
 -- Color Column
 vim.pack.add({ 'https://github.com/lukas-reineke/virt-column.nvim' })
