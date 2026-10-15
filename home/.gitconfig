@@ -14,7 +14,8 @@
   navigate = true
   dark = true
   width = variable
-  file-style = omit
+  file-decoration-style = ''
+  file-style = cyan bold italic ul
   syntax-theme = Visual Studio Dark+
   hunk-label = 
   hunk-header-decoration-style = ''
