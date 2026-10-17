@@ -10,6 +10,10 @@ alias gcm='git commit'
 alias gcmm='git commit -m'
 alias gcma='git commit --amend'
 
+alias gm='git merge'
+alias gr='git rebase'
+alias gri='git rebase -i'
+
 alias gawc='git add . && git commit -m "wc"'
 alias grwc='git reset HEAD~1'
 
